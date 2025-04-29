@@ -20,6 +20,7 @@ function App() {
 
 	//workshop:
 	const [salaryCounter, setSalaryCounter] = useState(10);
+	const [showSalaryCounter, setShowSalaryCounter] = useState(false);
 
 	const handleSalaryCount = (amount: number) => {
 		//salary can never be less than 5 euro
@@ -66,52 +67,67 @@ function App() {
 			*/}
 			<button onClick={ () => setMsg("Hi dad!") } className="btn btn-warning">Hi dad?</button>
 
-
 			<hr />
 
- 			<p>Salary per hour: {salaryCounter} &euro;</p>
 
-			{/* If salary is less than 10 euro, show this message */}
-			{salaryCounter < 10 && (
- 				<div className="alert alert-warning">
- 					You might want to change job?
- 				</div>
- 			)}
 
- 			<div className="buttons">
- 				<div className="mb-1">
- 					<button
-						onClick={() => handleSalaryCount(1)}
- 						className="btn btn-primary btn-lg"
- 					>
- 						Raise 1 &euro; 🤑
- 					</button>
- 					<button
-						onClick={() => handleSalaryCount(-1)}
- 						className="btn btn-warning btn-lg"
- 					>
- 						Decrease 1 &euro; 😢
- 					</button>
- 				</div>
+			{/* If this button is pressed, toggle between true/false when showing counter */}
+			<button
+ 				className="btn btn-primary"
+ 				onClick={() => setShowSalaryCounter(!showSalaryCounter)}
+ 			>
+ 				Show/hide salary
+ 			</button>
 
- 				<div className="mb-1">
- 					<button
-						onClick={() => handleSalaryCount(5)}
- 						className="btn btn-primary btn-lg"
- 					>
- 						Raise 5 &euro; 🤑🤑🤑
- 					</button>
- 					<button
-						onClick={() => handleSalaryCount(-5)}
- 						className="btn btn-warning btn-lg"
- 					>
- 						Decrease 5 &euro; 😢😢😢
- 					</button>
- 				</div>
- 			</div>
+			{/* if its true, show the code */}
+ 			{showSalaryCounter &&
+ 				<>
+ 					<h2>Salary</h2>
 
- 			<hr />
+					<p>Salary per hour: {salaryCounter} &euro;</p>
 
+					{/* If salary is less than 10 euro, show this message */}
+					{salaryCounter < 10 && (
+						<div className="alert alert-warning">
+							You might want to change job?
+						</div>
+					)}
+
+					<div className="buttons">
+						<div className="mb-1">
+							<button
+								onClick={() => handleSalaryCount(1)}
+								className="btn btn-primary btn-lg"
+							>
+								Raise 1 &euro; 🤑
+							</button>
+							<button
+								onClick={() => handleSalaryCount(-1)}
+								className="btn btn-warning btn-lg"
+							>
+								Decrease 1 &euro; 😢
+							</button>
+						</div>
+
+						<div className="mb-1">
+							<button
+								onClick={() => handleSalaryCount(5)}
+								className="btn btn-primary btn-lg"
+							>
+								Raise 5 &euro; 🤑🤑🤑
+							</button>
+							<button
+								onClick={() => handleSalaryCount(-5)}
+								className="btn btn-warning btn-lg"
+							>
+								Decrease 5 &euro; 😢😢😢
+							</button>
+						</div>
+					</div>
+
+				</>
+ 			}
+			 <hr />
 
 			{/* render out the list in the DOM */}
 			<ul>
