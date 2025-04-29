@@ -33,23 +33,60 @@ function App() {
 			<p>{msg}</p>
 			<p>Counter: {counter}</p>
 
-			{/* render out the list in the DOM */}
-			<ul>
- 				{posts.map(post =>
- 					<li key={post.id}>{post.title} ({post.likes} likes)</li>
- 				)};
- 			</ul>
-
 			{/*
 				onClick = when user clicks the event
 				in this case, when user clicks button, do handleBtnClick function
-			 */}
+				*/}
 			<button onClick={handleBtnClick} className="btn btn-primary">Click me</button>
 
 			{/*
 				when clicking the button, the "hi mom" text changes to "hi dad"
 			*/}
 			<button onClick={ () => setMsg("Hi dad!") } className="btn btn-warning">Hi dad?</button>
+
+
+			<hr />
+
+ 			<p>Salary per hour: SALARY &euro;</p>
+
+ 			<div className="buttons">
+ 				<div className="mb-1">
+ 					<button
+ 						className="btn btn-primary btn-lg"
+ 					>
+ 						Raise 1 &euro; 🤑
+ 					</button>
+ 					<button
+ 						className="btn btn-warning btn-lg"
+ 					>
+ 						Decrease 1 &euro; 😢
+ 					</button>
+ 				</div>
+
+ 				<div className="mb-1">
+ 					<button
+ 						className="btn btn-primary btn-lg"
+ 					>
+ 						Raise 5 &euro; 🤑🤑🤑
+ 					</button>
+ 					<button
+ 						className="btn btn-warning btn-lg"
+ 					>
+ 						Decrease 5 &euro; 😢😢😢
+ 					</button>
+ 				</div>
+ 			</div>
+
+ 			<hr />
+
+
+			{/* render out the list in the DOM */}
+			<ul>
+ 				{posts.map(post =>
+ 					<li key={post.id}>{post.title} ({post.likes} likes)</li>
+ 				)}
+ 			</ul>
+
 		</div>
 	);
 };
