@@ -66,6 +66,13 @@ function App() {
 
  			<p>Salary per hour: {salaryCounter} &euro;</p>
 
+			{/* If salary is less than 10 euro, show this message */}
+			{salaryCounter < 10 && (
+ 				<div className="alert alert-warning">
+ 					You might want to change job?
+ 				</div>
+ 			)}
+
  			<div className="buttons">
  				<div className="mb-1">
  					<button
