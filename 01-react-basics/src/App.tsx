@@ -21,6 +21,16 @@ function App() {
 	//workshop:
 	const [salaryCounter, setSalaryCounter] = useState(10);
 
+	const handleSalaryCount = (amount: number) => {
+		//salary can never be less than 5 euro
+		if(salaryCounter + amount < 5) {
+			setSalaryCounter(5);
+ 			return;
+		};
+
+		setSalaryCounter(salaryCounter + amount)
+	};
+
 
 
 
@@ -59,13 +69,13 @@ function App() {
  			<div className="buttons">
  				<div className="mb-1">
  					<button
-						onClick={ () => setSalaryCounter(salaryCounter + 1) }
+						onClick={() => handleSalaryCount(1)}
  						className="btn btn-primary btn-lg"
  					>
  						Raise 1 &euro; 🤑
  					</button>
  					<button
-						onClick={ () => setSalaryCounter(salaryCounter - 1) }
+						onClick={() => handleSalaryCount(-1)}
  						className="btn btn-warning btn-lg"
  					>
  						Decrease 1 &euro; 😢
@@ -74,13 +84,13 @@ function App() {
 
  				<div className="mb-1">
  					<button
-						onClick={ () => setSalaryCounter(salaryCounter + 5) }
+						onClick={() => handleSalaryCount(5)}
  						className="btn btn-primary btn-lg"
  					>
  						Raise 5 &euro; 🤑🤑🤑
  					</button>
  					<button
-						onClick={ () => setSalaryCounter(salaryCounter - 5) }
+						onClick={() => handleSalaryCount(-5)}
  						className="btn btn-warning btn-lg"
  					>
  						Decrease 5 &euro; 😢😢😢
