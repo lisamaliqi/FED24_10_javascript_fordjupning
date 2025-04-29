@@ -17,6 +17,13 @@ function App() {
 		{ id: 3, title: "Got state?", likes: 3 },
 	]);
 
+
+	//workshop:
+	const [salaryCounter, setSalaryCounter] = useState(10);
+
+
+
+
 	//function that adds +1 to counter when user press "click me" button
 	const handleBtnClick = () => {
 		console.log("Counter before update:", counter);
@@ -47,7 +54,7 @@ function App() {
 
 			<hr />
 
- 			<p>Salary per hour: SALARY &euro;</p>
+ 			<p>Salary per hour: {salaryCounter} &euro;</p>
 
  			<div className="buttons">
  				<div className="mb-1">
