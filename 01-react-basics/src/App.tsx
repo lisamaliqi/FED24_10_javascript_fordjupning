@@ -74,11 +74,13 @@ function App() {
 
  				<div className="mb-1">
  					<button
+						onClick={ () => setSalaryCounter(salaryCounter + 5) }
  						className="btn btn-primary btn-lg"
  					>
  						Raise 5 &euro; 🤑🤑🤑
  					</button>
  					<button
+						onClick={ () => setSalaryCounter(salaryCounter - 5) }
  						className="btn btn-warning btn-lg"
  					>
  						Decrease 5 &euro; 😢😢😢
