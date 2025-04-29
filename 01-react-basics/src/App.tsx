@@ -73,10 +73,12 @@ function App() {
 
 			{/* If this button is pressed, toggle between true/false when showing counter */}
 			<button
- 				className="btn btn-primary"
+ 				// className="btn btn-primary"
+				className={showSalaryCounter ? "btn btn-success mb-3" : "btn btn-danger mb-3"}
  				onClick={() => setShowSalaryCounter(!showSalaryCounter)}
  			>
- 				Show/hide salary
+ 				{/* Show/hide salary */}
+				{showSalaryCounter ? "Hide salary" : "Show salary"}
  			</button>
 
 			{/* if its true, show the code */}
