@@ -9,7 +9,7 @@ interface Post {
 
 function App() {
 	// let counter = 0;  // stateless
-	const [counter, setCounter] = useState(0); //counter is 0 when starting the page
+	const [counter, setCounter] = useState(1); //counter is 0 when starting the page
 	const [msg, setMsg] = useState("Hi mom!"); //message is "hi mom!" when starting the page
 	const [posts, setPosts] = useState<Post[]>([
 		{ id: 1, title: "React Rocks 🎸!", likes: 1337 },
@@ -37,7 +37,12 @@ function App() {
 	//function that adds +1 to counter when user press "click me" button
 	const handleBtnClick = () => {
 		console.log("Counter before update:", counter);
-		setCounter(counter + 1);
+		// setCounter(counter + 1);
+		setCounter((prevCounter) => prevCounter + 1);  // prevCounter = 1, return 2
+
+ 		console.log("Counter between updates:", counter);
+
+ 		setCounter((prevCounter) => prevCounter + 1);  // prevCounter = 2, return 3
 		console.log("Counter after update:", counter);
 	};
 
