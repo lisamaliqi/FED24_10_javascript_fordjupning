@@ -22,6 +22,13 @@ function App() {
 	const [salaryCounter, setSalaryCounter] = useState(10);
 	const [showSalaryCounter, setShowSalaryCounter] = useState(false);
 
+
+	const handleAddLike = (post: Post) => {
+		post.likes++; //increase likes by +1 each time you press the like button
+		setPosts([...posts]); //update post by giving it a new array with the same items as posts has
+	};
+
+
 	const handleSalaryCount = (amount: number) => {
 		//salary can never be less than 5 euro
 		if(salaryCounter + amount < 5) {
@@ -47,7 +54,14 @@ function App() {
 		console.log("Counter after update:", counter);
 	};
 
-	console.log("App is being rendered, counter is:", counter);
+	// console.log("App is being rendered, counter is:", counter);
+
+
+
+
+
+
+
 
 	return (
 		<div className="container">
@@ -131,10 +145,21 @@ function App() {
  			}
 			 <hr />
 
+			<h2>Posts</h2>
+
 			{/* render out the list in the DOM */}
 			<ul>
  				{posts.map(post =>
- 					<li key={post.id}>{post.title} ({post.likes} likes)</li>
+ 					<li key={post.id}>
+							{post.title} {/* display title and likes */}
+							({post.likes} likes)
+							<button
+								className="btn btn-success btn-sm ms-1"
+								onClick={() => handleAddLike(post)} //does the function by sending the current post youn pressed like on
+							>
+								❤️
+							</button>
+					</li>
  				)}
  			</ul>
 
