@@ -28,6 +28,10 @@ function App() {
 		setPosts([...posts]); //update post by giving it a new array with the same items as posts has
 	};
 
+	const handleDeletePost = (postToDelete: Post) => {
+		//filter out the post that are NOT postToDelete and create a new array with those post
+		setPosts(posts.filter(post => post !== postToDelete));
+	};
 
 	const handleSalaryCount = (amount: number) => {
 		//salary can never be less than 5 euro
@@ -153,12 +157,18 @@ function App() {
  					<li key={post.id}>
 							{post.title} {/* display title and likes */}
 							({post.likes} likes)
-							<button
-								className="btn btn-success btn-sm ms-1"
-								onClick={() => handleAddLike(post)} //does the function by sending the current post youn pressed like on
-							>
-								❤️
-							</button>
+						<button
+							className="btn btn-success btn-sm ms-1"
+							onClick={() => handleAddLike(post)} //does the function by sending the current post youn pressed like on
+						>
+							❤️
+						</button>
+						<button
+							className="btn btn-danger btn-sm ms-1"
+							onClick={() => handleDeletePost(post)}
+						>
+							🗑️
+						</button>
 					</li>
  				)}
  			</ul>
