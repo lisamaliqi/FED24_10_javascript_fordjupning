@@ -175,6 +175,9 @@ function App() {
 				</ul>
 			)}
 
+			{/* Show message if post array is empty */}
+			{posts.length === 0 && <p>These are not the posts you are looking for.</p>}
+
 		</div>
 	);
 };
