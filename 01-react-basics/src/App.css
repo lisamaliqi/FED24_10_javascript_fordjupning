@@ -1,3 +1,13 @@
 hr {
 	margin: 3rem 0;
 }
+
+ul {
+	background-color: #555;
+	padding: 1rem 2.25rem;
+}
+
+li {
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+}

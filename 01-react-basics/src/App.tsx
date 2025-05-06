@@ -152,26 +152,28 @@ function App() {
 			<h2>Posts</h2>
 
 			{/* render out the list in the DOM */}
-			<ul>
- 				{posts.map(post =>
- 					<li key={post.id}>
-							{post.title} {/* display title and likes */}
-							({post.likes} likes)
-						<button
-							className="btn btn-success btn-sm ms-1"
-							onClick={() => handleAddLike(post)} //does the function by sending the current post youn pressed like on
-						>
-							❤️
-						</button>
-						<button
-							className="btn btn-danger btn-sm ms-1"
-							onClick={() => handleDeletePost(post)}
-						>
-							🗑️
-						</button>
-					</li>
- 				)}
- 			</ul>
+			{posts.length > 0 && ( //only render it out if there are posts in the array
+				<ul>
+					{posts.map(post =>
+						<li key={post.id}>
+								{post.title} {/* display title and likes */}
+								({post.likes} likes)
+							<button
+								className="btn btn-success btn-sm ms-1"
+								onClick={() => handleAddLike(post)} //does the function by sending the current post youn pressed like on
+							>
+								❤️
+							</button>
+							<button
+								className="btn btn-danger btn-sm ms-1"
+								onClick={() => handleDeletePost(post)}
+							>
+								🗑️
+							</button>
+						</li>
+					)}
+				</ul>
+			)}
 
 		</div>
 	);
