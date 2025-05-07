@@ -9,12 +9,26 @@ function App() {
 
 	// fetch data from json placeholder
 	useEffect(() => {
-		fetch(`https://jsonplaceholder.typicode.com/${resource}`)
-			.then(res => res.json())
-			.then(data => setData(data));
+		//old way to fetch
+		// fetch(`https://jsonplaceholder.typicode.com/${resource}`)
+		// 	.then(res => res.json())
+		// 	.then(data => setData(data));
+
+		//new way to fetch
+		console.log("Side-effect triggered due to resource changing value to:", resource);
+
+		const fetchData = async () => {
+			const res = await fetch(`https://jsonplaceholder.typicode.com/${resource}`)
+			const payload = await res.json();
+			setData(payload);
+		};
+
+		fetchData();
 	}, [resource]); //when resource state changes -> fetch data
 
-	console.log("App is rendering...");
+
+
+	console.log("App is rendering... Resource is:", resource);
 
 	return (
 		<div className="container py-2">
