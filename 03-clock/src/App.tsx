@@ -3,6 +3,7 @@ import "./assets/scss/App.scss";
 
 function App() {
 
+	const now = new Date();
 	const [time, setTime] = useState(() => {
 		console.log("🔋 Initializing flux capacitor...");
 		return new Date().toLocaleTimeString(); //starting state is the exact time user restart react app (so no 00:00:00 in the beginning)
@@ -27,10 +28,13 @@ function App() {
 	}, [time]);
 
 
+
+
 	return (
 		<div className="container">
 			<div className="display-1 font-monospace text-center">
-				{time}
+				{time}{" "}
+				{now.getHours() === 19 && now.getMinutes() >= 11 && <span>🤓</span>}
 			</div>
 		</div>
 	);
