@@ -40,6 +40,12 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAddTodo }) => {
 					disabled={inputTodoTitle.trim().length < 3} //input less than 3 chars -> submit disabled
 				>🚀</button>
 			</div>
+
+			{/* SHOW ERROR MESSAGE IF LESS THAN 3 CHAR */}
+			{inputTodoTitle.trim().length > 0 && inputTodoTitle.trim().length < 3 && (
+				<div className="form-text text-danger text-small">Please enter 3 chars or more.</div>
+			)}
+
 		</form>
 	);
 };
