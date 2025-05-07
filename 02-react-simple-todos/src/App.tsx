@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Todo } from "./types/Todo";
 import TodoCounter from "./components/TodoCounter";
 import TodoListItem from "./components/TodoListItem";
+import AddTodoForm from "./components/AddTodoForm";
 import "./assets/scss/App.scss";
 
 function App() {
@@ -14,12 +15,9 @@ function App() {
 		{ id: 4, title: "Drink ALL ZE coffee", completed: false },
 	]);
 
-	//state for the input field to create a new todo
-	const [inputTodoTitle, setInputTodoTitle] = useState("");
 
 	//function to create a new todo and add it to the other todos
-	const handleAddTodo = (e: React.FormEvent) => {
-		e.preventDefault();
+	const handleAddTodo = (newTodoTitle: string) => {
 
 		// Create new todo and set a new list of todos containing the old todos + the new todo as the state
 		//...todos = old todos
@@ -27,12 +25,9 @@ function App() {
 		//setTodo = add the new todo that you just created to the old todos that you just spread out so that they are in an array together
 		setTodos([...todos, {
 			id: Math.max(0, ...todos.map(todo => todo.id)) + 1,
-			title: inputTodoTitle,
+			title: newTodoTitle,
 			completed: false,
 		}]);
-
-		// Clear input field
-		setInputTodoTitle("");
 	};
 
 	//function to delete a todo
@@ -76,21 +71,7 @@ function App() {
 			<h1>React Simple Todo</h1>
 
 			{/* CREATE A NEW TODO */}
-			<form onSubmit={handleAddTodo} className="mb-3">
-				<div className="input-group">
-					<input
-						aria-label="New todo title"
-						className="form-control"
-						onChange={e => setInputTodoTitle(e.target.value)}
-						placeholder="Learn about REACT!!!"
-						type="text"
-						value={inputTodoTitle}
-						required
-					/>
-
-					<button className="btn btn-success" type="submit">🚀</button>
-				</div>
-			</form>
+			<AddTodoForm onAddTodo={handleAddTodo} />
 
 
 			{/* if no todos -> send message */}
