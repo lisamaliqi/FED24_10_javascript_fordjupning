@@ -3,7 +3,10 @@ import "./assets/scss/App.scss";
 
 function App() {
 
-	const [time, setTime] = useState("00:00:00");
+	const [time, setTime] = useState(() => {
+		console.log("🔋 Initializing flux capacitor...");
+		return new Date().toLocaleTimeString(); //starting state is the exact time user restart react app (so no 00:00:00 in the beginning)
+	});
 
 	useEffect(() => {
 		console.log("🔫 Starting clock...");
