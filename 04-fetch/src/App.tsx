@@ -26,6 +26,7 @@ function App() {
 			console.log("Fetching resource", resource);
 			const res = await fetch(`https://jsonplaceholder.typicode.com/${resource}`)
 			const payload = await res.json();
+			await new Promise(r => setTimeout(r, 2500)); //adding delay on all requests
 			setData(payload);
 		};
 
@@ -45,6 +46,7 @@ function App() {
 				<button onClick={() => setResource("photos")} className="btn btn-success">Photos</button>
 				<button onClick={() => setResource("posts")} className="btn btn-warning">Posts</button>
 				<button onClick={() => setResource("todos")} className="btn btn-danger">Todos</button>
+				<button onClick={() => setResource("memes")} className="btn btn-info">Memes</button> {/* button that leads to error automatically (no meme resource) */}
 			</div>
 
 			<hr />
