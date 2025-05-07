@@ -14,7 +14,7 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAddTodo }) => {
 		e.preventDefault();
 
 		// Tell parent to create a new todo with `inputTodoTitle` as title
-		onAddTodo(inputTodoTitle);
+		onAddTodo(inputTodoTitle.trim()); //trim to remove white space
 
 		// Clear input field
 		setInputTodoTitle("");
@@ -34,7 +34,11 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAddTodo }) => {
 					required
 				/>
 
-				<button className="btn btn-success" type="submit">🚀</button>
+				<button
+					className="btn btn-success"
+					type="submit"
+					disabled={inputTodoTitle.trim().length < 3} //input less than 3 chars -> submit disabled
+				>🚀</button>
 			</div>
 		</form>
 	);
