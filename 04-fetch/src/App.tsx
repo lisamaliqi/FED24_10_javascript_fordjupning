@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getResource } from "./services/JSONPlaceholderAPI";
 import { Resource } from "./types/Resource";
 import "./assets/scss/App.scss";
 
@@ -33,14 +34,11 @@ function App() {
 
 			try {
 				// make the actual request
-				const res = await fetch(`https://jsonplaceholder.typicode.com/${resource}`);
-				if (!res.ok) {
-					throw new Error("Response was not OK 🥴");
-				};
-				const payload = await res.json();
-				await new Promise(r => setTimeout(r, 2500));//adding delay on all requests
+				const payload = await getResource(resource);
 
+				// set data to payload
 				setData(payload);
+
 			} catch (err) {
 				setError(err instanceof Error ? err.message : "This should really never ever happen...");
 			};
@@ -69,7 +67,7 @@ function App() {
 
 			<hr />
 
-			{error && <div className="alert alert-warning">{error}</div>}
+			{error && <div className="alert alert-warning"><strong>Error:</strong> {error}</div>}
 
 			{isLoading && <p>Loading...</p>}
 
