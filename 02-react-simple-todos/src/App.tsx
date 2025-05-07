@@ -44,6 +44,10 @@ function App() {
 		setTodos([...todos]); //don't really understand why this is needed? but i guess it has to do with updating the new value and adding it to the todos array
 	};
 
+	//filter out completed and incompleted todos
+	const completedTodos = todos.filter(todo => todo.completed);
+	const incompleteTodos = todos.filter(todo => !todo.completed);
+	// console.log("Filterd completed and incompleted todos");
 
 
 
@@ -75,8 +79,41 @@ function App() {
 				? (
 					// RENDER OUT THE TODO LIST
 					<>
+						{/* NOT COMPLETED TODOS */}
+						<h2 className="mb-2 h5">💪🏻 Stuff I got to do</h2>
 						<ul className="todolist list-group">
-							{todos.map(todo => (
+							{incompleteTodos.map(todo => (
+								<li
+									key={todo.id}
+									className={todo.completed ? "completed list-group-item" : "list-group-item"}
+								>
+									<span className="todo-title">{todo.title}</span>
+
+									<div>
+										{/* COMPLETED TODO TOGGLE BUTTON */}
+										<button
+											className="btn btn-sm btn-outline-warning"
+											onClick={() => handleToggleTodo(todo)}
+										>
+											{todo.completed ? "☑️" : "✅"}
+										</button>
+
+										{/* DELETE A TODO BUTTON */}
+										<button
+											className="btn btn-sm btn-outline-danger"
+											onClick={() => handleDeleteTodo(todo)}
+										>
+											💣
+										</button>
+									</div>
+								</li>
+							))}
+						</ul>
+
+						{/* COMPLETED TODOS */}
+						<h2 className="mb-2 h5">🥺 Stuff I've done</h2>
+						<ul className="todolist list-group">
+							{completedTodos.map(todo => (
 								<li
 									key={todo.id}
 									className={todo.completed ? "completed list-group-item" : "list-group-item"}
@@ -105,7 +142,7 @@ function App() {
 						</ul>
 
 						<p className="mt-3 text-muted">
-							You have completed {todos.filter(todo => todo.completed).length} out of {todos.length} todos.
+							You have completed {completedTodos.length} out of {todos.length} todos.
 						</p>
 					</>
 				) : (
