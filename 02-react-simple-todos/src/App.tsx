@@ -104,7 +104,7 @@ function App() {
 								<TodoListItem
 									key={todo.id}
 									todo={todo}
-									handleDeleteTodo={handleDeleteTodo}
+									handleDeleteTodo={handleDeleteTodo} //1 = prop    2 = function
 									handleToggleTodo={handleToggleTodo}
 								/> //get the TodoListItem component
 							))}
