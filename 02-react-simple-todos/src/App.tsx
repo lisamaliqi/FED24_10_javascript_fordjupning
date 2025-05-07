@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Todo } from "./types/Todo";
 import "./assets/scss/App.scss";
 
@@ -49,6 +49,17 @@ function App() {
 	const incompleteTodos = todos.filter(todo => !todo.completed);
 	// console.log("Filterd completed and incompleted todos");
 
+
+	// Our first (pretty meaningless) side-effect
+	useEffect(() => {
+		// This code will only be executed **AFTER** the component has rendered
+		// AND if the length of unfinished todos has changed SINCE THE LAST RENDER
+		console.log("🚨 The length of unfinished todos has changed!");
+		document.title = `${incompleteTodos.length} todos unfinished 🇫🇮`;
+	}, [incompleteTodos.length]);
+
+
+	console.log("App is rendering...");
 
 
 	return (
