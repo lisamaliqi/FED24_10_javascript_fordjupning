@@ -6,6 +6,7 @@ import "./assets/scss/App.scss";
 function App() {
 	const [resource, setResource] = useState(""); //dont fetch data when starting the app
 	const [data, setData] = useState<Resource[]>([]);
+	const [isLoading, setIsLoading] = useState(false); //loading spinner
 
 	// fetch data from json placeholder
 	useEffect(() => {
@@ -23,11 +24,16 @@ function App() {
 		};
 
 		const fetchData = async () => {
+			setData([]); //remove previous data when fetching for new data
+			setIsLoading(true); //display loading spinner
+
 			console.log("Fetching resource", resource);
 			const res = await fetch(`https://jsonplaceholder.typicode.com/${resource}`)
 			const payload = await res.json();
 			await new Promise(r => setTimeout(r, 2500)); //adding delay on all requests
-			setData(payload);
+
+			setData(payload); //when new data is fetched, remove loading spinner
+			setIsLoading(false);
 		};
 
 		fetchData();
@@ -51,7 +57,9 @@ function App() {
 
 			<hr />
 
-			{resource && (
+			{isLoading && <p>Loading...</p>}
+
+			{!isLoading && resource && (
 				<>
 					<h2>{resource}</h2>
 					<p>There are {data.length} {resource}.</p>
