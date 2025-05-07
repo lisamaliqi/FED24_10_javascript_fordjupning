@@ -18,8 +18,8 @@ function App() {
 	]);
 
 
-	//workshop:
 	const [showSalaryCounter, setShowSalaryCounter] = useState(false);
+	const [inputPostTitle, setInputPostTitle] = useState("");
 
 
 	const handleAddLike = (post: Post) => {
@@ -31,6 +31,26 @@ function App() {
 		//filter out the post that are NOT postToDelete and create a new array with those post
 		setPosts(posts.filter(post => post !== postToDelete));
 	};
+
+	const handleFormSubmit = (e: React.FormEvent) => {
+		// Stop form from submitting
+		e.preventDefault();
+
+		// Create a new post
+		const newPost: Post = {
+			id: Math.max(0, ...posts.map(post => post.id)) + 1, //0 is safety fallback, if array is empty, return 0
+			//map over all the posts, take the ids from the posts and return them as a new array, highest value of the ids + 1 is the newPost id
+			title: inputPostTitle,
+			likes: 0,
+		};
+
+		//add the new post to the old posts
+		setPosts([...posts, newPost]);
+
+		// Clear input field
+		setInputPostTitle("");
+	};
+
 
 	console.log("App is being rendered...");
 
@@ -77,6 +97,28 @@ function App() {
 
 			<h2>Posts</h2>
 
+			{/* Form that lets the user create a post */}
+			<form onSubmit={handleFormSubmit} className="mb-3">
+				<div className="input-group">
+					<input
+						aria-label="Post title"
+						className="form-control"
+						onChange={(e) => setInputPostTitle(e.target.value)}
+						placeholder="Fun with forms!"
+						type="text"
+						value={inputPostTitle}
+						required
+					/>
+
+					<button
+						className="btn btn-success"
+						type="submit"
+					>
+						Create
+					</button>
+				</div>
+			</form>
+
 			{/* render out the list in the DOM */}
 			{posts.length > 0 ? ( //only render it out if there are posts in the array
 				<ul>
@@ -85,13 +127,13 @@ function App() {
 								{post.title} {/* display title and likes */}
 								({post.likes} likes)
 							<button
-								className="btn btn-success btn-sm ms-1"
+								className="btn btn-primary btn-sm ms-1"
 								onClick={() => handleAddLike(post)} //does the function by sending the current post youn pressed like on
 							>
 								❤️
 							</button>
 							<button
-								className="btn btn-danger btn-sm ms-1"
+								className="btn btn-warning btn-sm ms-1"
 								onClick={() => handleDeletePost(post)}
 							>
 								🗑️
