@@ -4,7 +4,7 @@ import "./assets/scss/App.scss";
 
 
 function App() {
-	const [resource, setResource] = useState("posts");
+	const [resource, setResource] = useState(""); //dont fetch data when starting the app
 	const [data, setData] = useState<Resource[]>([]);
 
 	// fetch data from json placeholder
@@ -17,7 +17,13 @@ function App() {
 		//new way to fetch
 		console.log("Side-effect triggered due to resource changing value to:", resource);
 
+		//don't get an error at the start of the reload
+		if (!resource) {
+			return;
+		};
+
 		const fetchData = async () => {
+			console.log("Fetching resource", resource);
 			const res = await fetch(`https://jsonplaceholder.typicode.com/${resource}`)
 			const payload = await res.json();
 			setData(payload);
@@ -43,7 +49,7 @@ function App() {
 
 			<hr />
 
-			{data && (
+			{resource && (
 				<>
 					<h2>{resource}</h2>
 					<p>There are {data.length} {resource}.</p>
