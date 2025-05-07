@@ -11,6 +11,7 @@ const BASE_URL = "http://localhost:3000";
  */
 export const getTodos = async () => {
 	const res = await axios.get<Todo[]>(BASE_URL + "/todos");
+	await new Promise(r => setTimeout(r, 1500)); //adding delay to API
 	return res.data;
 };
 
