@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getResource } from "./services/JSONPlaceholderAPI";
 import { Resource } from "./types/Resource";
+import ResourceList from "./components/ResourceList";
 import "./assets/scss/App.scss";
 
 
@@ -67,22 +68,15 @@ function App() {
 
 			<hr />
 
-			{error && <div className="alert alert-warning"><strong>Error:</strong> {error}</div>}
+			<ResourceList
+				data={data}
+				error={error}
+				isLoading={isLoading}
+				resource={resource}
+			/>
 
-			{isLoading && <p>Loading...</p>}
+			<code className="display-1">haxx0r</code>
 
-			{!isLoading && !error && resource && (
-				<>
-					<h2>{resource}</h2>
-					<p>There are {data.length} {resource}.</p>
-
-					<ol>
-						{data.map(item => (
-							<li key={item.id}>{item.title}</li>
-						))}
-					</ol>
-				</>
-			)}
 		</div>
 	);
 };
