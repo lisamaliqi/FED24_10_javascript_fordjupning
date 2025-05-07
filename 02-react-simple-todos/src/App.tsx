@@ -33,6 +33,12 @@ function App() {
 		setInputTodoTitle("");
 	};
 
+	//toggle the todo between completed or not completed
+	const handleToggleTodo = (todo: Todo) => {
+		todo.completed = !todo.completed; //make it the opposite of what it already was
+		setTodos([...todos]); //don't really understand why this is needed? but i guess it has to do with updating the new value and adding it to the todos array
+	};
+
 
 
 
@@ -66,6 +72,16 @@ function App() {
 						className={todo.completed ? "completed list-group-item" : "list-group-item"}
 					>
 						<span className="todo-title">{todo.title}</span>
+
+						{/* COMPLETED TODO TOGGLE BUTTON */}
+						<div>
+							<button
+								className="btn btn-sm btn-warning"
+								onClick={() => handleToggleTodo(todo)}
+							>
+								{todo.completed ? "☑️" : "✅"}
+							</button>
+						</div>
 					</li>
 				))}
 			</ul>
