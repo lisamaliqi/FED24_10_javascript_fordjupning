@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import Counter from "./components/Counter";
+import Salary from "./components/Salary";
 
 interface Post {
 	id: number;
@@ -18,7 +19,6 @@ function App() {
 
 
 	//workshop:
-	const [salaryCounter, setSalaryCounter] = useState(10);
 	const [showSalaryCounter, setShowSalaryCounter] = useState(false);
 
 
@@ -30,16 +30,6 @@ function App() {
 	const handleDeletePost = (postToDelete: Post) => {
 		//filter out the post that are NOT postToDelete and create a new array with those post
 		setPosts(posts.filter(post => post !== postToDelete));
-	};
-
-	const handleSalaryCount = (amount: number) => {
-		//salary can never be less than 5 euro
-		if(salaryCounter + amount < 5) {
-			setSalaryCounter(5);
- 			return;
-		};
-
-		setSalaryCounter(salaryCounter + amount)
 	};
 
 	console.log("App is being rendered...");
@@ -82,53 +72,7 @@ function App() {
  			</button>
 
 			{/* if its true, show the code */}
- 			{showSalaryCounter &&
- 				<>
- 					<h2>Salary</h2>
-
-					<p>Salary per hour: {salaryCounter} &euro;</p>
-
-					{/* If salary is less than 10 euro, show this message */}
-					{salaryCounter < 10 && (
-						<div className="alert alert-warning">
-							You might want to change job?
-						</div>
-					)}
-
-					<div className="buttons">
-						<div className="mb-1">
-							<button
-								onClick={() => handleSalaryCount(1)}
-								className="btn btn-primary btn-lg"
-							>
-								Raise 1 &euro; 🤑
-							</button>
-							<button
-								onClick={() => handleSalaryCount(-1)}
-								className="btn btn-warning btn-lg"
-							>
-								Decrease 1 &euro; 😢
-							</button>
-						</div>
-
-						<div className="mb-1">
-							<button
-								onClick={() => handleSalaryCount(5)}
-								className="btn btn-primary btn-lg"
-							>
-								Raise 5 &euro; 🤑🤑🤑
-							</button>
-							<button
-								onClick={() => handleSalaryCount(-5)}
-								className="btn btn-warning btn-lg"
-							>
-								Decrease 5 &euro; 😢😢😢
-							</button>
-						</div>
-					</div>
-
-				</>
- 			}
+ 			{showSalaryCounter && <Salary />}
 			 <hr />
 
 			<h2>Posts</h2>
