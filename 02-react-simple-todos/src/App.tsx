@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Todo } from "./types/Todo";
+import TodoCounter from "./components/TodoCounter";
 import TodoListItem from "./components/TodoListItem";
 import "./assets/scss/App.scss";
 
@@ -123,9 +124,10 @@ function App() {
 							))}
 						</ul>
 
-						<p className="mt-3 text-muted">
-							You have completed {completedTodos.length} out of {todos.length} todos.
-						</p>
+						<TodoCounter
+							completed={completedTodos.length}
+							total={todos.length}
+						/>
 					</>
 				) : (
 					<div className="alert alert-warning">
