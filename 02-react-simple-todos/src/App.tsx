@@ -58,6 +58,12 @@ function App() {
 		document.title = `${incompleteTodos.length} todos unfinished 🇫🇮`;
 	}, [incompleteTodos.length]);
 
+	// This will only be executed when the component is mounted,
+	// and only AFTER the component has been rendered
+	useEffect(() => {
+		console.log("Look mom, I'm a newly mounted component 👶🏻");
+	}, []);
+
 
 	console.log("App is rendering...");
 
