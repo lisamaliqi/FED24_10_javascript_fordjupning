@@ -33,6 +33,11 @@ function App() {
 		setInputTodoTitle("");
 	};
 
+	//function to delete a todo
+	const handleDeleteTodo = (todo: Todo) => {
+		setTodos(todos.filter(t => t !== todo)); //filter out the todo that you pressed delete on from all the todos
+	};
+
 	//toggle the todo between completed or not completed
 	const handleToggleTodo = (todo: Todo) => {
 		todo.completed = !todo.completed; //make it the opposite of what it already was
@@ -73,13 +78,21 @@ function App() {
 					>
 						<span className="todo-title">{todo.title}</span>
 
-						{/* COMPLETED TODO TOGGLE BUTTON */}
 						<div>
+							{/* COMPLETED TODO TOGGLE BUTTON */}
 							<button
-								className="btn btn-sm btn-warning"
+								className="btn btn-sm btn-outline-warning"
 								onClick={() => handleToggleTodo(todo)}
 							>
 								{todo.completed ? "☑️" : "✅"}
+							</button>
+
+							{/* DELETE A TODO BUTTON */}
+							<button
+								className="btn btn-sm btn-outline-danger"
+								onClick={() => handleDeleteTodo(todo)}
+							>
+								💣
 							</button>
 						</div>
 					</li>
