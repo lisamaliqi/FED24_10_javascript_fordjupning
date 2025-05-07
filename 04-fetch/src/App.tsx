@@ -7,6 +7,7 @@ function App() {
 	const [resource, setResource] = useState(""); //dont fetch data when starting the app
 	const [data, setData] = useState<Resource[]>([]);
 	const [isLoading, setIsLoading] = useState(false); //loading spinner
+	const [error, setError] = useState<string | false>(false);
 
 	// fetch data from json placeholder
 	useEffect(() => {
@@ -18,22 +19,33 @@ function App() {
 		//new way to fetch
 		console.log("Side-effect triggered due to resource changing value to:", resource);
 
-		//don't get an error at the start of the reload
-		if (!resource) {
-			return;
-		};
 
 		const fetchData = async () => {
+			//handle error to not get an error at the start of the reload
+			if (!resource) {
+				return;
+			};
+
+			// reset state
 			setData([]); //remove previous data when fetching for new data
+			setError(false);
 			setIsLoading(true); //display loading spinner
 
-			console.log("Fetching resource", resource);
-			const res = await fetch(`https://jsonplaceholder.typicode.com/${resource}`)
-			const payload = await res.json();
-			await new Promise(r => setTimeout(r, 2500)); //adding delay on all requests
+			try {
+				// make the actual request
+				const res = await fetch(`https://jsonplaceholder.typicode.com/${resource}`);
+				if (!res.ok) {
+					throw new Error("Response was not OK 🥴");
+				};
+				const payload = await res.json();
+				await new Promise(r => setTimeout(r, 2500));//adding delay on all requests
 
-			setData(payload); //when new data is fetched, remove loading spinner
-			setIsLoading(false);
+				setData(payload);
+			} catch (err) {
+				setError(err instanceof Error ? err.message : "This should really never ever happen...");
+			};
+
+			setIsLoading(false);//when new data is fetched, remove loading spinner
 		};
 
 		fetchData();
@@ -57,9 +69,11 @@ function App() {
 
 			<hr />
 
+			{error && <div className="alert alert-warning">{error}</div>}
+
 			{isLoading && <p>Loading...</p>}
 
-			{!isLoading && resource && (
+			{!isLoading && !error && resource && (
 				<>
 					<h2>{resource}</h2>
 					<p>There are {data.length} {resource}.</p>
