@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Clock from "./components/Clock";
 import "./assets/scss/App.scss";
 
