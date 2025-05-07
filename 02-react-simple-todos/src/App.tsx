@@ -3,6 +3,7 @@ import type { Todo } from "./types/Todo";
 import TodoCounter from "./components/TodoCounter";
 import TodoListItem from "./components/TodoListItem";
 import AddTodoForm from "./components/AddTodoForm";
+import TodoList from "./components/TodoList";
 import "./assets/scss/App.scss";
 
 function App() {
@@ -51,16 +52,18 @@ function App() {
 	useEffect(() => {
 		// This code will only be executed **AFTER** the component has rendered
 		// AND if the length of unfinished todos has changed SINCE THE LAST RENDER
-		console.log("🚨 The length of unfinished todos has changed!");
+		// console.log("🚨 The length of unfinished todos has changed!");
 		document.title = `${incompleteTodos.length} todos unfinished 🇫🇮`;
 	}, [incompleteTodos.length]);
 
+
+	/*
 	// This will only be executed when the component is mounted,
 	// and only AFTER the component has been rendered
 	useEffect(() => {
 		console.log("Look mom, I'm a newly mounted component 👶🏻");
 	}, []);
-
+ 	*/
 
 	console.log("App is rendering...");
 
@@ -81,30 +84,22 @@ function App() {
 					<>
 						{/* NOT COMPLETED TODOS */}
 						<h2 className="mb-2 h5">💪🏻 Stuff I got to do</h2>
-						<ul className="todolist list-group">
-							{incompleteTodos.map(todo => (
-								<TodoListItem
-									key={todo.id}
-									todo={todo}
-									handleDeleteTodo={handleDeleteTodo} //1 = prop    2 = function
-									handleToggleTodo={handleToggleTodo}
-								/> //get the TodoListItem component
-							))}
-						</ul>
+						<TodoList
+							todos={incompleteTodos}
+							onDelete={handleDeleteTodo} //1 = prop    2 = function
+							onToggle={handleToggleTodo}
+						/>
+
 
 						{/* COMPLETED TODOS */}
 						<h2 className="mb-2 h5">🥺 Stuff I've done</h2>
-						<ul className="todolist list-group">
-							{completedTodos.map(todo => (
-								<TodoListItem
-									key={todo.id}
-									todo={todo}
-									handleDeleteTodo={handleDeleteTodo}
-									handleToggleTodo={handleToggleTodo}
-								/> //get the TodoListItem component
-							))}
-						</ul>
+						<TodoList
+							todos={completedTodos}
+							onDelete={handleDeleteTodo}
+							onToggle={handleToggleTodo}
+						/>
 
+						{/* COUNTER FOR COMPLETED TODOS */}
 						<TodoCounter
 							completed={completedTodos.length}
 							total={todos.length}
