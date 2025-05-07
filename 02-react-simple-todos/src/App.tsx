@@ -2,58 +2,71 @@ import { useEffect, useState } from "react";
 import type { Todo } from "./types/Todo";
 import TodoCounter from "./components/TodoCounter";
 import AddTodoForm from "./components/AddTodoForm";
+import * as TodosAPI from "./services/TodosAPI";
 import TodoList from "./components/TodoList";
 import "./assets/scss/App.scss";
 
 function App() {
 
-	//create starting todo list with use of Todo types
-	const [todos, setTodos] = useState<Todo[]>([
-		{ id: 1, title: "Make coffee", completed: true },
-		{ id: 2, title: "Drink coffee", completed: false },
-		{ id: 3, title: "Drink MOAR coffee", completed: false },
-		{ id: 4, title: "Drink ALL ZE coffee", completed: false },
-	]);
+	//create starting todo list with use of Todo types (empty)
+	const [todos, setTodos] = useState<Todo[]>([]);
 
 
 	//function to create a new todo and add it to the other todos
 	const handleAddTodo = (newTodoTitle: string) => {
-
 		// Create new todo and set a new list of todos containing the old todos + the new todo as the state
 		//...todos = old todos
 		//everything after that = creating a new todo
 		//setTodo = add the new todo that you just created to the old todos that you just spread out so that they are in an array together
-		setTodos([...todos, {
+		/* setTodos([...todos, {
 			id: Math.max(0, ...todos.map(todo => todo.id)) + 1,
 			title: newTodoTitle,
 			completed: false,
-		}]);
+		}]); */
+
+
+		// FIX ME
 	};
 
 	//function to delete a todo
 	const handleDeleteTodo = (todo: Todo) => {
-		setTodos(todos.filter(t => t !== todo)); //filter out the todo that you pressed delete on from all the todos
+		// setTodos(todos.filter(t => t !== todo)); //filter out the todo that you pressed delete on from all the todos
+
+		// FIX ME
 	};
 
 	//toggle the todo between completed or not completed
 	const handleToggleTodo = (todo: Todo) => {
-		todo.completed = !todo.completed; //make it the opposite of what it already was
-		setTodos([...todos]); //don't really understand why this is needed? but i guess it has to do with updating the new value and adding it to the todos array
+		// todo.completed = !todo.completed; //make it the opposite of what it already was
+		// setTodos([...todos]); //don't really understand why this is needed? but i guess it has to do with updating the new value and adding it to the todos array
+
+		// FIX ME
 	};
 
 	//filter out completed and incompleted todos
 	const completedTodos = todos.filter(todo => todo.completed);
 	const incompleteTodos = todos.filter(todo => !todo.completed);
-	// console.log("Filterd completed and incompleted todos");
 
 
-	// Our first (pretty meaningless) side-effect
-	useEffect(() => {
+	/* useEffect(() => {
 		// This code will only be executed **AFTER** the component has rendered
 		// AND if the length of unfinished todos has changed SINCE THE LAST RENDER
 		// console.log("🚨 The length of unfinished todos has changed!");
 		document.title = `${incompleteTodos.length} todos unfinished 🇫🇮`;
-	}, [incompleteTodos.length]);
+	}, [incompleteTodos.length]); */
+
+	useEffect(() => {
+		const getTodos = async () => {
+			// reset state
+			setTodos([]);
+
+			// make request to api
+			const data = await TodosAPI.getTodos();
+			setTodos(data);
+		};
+
+		getTodos();
+	}, []);
 
 
 	/*
@@ -64,7 +77,6 @@ function App() {
 	}, []);
  	*/
 
-	console.log("App is rendering...");
 
 
 	return (
