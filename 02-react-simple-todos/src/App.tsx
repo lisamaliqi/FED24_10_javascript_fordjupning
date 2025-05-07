@@ -74,34 +74,40 @@ function App() {
 			{todos.length > 0
 				? (
 					// RENDER OUT THE TODO LIST
-					<ul className="todolist list-group">
-						{todos.map(todo => (
-							<li
-								key={todo.id}
-								className={todo.completed ? "completed list-group-item" : "list-group-item"}
-							>
-								<span className="todo-title">{todo.title}</span>
+					<>
+						<ul className="todolist list-group">
+							{todos.map(todo => (
+								<li
+									key={todo.id}
+									className={todo.completed ? "completed list-group-item" : "list-group-item"}
+								>
+									<span className="todo-title">{todo.title}</span>
 
-								<div>
-									{/* COMPLETED TODO TOGGLE BUTTON */}
-									<button
-										className="btn btn-sm btn-outline-warning"
-										onClick={() => handleToggleTodo(todo)}
-									>
-										{todo.completed ? "☑️" : "✅"}
-									</button>
+									<div>
+										{/* COMPLETED TODO TOGGLE BUTTON */}
+										<button
+											className="btn btn-sm btn-outline-warning"
+											onClick={() => handleToggleTodo(todo)}
+										>
+											{todo.completed ? "☑️" : "✅"}
+										</button>
 
-									{/* DELETE A TODO BUTTON */}
-									<button
-										className="btn btn-sm btn-outline-danger"
-										onClick={() => handleDeleteTodo(todo)}
-									>
-										💣
-									</button>
-								</div>
-							</li>
-						))}
-					</ul>
+										{/* DELETE A TODO BUTTON */}
+										<button
+											className="btn btn-sm btn-outline-danger"
+											onClick={() => handleDeleteTodo(todo)}
+										>
+											💣
+										</button>
+									</div>
+								</li>
+							))}
+						</ul>
+
+						<p className="mt-3 text-muted">
+							You have completed {todos.filter(todo => todo.completed).length} out of {todos.length} todos.
+						</p>
+					</>
 				) : (
 					<div className="alert alert-warning">
 						You ain't got no todos 🤔?
