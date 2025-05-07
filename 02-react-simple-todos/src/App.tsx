@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Todo } from "./types/Todo";
 import TodoCounter from "./components/TodoCounter";
-import TodoListItem from "./components/TodoListItem";
 import AddTodoForm from "./components/AddTodoForm";
 import TodoList from "./components/TodoList";
 import "./assets/scss/App.scss";
