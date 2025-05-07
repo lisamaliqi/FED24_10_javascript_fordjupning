@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Todo } from "./types/Todo";
+import TodoListItem from "./components/TodoListItem";
 import "./assets/scss/App.scss";
 
 function App() {
@@ -100,30 +101,7 @@ function App() {
 						<h2 className="mb-2 h5">💪🏻 Stuff I got to do</h2>
 						<ul className="todolist list-group">
 							{incompleteTodos.map(todo => (
-								<li
-									key={todo.id}
-									className={todo.completed ? "completed list-group-item" : "list-group-item"}
-								>
-									<span className="todo-title">{todo.title}</span>
-
-									<div>
-										{/* COMPLETED TODO TOGGLE BUTTON */}
-										<button
-											className="btn btn-sm btn-outline-warning"
-											onClick={() => handleToggleTodo(todo)}
-										>
-											{todo.completed ? "☑️" : "✅"}
-										</button>
-
-										{/* DELETE A TODO BUTTON */}
-										<button
-											className="btn btn-sm btn-outline-danger"
-											onClick={() => handleDeleteTodo(todo)}
-										>
-											💣
-										</button>
-									</div>
-								</li>
+								<TodoListItem key={todo.id} todo={todo} /> //get the TodoListItem component
 							))}
 						</ul>
 
@@ -131,30 +109,7 @@ function App() {
 						<h2 className="mb-2 h5">🥺 Stuff I've done</h2>
 						<ul className="todolist list-group">
 							{completedTodos.map(todo => (
-								<li
-									key={todo.id}
-									className={todo.completed ? "completed list-group-item" : "list-group-item"}
-								>
-									<span className="todo-title">{todo.title}</span>
-
-									<div>
-										{/* COMPLETED TODO TOGGLE BUTTON */}
-										<button
-											className="btn btn-sm btn-outline-warning"
-											onClick={() => handleToggleTodo(todo)}
-										>
-											{todo.completed ? "☑️" : "✅"}
-										</button>
-
-										{/* DELETE A TODO BUTTON */}
-										<button
-											className="btn btn-sm btn-outline-danger"
-											onClick={() => handleDeleteTodo(todo)}
-										>
-											💣
-										</button>
-									</div>
-								</li>
+								<TodoListItem key={todo.id} todo={todo} /> //get the TodoListItem component
 							))}
 						</ul>
 
