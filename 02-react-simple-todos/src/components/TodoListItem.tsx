@@ -2,9 +2,11 @@ import type { Todo } from "../types/Todo";
 
 interface TodoListItemProps {
 	todo: Todo;
+	handleDeleteTodo: (todo: Todo) => void //TodoListItemProps will take on a function called handleDeleteTodo that can accept a Todo as a parameter and return nothing
+	handleToggleTodo: (todo: Todo) => void
 }
 
-const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
+const TodoListItem: React.FC<TodoListItemProps> = ({ todo, handleDeleteTodo, handleToggleTodo }) => {
 
 	return (
 		<li
@@ -16,7 +18,7 @@ const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
 				{/* COMPLETED TODO TOGGLE BUTTON */}
 				<button
 					className="btn btn-sm btn-outline-warning"
-					// onClick={() => handleToggleTodo(todo)}
+					onClick={() => handleToggleTodo(todo)}
 				>
 					{todo.completed ? "☑️" : "✅"}
 				</button>
@@ -24,7 +26,7 @@ const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
 				{/* DELETE A TODO BUTTON */}
 				<button
 					className="btn btn-sm btn-outline-danger"
-					// onClick={() => handleDeleteTodo(todo)}
+					onClick={() => handleDeleteTodo(todo)}
 				>
 					💣
 				</button>

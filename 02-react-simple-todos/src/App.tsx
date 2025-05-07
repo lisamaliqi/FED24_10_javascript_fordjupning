@@ -101,7 +101,12 @@ function App() {
 						<h2 className="mb-2 h5">💪🏻 Stuff I got to do</h2>
 						<ul className="todolist list-group">
 							{incompleteTodos.map(todo => (
-								<TodoListItem key={todo.id} todo={todo} /> //get the TodoListItem component
+								<TodoListItem
+									key={todo.id}
+									todo={todo}
+									handleDeleteTodo={handleDeleteTodo}
+									handleToggleTodo={handleToggleTodo}
+								/> //get the TodoListItem component
 							))}
 						</ul>
 
@@ -109,7 +114,12 @@ function App() {
 						<h2 className="mb-2 h5">🥺 Stuff I've done</h2>
 						<ul className="todolist list-group">
 							{completedTodos.map(todo => (
-								<TodoListItem key={todo.id} todo={todo} /> //get the TodoListItem component
+								<TodoListItem
+									key={todo.id}
+									todo={todo}
+									handleDeleteTodo={handleDeleteTodo}
+									handleToggleTodo={handleToggleTodo}
+								/> //get the TodoListItem component
 							))}
 						</ul>
 
