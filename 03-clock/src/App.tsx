@@ -8,6 +8,7 @@ function App() {
 		return new Date().toLocaleTimeString(); //starting state is the exact time user restart react app (so no 00:00:00 in the beginning)
 	});
 
+	// Start clock when component is mounted for the first time
 	useEffect(() => {
 		console.log("🔫 Starting clock...");
 
@@ -18,6 +19,12 @@ function App() {
 		}, 1000);
 	}, []); //this is not dependent on another function so it will only start once
 
+
+	// Update page title with current time
+	// but ONLY if the time has changed since last render
+	useEffect(() => {
+		document.title = time;
+	}, [time]);
 
 
 	return (
