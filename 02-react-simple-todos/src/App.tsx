@@ -49,6 +49,7 @@ function App() {
 
 	return (
 		<div className="container py-2">
+
 			<h1>React Simple Todo</h1>
 
 			{/* CREATE A NEW TODO */}
@@ -69,35 +70,44 @@ function App() {
 			</form>
 
 
-			{/* RENDER OUT THE TODO LIST */}
-			<ul className="todolist list-group">
-				{todos.map(todo => (
-					<li
-						key={todo.id}
-						className={todo.completed ? "completed list-group-item" : "list-group-item"}
-					>
-						<span className="todo-title">{todo.title}</span>
-
-						<div>
-							{/* COMPLETED TODO TOGGLE BUTTON */}
-							<button
-								className="btn btn-sm btn-outline-warning"
-								onClick={() => handleToggleTodo(todo)}
+			{/* if no todos -> send message */}
+			{todos.length > 0
+				? (
+					// RENDER OUT THE TODO LIST
+					<ul className="todolist list-group">
+						{todos.map(todo => (
+							<li
+								key={todo.id}
+								className={todo.completed ? "completed list-group-item" : "list-group-item"}
 							>
-								{todo.completed ? "☑️" : "✅"}
-							</button>
+								<span className="todo-title">{todo.title}</span>
 
-							{/* DELETE A TODO BUTTON */}
-							<button
-								className="btn btn-sm btn-outline-danger"
-								onClick={() => handleDeleteTodo(todo)}
-							>
-								💣
-							</button>
-						</div>
-					</li>
-				))}
-			</ul>
+								<div>
+									{/* COMPLETED TODO TOGGLE BUTTON */}
+									<button
+										className="btn btn-sm btn-outline-warning"
+										onClick={() => handleToggleTodo(todo)}
+									>
+										{todo.completed ? "☑️" : "✅"}
+									</button>
+
+									{/* DELETE A TODO BUTTON */}
+									<button
+										className="btn btn-sm btn-outline-danger"
+										onClick={() => handleDeleteTodo(todo)}
+									>
+										💣
+									</button>
+								</div>
+							</li>
+						))}
+					</ul>
+				) : (
+					<div className="alert alert-warning">
+						You ain't got no todos 🤔?
+					</div>
+				)
+			}
 		</div>
 	);
 };
