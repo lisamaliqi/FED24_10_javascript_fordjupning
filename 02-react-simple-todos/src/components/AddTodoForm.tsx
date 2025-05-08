@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 interface AddTodoFormProps {
 	onAddTodo: (newTodoTitle: string) => void
@@ -8,6 +8,10 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAddTodo }) => {
 
 	//state for the input field to create a new todo
 	const [inputTodoTitle, setInputTodoTitle] = useState("");
+
+	//make input field autofocus
+	const inputTodoTitleRef = useRef<HTMLInputElement | null>(null); //null bc we don't have the element yet, hasn't been bound to anything yet
+	// console.log('inputTodoTitleRef: ', inputTodoTitleRef);
 
 	//function to create a new todo and add it to the other todos
 	const handleAddTodo = (e: React.FormEvent) => {
@@ -21,6 +25,15 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAddTodo }) => {
 	};
 
 
+	//
+	useEffect(() => {
+		//only if this is truthy, call on focus
+		inputTodoTitleRef.current?.focus()
+	}, []);
+
+
+
+
 	return (
 		<form onSubmit={handleAddTodo} className="mb-3">
 			<div className="input-group">
@@ -31,6 +44,7 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAddTodo }) => {
 					placeholder="Learn about REACT!!!"
 					type="text"
 					value={inputTodoTitle}
+					ref={inputTodoTitleRef}
 					required
 				/>
 
