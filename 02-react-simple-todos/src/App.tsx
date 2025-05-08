@@ -67,13 +67,19 @@ function App() {
 		getTodos();
 	};
 
+
 	//toggle the todo between completed or not completed
-	const handleToggleTodo = (todo: Todo) => {
+	const handleToggleTodo = async (todo: Todo) => {
 		// todo.completed = !todo.completed; //make it the opposite of what it already was
 		// setTodos([...todos]); //don't really understand why this is needed? but i guess it has to do with updating the new value and adding it to the todos array
 
 		// FIX ME
+		await TodosAPI.updateTodo(todo.id, {
+			completed: !todo.completed,
+		});
+		getTodos();
 	};
+
 
 	//filter out completed and incompleted todos
 	const completedTodos = todos.filter(todo => todo.completed);

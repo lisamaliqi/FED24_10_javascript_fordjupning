@@ -35,6 +35,12 @@ export const postTodo = async (todo: NewTodo) => {
  * @param todo_id Todo to update
  * @param data Data to update todo with
  */
+export const updateTodo = async (todoId: number, payload: Partial<NewTodo>) => {
+	const res = await axios.patch<Todo>(BASE_URL + '/todos/' + todoId, payload);
+	return res.data;
+};
+
+
 
 /**
  * Delete a todo
