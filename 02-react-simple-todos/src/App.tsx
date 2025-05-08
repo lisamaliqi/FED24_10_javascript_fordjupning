@@ -10,6 +10,8 @@ function App() {
 
 	//create starting todo list with use of Todo types (empty)
 	const [todos, setTodos] = useState<Todo[]>([]);
+	const [error, setError] = useState<string | false>(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 
 	//function to create a new todo and add it to the other todos
@@ -58,11 +60,20 @@ function App() {
 	useEffect(() => {
 		const getTodos = async () => {
 			// reset state
+			setError(false);
+			setIsLoading(true);
 			setTodos([]);
 
 			// make request to api
-			const data = await TodosAPI.getTodos();
-			setTodos(data);
+			try {
+				const data = await TodosAPI.getTodos();
+				setTodos(data);
+			} catch (err) {
+				console.error("Error thrown when fetching todos:", err);
+				setError(err instanceof Error ? err.message : "It's not me, it's you");
+			};
+
+			setIsLoading(false);
 		};
 
 		getTodos();
@@ -88,40 +99,54 @@ function App() {
 			<AddTodoForm onAddTodo={handleAddTodo} />
 
 
+			{/* ERROR WHEN FETCHING API */}
+			{error && (
+				<div className="alert alert-danger">
+					{error}
+				</div>
+			)}
+
+			{/* LOADING SPINNER WHEN FETCHING API */}
+			{isLoading && (
+				<div className="spinner-border" role="status">
+					<span className="visually-hidden">Loading...</span>
+				</div>
+			)}
+
+			{/* RENDER OUT THE TODO LIST */}
+			{!error && !isLoading && todos.length > 0 && (
+				<>
+					{/* NOT COMPLETED TODOS */}
+					<h2 className="mb-2 h5">💪🏻 Stuff I got to do</h2>
+					<TodoList
+						todos={incompleteTodos}
+						onDelete={handleDeleteTodo}//1 = prop    2 = function
+						onToggle={handleToggleTodo}
+					/>
+
+					{/* COMPLETED TODOS */}
+					<h2 className="mb-2 h5">🥺 Stuff I've done</h2>
+					<TodoList
+						todos={completedTodos}
+						onDelete={handleDeleteTodo}
+						onToggle={handleToggleTodo}
+					/>
+
+					{/* COUNTER FOR COMPLETED TODOS */}
+					<TodoCounter
+						completed={completedTodos.length}
+						total={todos.length}
+					/>
+				</>
+			)}
+
 			{/* if no todos -> send message */}
-			{todos.length > 0
-				? (
-					// RENDER OUT THE TODO LIST
-					<>
-						{/* NOT COMPLETED TODOS */}
-						<h2 className="mb-2 h5">💪🏻 Stuff I got to do</h2>
-						<TodoList
-							todos={incompleteTodos}
-							onDelete={handleDeleteTodo} //1 = prop    2 = function
-							onToggle={handleToggleTodo}
-						/>
+			{!error && !isLoading && todos.length === 0 && (
+				<div className="alert alert-warning">
+					You ain't got no todos 🤔?
+				</div>
+			)}
 
-
-						{/* COMPLETED TODOS */}
-						<h2 className="mb-2 h5">🥺 Stuff I've done</h2>
-						<TodoList
-							todos={completedTodos}
-							onDelete={handleDeleteTodo}
-							onToggle={handleToggleTodo}
-						/>
-
-						{/* COUNTER FOR COMPLETED TODOS */}
-						<TodoCounter
-							completed={completedTodos.length}
-							total={todos.length}
-						/>
-					</>
-				) : (
-					<div className="alert alert-warning">
-						You ain't got no todos 🤔?
-					</div>
-				)
-			}
 		</div>
 	);
 };
