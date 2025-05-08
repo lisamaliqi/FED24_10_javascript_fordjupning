@@ -41,3 +41,6 @@ export const postTodo = async (todo: NewTodo) => {
  *
  * @param todo_id Todo to delete
  */
+export const deleteTodo = async (todoId: number) => {
+	await axios.delete(BASE_URL + '/todos/' + todoId);
+};

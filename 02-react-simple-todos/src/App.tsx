@@ -60,10 +60,11 @@ function App() {
 
 
 	//function to delete a todo
-	const handleDeleteTodo = (todo: Todo) => {
+	const handleDeleteTodo = async (todo: Todo) => {
 		// setTodos(todos.filter(t => t !== todo)); //filter out the todo that you pressed delete on from all the todos
 
-		// FIX ME
+		await TodosAPI.deleteTodo(todo.id);
+		getTodos();
 	};
 
 	//toggle the todo between completed or not completed
