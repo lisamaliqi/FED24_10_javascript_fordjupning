@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Todo } from "./types/Todo";
+import type { NewTodo, Todo } from "./types/Todo";
 import TodoCounter from "./components/TodoCounter";
 import AddTodoForm from "./components/AddTodoForm";
 import * as TodosAPI from "./services/TodosAPI";
@@ -13,9 +13,8 @@ function App() {
 	const [error, setError] = useState<string | false>(false);
 	const [isLoading, setIsLoading] = useState(true);
 
-
-	//function to create a new todo and add it to the other todos
-	const handleAddTodo = (newTodoTitle: string) => {
+	//OLD handleAddTodo
+	/* const handleAddTodo = (newTodoTitle: string) => {
 		// Create new todo and set a new list of todos containing the old todos + the new todo as the state
 		//...todos = old todos
 		//everything after that = creating a new todo
@@ -24,11 +23,41 @@ function App() {
 			id: Math.max(0, ...todos.map(todo => todo.id)) + 1,
 			title: newTodoTitle,
 			completed: false,
-		}]); */
+		}]);
+	}; */
 
+	//function to get the todos
+	const getTodos = async () => {
+		// reset state
+		setError(false);
+		setIsLoading(true);
+		setTodos([]);
 
-		// FIX ME
+		// make request to api
+		try {
+			const data = await TodosAPI.getTodos();
+			setTodos(data);
+		} catch (err) {
+			console.error("Error thrown when fetching todos:", err);
+			setError(err instanceof Error ? err.message : "It's not me, it's you");
+		};
+		setIsLoading(false);
 	};
+
+	//function to create a new todo and add it to the other todos
+	const handleAddTodo = async (title: string) => {
+		const todo: NewTodo = {
+			title: title,
+			completed: false,
+		};
+
+		//post the new todo to the other todos
+		await TodosAPI.postTodo(todo);
+		//then get all the todos (including the new one)
+		getTodos();
+	};
+
+
 
 	//function to delete a todo
 	const handleDeleteTodo = (todo: Todo) => {
@@ -57,25 +86,8 @@ function App() {
 		document.title = `${incompleteTodos.length} todos unfinished 🇫🇮`;
 	}, [incompleteTodos.length]); */
 
+
 	useEffect(() => {
-		const getTodos = async () => {
-			// reset state
-			setError(false);
-			setIsLoading(true);
-			setTodos([]);
-
-			// make request to api
-			try {
-				const data = await TodosAPI.getTodos();
-				setTodos(data);
-			} catch (err) {
-				console.error("Error thrown when fetching todos:", err);
-				setError(err instanceof Error ? err.message : "It's not me, it's you");
-			};
-
-			setIsLoading(false);
-		};
-
 		getTodos();
 	}, []);
 
@@ -87,6 +99,9 @@ function App() {
 		console.log("Look mom, I'm a newly mounted component 👶🏻");
 	}, []);
  	*/
+
+
+
 
 
 

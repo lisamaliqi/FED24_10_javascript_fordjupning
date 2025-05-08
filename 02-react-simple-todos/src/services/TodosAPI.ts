@@ -2,7 +2,7 @@
  * Service for communicating with the json-server backend
  */
 import axios from "axios";
-import type { Todo } from "../types/Todo";
+import type { NewTodo, Todo } from "../types/Todo";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -15,11 +15,19 @@ export const getTodos = async () => {
 	return res.data;
 };
 
+
+
 /**
  * Create a new todo
  *
  * @param data Object with properties and values for the new todo
  */
+export const postTodo = async (todo: NewTodo) => {
+	const res = await axios.post<Todo>(BASE_URL + "/todos", todo);
+	return res.data;
+};
+
+
 
 /**
  * Update a todo
