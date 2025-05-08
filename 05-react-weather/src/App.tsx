@@ -10,6 +10,6 @@ function App() {
 			<Forecast />
 		</div>
 	);
-}
+};
 
 export default App;
