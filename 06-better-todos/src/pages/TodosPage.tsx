@@ -6,6 +6,8 @@ import * as TodosAPI from "../services/TodosAPI";
 import { NewTodo, Todo } from "../types/Todo";
 import  Alert  from "react-bootstrap/Alert";
 import  Spinner  from "react-bootstrap/Spinner";
+import ListGroup from "react-bootstrap/ListGroup";
+import { Link } from "react-router";
 
 
 function TodosPage() {
@@ -42,6 +44,7 @@ function TodosPage() {
 	};
 
 
+/*
 	const handleDeleteTodo = async (todo: Todo) => {
 		await TodosAPI.deleteTodo(todo.id);
 		getTodos();
@@ -54,10 +57,11 @@ function TodosPage() {
 		});
 		getTodos();
 	};
+ */
 
 
 	const completedTodos = todos.filter(todo => todo.completed);
-	const incompleteTodos = todos.filter(todo => !todo.completed);
+	// const incompleteTodos = todos.filter(todo => !todo.completed);
 
 	useEffect(() => {
 		getTodos();
@@ -68,7 +72,7 @@ function TodosPage() {
 
 	return (
 		<>
-			<h1>Better Todos</h1>
+			<h1>Todos</h1>
 
 			<AddTodoForm onAddTodo={handleAddTodo} />
 
@@ -86,19 +90,19 @@ function TodosPage() {
 
 			{!error && !isLoading && todos.length > 0 && (
 				<>
-					<h2 className="mb-2 h5">💪🏻 Stuff I got to do</h2>
-					<TodoList
-						todos={incompleteTodos}
-						onDelete={handleDeleteTodo}
-						onToggle={handleToggleTodo}
-					/>
-
-					<h2 className="mb-2 h5">🥺 Stuff I've done</h2>
-					<TodoList
-						todos={completedTodos}
-						onDelete={handleDeleteTodo}
-						onToggle={handleToggleTodo}
-					/>
+					<ListGroup className="todolist">
+						{todos.map(todo => (
+							<ListGroup.Item
+								action
+								as={Link}
+								className={todo.completed ? "completed" : ""}
+								key={todo.id}
+								to={`/todos/${todo.id}`}
+							>
+								<span className="todo-title">{todo.title}</span>
+							</ListGroup.Item>
+						))}
+					</ListGroup>
 
 					<TodoCounter
 						completed={completedTodos.length}
