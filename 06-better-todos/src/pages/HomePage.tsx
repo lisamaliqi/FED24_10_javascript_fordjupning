@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 
 const HomePage = () => {
   return (
@@ -5,7 +6,7 @@ const HomePage = () => {
 		<>
 			<h1>Welcome to better todos!</h1>
 
-			<p>Because when life gives you assignment, you need a todo list!</p>
+			<p>Because when life gives you assignment, you need a <Link to="/todos">todo list</Link>!</p>
 		</>
 	</div>
   )
