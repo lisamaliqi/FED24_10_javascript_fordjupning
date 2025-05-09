@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router';
 import TodosPage from "./pages/TodosPage";
 import HomePage from "./pages/HomePage";
 import Navigation from "./components/Navigation";
+import NotFoundPage from "./pages/NotFoundPage";
 
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
 				<Routes>
 					<Route path='/' element={<HomePage />} />
 					<Route path='/todos' element={<TodosPage />} />
+
+					<Route path="*" element={<NotFoundPage />} />
 				</Routes>
 			</Container>
 		</div>
