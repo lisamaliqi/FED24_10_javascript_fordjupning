@@ -5,6 +5,10 @@ import TodoList from "./components/TodoList";
 import * as TodosAPI from "./services/TodosAPI";
 import { NewTodo, Todo } from "./types/Todo";
 import "./assets/scss/App.scss";
+import  Container  from "react-bootstrap/Container";
+import  Alert  from "react-bootstrap/Alert";
+import  Spinner  from "react-bootstrap/Spinner";
+
 
 function App() {
 	const [error, setError] = useState<string | false>(false);
@@ -65,21 +69,21 @@ function App() {
 	}, []);
 
 	return (
-		<div className="container py-2">
+		<Container className="container py-2">
 			<h1>Better Todos</h1>
 
 			<AddTodoForm onAddTodo={handleAddTodo} />
 
 			{error && (
-				<div className="alert alert-danger">
+				<Alert variant="danger">
 					{error}
-				</div>
+				</Alert>
 			)}
 
 			{isLoading && (
-				<div className="spinner-border" role="status">
+				<Spinner animation="border" role="status">
 					<span className="visually-hidden">Loading...</span>
-				</div>
+				</Spinner>
 			)}
 
 			{!error && !isLoading && todos.length > 0 && (
@@ -106,11 +110,11 @@ function App() {
 			)}
 
 			{!error && !isLoading && todos.length === 0 && (
-				<div className="alert alert-warning">
+				<Alert variant="warning">
 					You ain't got no todos 🤔?
-				</div>
+				</Alert>
 			)}
-		</div>
+		</Container>
 	);
 }
 
