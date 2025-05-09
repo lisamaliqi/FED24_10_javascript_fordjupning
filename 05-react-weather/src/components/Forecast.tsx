@@ -8,6 +8,14 @@ interface ForecastProps {
 
 
 const Forecast: React.FC<ForecastProps> = ({ data }) => {
+
+	//get the timestamp of when the weather updated itself last
+	const freshness = new Date(data.dt * 1000);
+
+	console.log('freshness: ', freshness);
+
+
+
 	return (
 		<div id="forecast">
 			<div className="card">
@@ -37,13 +45,12 @@ const Forecast: React.FC<ForecastProps> = ({ data }) => {
 						)}
 					</ul>
 
-					{/*
 					<p className="text-muted small">
-						<span>
-							1970-01-01 13:37:00
+						<span title={freshness.toString()}> {/* show date when hovering over date */}
+							{freshness.toLocaleString()}
 						</span>
 					</p>
-					*/}
+
 				</div>
 			</div>
 		</div>
