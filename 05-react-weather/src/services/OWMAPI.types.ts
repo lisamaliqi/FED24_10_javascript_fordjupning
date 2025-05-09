@@ -4,7 +4,7 @@
  * <https://openweathermap.org/current>
  */
 
-interface WeatherCondition {
+export interface WeatherCondition {
 	description: string;
 	icon: string;
 	id: number;

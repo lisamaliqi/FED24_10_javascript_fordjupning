@@ -1,5 +1,6 @@
 import forecastBanner from "../assets/images/forecast-banner.png";
 import { WeatherReport } from "../services/OWMAPI.types";
+import WeatherCondition from "./WeatherCondition";
 
 interface ForecastProps {
 	data: WeatherReport;
@@ -30,11 +31,13 @@ const Forecast: React.FC<ForecastProps> = ({ data }) => {
 						<span id="windspeed">{data.wind.speed}</span> m/s
 					</p>
 
-					{/*
 					<ul className="conditions">
-						<li><img src="" title="CONDITION_MAIN" alt="CONDITION_MAIN">CONDITION_DESCRIPTION</li>
+						{data.weather.map(condition =>
+							<WeatherCondition key={condition.id} condition={condition} />
+						)}
 					</ul>
 
+					{/*
 					<p className="text-muted small">
 						<span>
 							1970-01-01 13:37:00
