@@ -1,4 +1,5 @@
-import forecastBanner from "../assets/images/forecast-banner.png";
+import imgDayBanner from '../assets/images/day.svg';
+import imgNightBanner from '../assets/images/night.svg';
 import { WeatherReport } from "../services/OWMAPI.types";
 import WeatherCondition from "./WeatherCondition";
 
@@ -14,12 +15,15 @@ const Forecast: React.FC<ForecastProps> = ({ data }) => {
 
 	console.log('freshness: ', freshness);
 
+	const imgBanner = (data.dt > data.sys.sunrise && data.dt < data.sys.sunset)
+		? imgDayBanner
+		: imgNightBanner;
 
 
 	return (
 		<div id="forecast">
 			<div className="card">
-				<img src={forecastBanner} className="card-img-top" alt="Daytime, nighttime, daytime, nighttime" />
+				<img src={imgBanner} className="card-img-top" alt="Daytime, nighttime, daytime, nighttime" />
 
 				<div className="card-body">
 					<h5 className="card-title" id="location">
