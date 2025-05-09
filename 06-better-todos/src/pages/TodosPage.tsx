@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import AddTodoForm from "../components/AddTodoForm";
 import TodoCounter from "../components/TodoCounter";
-import TodoList from "../components/TodoList";
 import * as TodosAPI from "../services/TodosAPI";
 import { NewTodo, Todo } from "../types/Todo";
 import  Alert  from "react-bootstrap/Alert";
