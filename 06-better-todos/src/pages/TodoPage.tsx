@@ -36,10 +36,11 @@ const TodoPage = () => {
 
 	//toggle todo in API
 	const handleToggleTodo = async (todo: Todo) => {
-		await TodosAPI.updateTodo(todo.id, {
+		const updatedTodo = await TodosAPI.updateTodo(todo.id, {
 			completed: !todo.completed,
 		});
-		getTodo(todoId);
+		//update todo state with the updated todo
+		setTodo(updatedTodo);
 	};
 
 
