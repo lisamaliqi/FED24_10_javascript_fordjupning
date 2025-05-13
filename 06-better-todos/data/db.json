@@ -32,7 +32,7 @@
     },
     {
       "title": "new todo? does it work?",
-      "completed": false,
+      "completed": true,
       "id": 8
     },
     {
@@ -47,7 +47,7 @@
     },
     {
       "title": "created a new todo abt to expooooode",
-      "completed": false,
+      "completed": true,
       "id": 11
     }
   ]

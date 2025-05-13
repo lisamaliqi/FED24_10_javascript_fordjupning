@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 import { Link, useParams } from "react-router";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from '../services/TodosAPI';
@@ -30,6 +31,15 @@ const TodoPage = () => {
 			setError(err instanceof Error ? err.message : "It's not me, it's you");
 		};
 		setIsLoading(false);
+	};
+
+
+	//toggle todo in API
+	const handleToggleTodo = async (todo: Todo) => {
+		await TodosAPI.updateTodo(todo.id, {
+			completed: !todo.completed,
+		});
+		getTodo(todoId);
 	};
 
 
@@ -68,6 +78,10 @@ const TodoPage = () => {
 
 			<div className="buttons mb-3">
 				{/* Toggle */}
+				<Button
+					onClick={() => handleToggleTodo(todo)}
+					variant="success">
+				Toggle </Button>
 
 				{/* Delete */}
 			</div>
