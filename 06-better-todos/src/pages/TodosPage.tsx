@@ -42,15 +42,6 @@ function TodosPage() {
 	}; */
 
 
-/*
-	const handleDeleteTodo = async (todo: Todo) => {
-		await TodosAPI.deleteTodo(todo.id);
-		getTodos();
-	};
-
- */
-
-
 	// const completedTodos = todos.filter(todo => todo.completed);
 	// const incompleteTodos = todos.filter(todo => !todo.completed);
 

@@ -31,11 +31,6 @@
       "id": 7
     },
     {
-      "title": "new todo? does it work?",
-      "completed": true,
-      "id": 8
-    },
-    {
       "title": "testing todos",
       "completed": false,
       "id": 9
