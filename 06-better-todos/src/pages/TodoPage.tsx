@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Alert from 'react-bootstrap/Alert';
-import { useParams } from "react-router";
+import Button from 'react-bootstrap/Button';
+import { Link, useParams } from "react-router";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from '../services/TodosAPI';
 
@@ -73,6 +74,9 @@ const TodoPage = () => {
 			</div>
 
 			{/* Here be button-link back to all todos */}
+			<Link to='/todos' className="btn btn-secondary" role='button'> {/* Both a link and a button in this instance (link as button doesn't work) */}
+					Back to all Todos
+			</Link>
 		</>
 	)
 };
