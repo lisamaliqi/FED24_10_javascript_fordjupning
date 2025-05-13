@@ -5,11 +5,13 @@ import { Todo } from "../types/Todo";
 import * as TodosAPI from '../services/TodosAPI';
 import ConfirmDeleteButton from "../components/ConfirmDeleteButton";
 import ErrorAlert from "../components/Alerts/ErrorAlerts";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const TodoPage = () => {
 	const [ error, setError] = useState<string | false>(false);
 	const [ isLoading, setIsLoading] = useState(true);
 	const [ todo, setTodo] = useState<Todo | null>(null);
+	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
 
 	const { id } = useParams();
 	const todoId = Number(id);
@@ -109,7 +111,25 @@ const TodoPage = () => {
 					onClick={() => handleDeleteTodo(todo)}
 					variant="danger">
 				Delete </Button> */}
-				<ConfirmDeleteButton onConfirm={() => handleDeleteTodo(todo)} />
+				{/* <ConfirmDeleteButton onConfirm={() => handleDeleteTodo(todo)} /> */}
+
+
+				<Button
+					onClick={() => setShowDeleteModal(true)}
+					variant="danger"
+				>Delete</Button>
+
+				{/* Better variant of my confirm button */}
+
+				<ConfirmationModal
+					onCancel={() => setShowDeleteModal(false)}
+					onConfirm={() => handleDeleteTodo(todo)}
+					show={showDeleteModal}
+					title="Sure u wanna delete?"
+					variant="danger"
+				>
+					Delete todo "{todo.title}"?
+				</ConfirmationModal>
 			</div>
 
 			{/* Here be button-link back to all todos */}
