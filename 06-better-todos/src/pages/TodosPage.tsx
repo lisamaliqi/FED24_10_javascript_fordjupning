@@ -5,13 +5,14 @@ import { Todo } from "../types/Todo";
 import  Alert  from "react-bootstrap/Alert";
 import  Spinner  from "react-bootstrap/Spinner";
 import ListGroup from "react-bootstrap/ListGroup";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 
 function TodosPage() {
 	const [error, setError] = useState<string | false>(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [todos, setTodos] = useState<Todo[] | null>(null);
+	const location = useLocation();
 
 
 	const getTodos = async () => {
@@ -55,6 +56,12 @@ function TodosPage() {
 	return (
 		<>
 			<h1>Todos</h1>
+
+			{location.state && location.state.status && (
+				<Alert variant={location.state.status.type}>
+					{location.state.status.message}
+				</Alert>
+			)}
 
 			{error && (
 				<Alert variant="danger">

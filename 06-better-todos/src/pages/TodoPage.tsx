@@ -42,6 +42,12 @@ const TodoPage = () => {
 		//redirect to /todos
 		navigate('/todos', {
 			replace: true,
+			state: {
+				status: {
+					message: `Todo ${todo.id} was deleted`,
+					type: 'success',
+				},
+			},
 		});
 	};
 
