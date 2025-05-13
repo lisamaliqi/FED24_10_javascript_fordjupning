@@ -15,6 +15,18 @@ export const getTodos = async () => {
 	return res.data;
 }
 
+
+/**
+ * Get a single todo
+ */
+export const getTodo = async (id: number) => {
+	const res = await axios.get<Todo>(BASE_URL + "/todos/" + id);
+	await new Promise(r => setTimeout(r, 1500));
+	return res.data;
+};
+
+
+
 /**
  * Create a new todo
  *
