@@ -6,11 +6,6 @@
       "completed": true
     },
     {
-      "id": 3,
-      "title": "Drink MOAR coffee",
-      "completed": false
-    },
-    {
       "id": 4,
       "title": "Drink ALL ZE covfefe",
       "completed": true
@@ -34,11 +29,6 @@
       "title": "testing todos",
       "completed": false,
       "id": 9
-    },
-    {
-      "title": "YES CREATE",
-      "completed": false,
-      "id": 10
     },
     {
       "title": "created a new todo abt to expooooode",

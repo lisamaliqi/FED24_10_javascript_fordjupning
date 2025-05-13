@@ -40,7 +40,9 @@ const TodoPage = () => {
 		await TodosAPI.deleteTodo(todo.id);
 
 		//redirect to /todos
-		navigate('/todos');
+		navigate('/todos', {
+			replace: true,
+		});
 	};
 
 
