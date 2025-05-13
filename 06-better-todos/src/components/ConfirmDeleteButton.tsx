@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 interface ConfirmDeleteButtonProps {
-	onConfirm: () => void;
+	onConfirm: () => void; //receive a prop that is a function
 };
 
 
@@ -11,8 +11,7 @@ export default function ConfirmDeleteButton({onConfirm}: ConfirmDeleteButtonProp
 
 	const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
-	const handleClose = () => setShowConfirmDelete(false);
-	const handleShow = () => setShowConfirmDelete(true);
+	//function that handles the delete button in confirm modal (also hides the modal)
 	const handleConfirm = () => {
 		onConfirm();
 		setShowConfirmDelete(false);
@@ -22,10 +21,10 @@ export default function ConfirmDeleteButton({onConfirm}: ConfirmDeleteButtonProp
 	return (
 		<>
 			{/* First delete button the user sees */}
-			<Button variant="danger" onClick={handleShow}>Delete</Button>
+			<Button variant="danger" onClick={() => setShowConfirmDelete(true)}>Delete</Button>
 
 			{/* The modal that ask for confirmation */}
-			<Modal show={showConfirmDelete} onHide={handleClose}>
+			<Modal show={showConfirmDelete} onHide={() => setShowConfirmDelete(false)}>
 				<Modal.Header closeButton>
 					<Modal.Title>Confirm Deletion</Modal.Title>
 				</Modal.Header>
@@ -35,7 +34,7 @@ export default function ConfirmDeleteButton({onConfirm}: ConfirmDeleteButtonProp
 				</Modal.Body>
 
 				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
+					<Button variant="secondary" onClick={() => setShowConfirmDelete(false)}>
 						No plz don't delete i pressed wrong button
 					</Button>
 					<Button variant="danger" onClick={handleConfirm}>
