@@ -11,14 +11,14 @@ import { Link } from "react-router";
 function TodosPage() {
 	const [error, setError] = useState<string | false>(false);
 	const [isLoading, setIsLoading] = useState(true);
-	const [todos, setTodos] = useState<Todo[]>([]);
+	const [todos, setTodos] = useState<Todo[] | null>(null);
 
 
 	const getTodos = async () => {
 		// reset state
 		setError(false);
 		setIsLoading(true);
-		setTodos([]);
+		setTodos(null);
 
 		// make request to api
 		try {
@@ -58,7 +58,7 @@ function TodosPage() {
  */
 
 
-	const completedTodos = todos.filter(todo => todo.completed);
+	// const completedTodos = todos.filter(todo => todo.completed);
 	// const incompleteTodos = todos.filter(todo => !todo.completed);
 
 	useEffect(() => {
@@ -84,7 +84,7 @@ function TodosPage() {
 				</Spinner>
 			)}
 
-			{!error && !isLoading && todos.length > 0 && (
+			{todos && todos.length > 0 && (
 				<>
 					<ListGroup className="todolist">
 						{todos.map(todo => (
@@ -101,13 +101,13 @@ function TodosPage() {
 					</ListGroup>
 
 					<TodoCounter
-						completed={completedTodos.length}
+						completed={todos.filter(todo => todo.completed).length}
 						total={todos.length}
 					/>
 				</>
 			)}
 
-			{!error && !isLoading && todos.length === 0 && (
+			{todos && todos.length === 0 && (
 				<Alert variant="warning">
 					You ain't got no todos 🤔?
 				</Alert>
