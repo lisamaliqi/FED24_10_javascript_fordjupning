@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import { Link, useNavigate, useParams } from "react-router";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from '../services/TodosAPI';
 import ConfirmDeleteButton from "../components/ConfirmDeleteButton";
+import ErrorAlert from "../components/Alerts/ErrorAlerts";
 
 const TodoPage = () => {
 	const [ error, setError] = useState<string | false>(false);
@@ -71,7 +71,7 @@ const TodoPage = () => {
 
 
 	if (error) {
-		return <Alert variant='warning'>{error}</Alert>
+		return <ErrorAlert>{error}</ErrorAlert>;
 	};
 
 

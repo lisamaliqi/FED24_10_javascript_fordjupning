@@ -6,6 +6,8 @@ import  Alert  from "react-bootstrap/Alert";
 import  Spinner  from "react-bootstrap/Spinner";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link, useLocation } from "react-router";
+import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
+import ErrorAlert from "../components/Alerts/ErrorAlerts";
 
 
 function TodosPage() {
@@ -58,16 +60,28 @@ function TodosPage() {
 			<h1>Todos</h1>
 
 			{location.state && location.state.status && (
-				<Alert variant={location.state.status.type}>
+				<AutoDismissingAlert  hideAfter={3000} variant={location.state.status.type}>
 					{location.state.status.message}
-				</Alert>
+				</AutoDismissingAlert>
 			)}
 
-			{error && (
+			{/* {error && (
 				<Alert variant="danger">
 					{error}
 				</Alert>
-			)}
+			)} */}
+
+			{/* {error && (
+				<ErrorAlert>
+					{error}
+				</ErrorAlert>
+			)} */}
+
+			{error && <ErrorAlert>{error}</ErrorAlert>}
+
+			<AutoDismissingAlert hideAfter={500} variant="danger">
+				Look quickly, imma dissapear!!
+			</AutoDismissingAlert>
 
 			{isLoading && (
 				<Spinner animation="border" role="status">
