@@ -24,11 +24,6 @@
       "title": "Do stuff",
       "completed": true,
       "id": 7
-    },
-    {
-      "title": "testing todos",
-      "completed": false,
-      "id": 9
     }
   ]
 }

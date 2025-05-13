@@ -4,11 +4,13 @@ import Button from 'react-bootstrap/Button';
 import { Link, useNavigate, useParams } from "react-router";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from '../services/TodosAPI';
+import ConfirmDeleteButton from "../components/ConfirmDeleteButton";
 
 const TodoPage = () => {
 	const [ error, setError] = useState<string | false>(false);
 	const [ isLoading, setIsLoading] = useState(true);
 	const [ todo, setTodo] = useState<Todo | null>(null);
+
 	const { id } = useParams();
 	const todoId = Number(id);
 	const navigate = useNavigate();
@@ -103,10 +105,11 @@ const TodoPage = () => {
 				Toggle </Button>
 
 				{/* Delete */}
-				<Button
+				{/* <Button
 					onClick={() => handleDeleteTodo(todo)}
 					variant="danger">
-				Delete </Button>
+				Delete </Button> */}
+				<ConfirmDeleteButton onConfirm={() => handleDeleteTodo(todo)} />
 			</div>
 
 			{/* Here be button-link back to all todos */}
