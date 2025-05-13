@@ -29,6 +29,26 @@
       "title": "Do stuff",
       "completed": true,
       "id": 7
+    },
+    {
+      "title": "new todo? does it work?",
+      "completed": false,
+      "id": 8
+    },
+    {
+      "title": "testing todos",
+      "completed": false,
+      "id": 9
+    },
+    {
+      "title": "YES CREATE",
+      "completed": false,
+      "id": 10
+    },
+    {
+      "title": "created a new todo abt to expooooode",
+      "completed": false,
+      "id": 11
     }
   ]
 }

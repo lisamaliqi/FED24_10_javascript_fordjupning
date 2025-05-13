@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import AddTodoForm from "../components/AddTodoForm";
 import TodoCounter from "../components/TodoCounter";
 import * as TodosAPI from "../services/TodosAPI";
-import { NewTodo, Todo } from "../types/Todo";
+import { Todo } from "../types/Todo";
 import  Alert  from "react-bootstrap/Alert";
 import  Spinner  from "react-bootstrap/Spinner";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -33,14 +32,14 @@ function TodosPage() {
 	};
 
 
-	const handleAddTodo = async (title: string) => {
+	/* const handleAddTodo = async (title: string) => {
 		const todo: NewTodo = {
 			title,
 			completed: false,
 		}
 		await TodosAPI.postTodo(todo);
 		getTodos();
-	};
+	}; */
 
 
 /*
@@ -72,8 +71,6 @@ function TodosPage() {
 	return (
 		<>
 			<h1>Todos</h1>
-
-			<AddTodoForm onAddTodo={handleAddTodo} />
 
 			{error && (
 				<Alert variant="danger">

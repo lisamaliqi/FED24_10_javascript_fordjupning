@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
 import { Link, useParams } from "react-router";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from '../services/TodosAPI';
