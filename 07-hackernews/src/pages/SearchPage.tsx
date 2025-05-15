@@ -4,26 +4,56 @@ import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
+import { HN_SearchResponse } from "../services/HackerNewsAPI.Types";
+import { searchByDate } from "../services/HackerNewsAPI";
 
 const SearchPage = () => {
 	const [error, setError] = useState<string | false>(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [inputSearch, setInputSearch] = useState("");
-	const [searchResult, setSearchResult] = useState(null);  // fix me
+	const [searchResult, setSearchResult] = useState<HN_SearchResponse | null>(null);
+
+
+	const searchHackerNews = async (searchQuery: string) => {
+		// reset state + set loading to true
+		setError(false);
+		setIsLoading(true);
+		setSearchResult(null);
+
+
+		try {
+			const data = await searchByDate(searchQuery);
+
+			//update state with search result
+			setSearchResult(data);
+		} catch (err) {
+			//handle any errors
+			console.error(`Error thrown when searching for "${searchQuery}":`, err);
+			setError(err instanceof Error
+				? err.message
+				: "Aouch, stop throwing things that are not Errors at me"
+			);
+		};
+
+		//set loading to false
+		setIsLoading(false);
+	};
 
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
+		const trimmedInputSearch = inputSearch.trim();
+
 		// prevent smol searches
-		if (inputSearch.trim().length < 2) {
+		if (trimmedInputSearch.length < 2) {
 			alert("Too short search query!");
 			return;
 		};
 
 		// search for haxx0rs 🕵🏻‍♂️
 		console.log('WOuld search for ' + inputSearch + ' in HN API');
-
+		searchHackerNews(trimmedInputSearch);
 	};
 
 
@@ -62,15 +92,15 @@ const SearchPage = () => {
 			{/* {false && <p>🤔 Loading...</p>} */}
 			{isLoading && <p>🤔 Loading...</p>}
 
-			{true && (
+			{searchResult && (
 				<div id="search-result">
-					<p>Showing HITS search results for QUERY...</p>
+					<p>Showing {searchResult.nbHits} search results for "{inputSearch}"...</p>
 
 					<ListGroup className="mb-3">
-						{[{}].map((hit) => (
-							<ListGroup.Item action href={"/"} key={""}>
-								<h2 className="h3">TITLE</h2>
-								<p className="text-muted small mb-0">POINTS points by AUTHOR at CREATED_AT</p>
+						{searchResult.hits.map((hit) => (
+							<ListGroup.Item action href={hit.url} key={hit.objectID}>
+								<h2 className="h4">{hit.title}</h2>
+								<p className="text-muted small mb-0">{hit.points} points by {hit.author} at {hit.created_at}</p>
 							</ListGroup.Item>
 						))}
 					</ListGroup>
