@@ -17,8 +17,23 @@
     },
     {
       "title": "Coffee killing me",
-      "completed": false,
+      "completed": true,
       "id": 7
+    },
+    {
+      "title": "allan ballan",
+      "completed": false,
+      "id": 8
+    },
+    {
+      "title": "hello world!",
+      "completed": false,
+      "id": 9
+    },
+    {
+      "title": "creating...",
+      "completed": false,
+      "id": 10
     }
   ]
 }
