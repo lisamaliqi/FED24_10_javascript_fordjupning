@@ -9,6 +9,18 @@ import { HN_SearchResponse } from "./HackerNewsAPI.Types";
 
 const BASE_URL = "https://hn.algolia.com/api/v1";
 
+const instance = axios.create({
+	baseURL: "https://hn.algolia.com/api/v1",
+	timeout: 10000,
+	headers: {
+		"Accept": "application/json",
+		"Content-Type": "application/json",
+	},
+});
+
+
+
+
 /**
  * Search Hacker News Stories (relevance)
  *
@@ -17,7 +29,7 @@ const BASE_URL = "https://hn.algolia.com/api/v1";
  */
 export const search = async (query: string, page = 0) => {
 	// https://hn.algolia.com/api/v1/search?query=tesla&tags=story&page=0
-	const res = await axios.get<HN_SearchResponse>(BASE_URL + `/search?query=${query}&tags=story&page=${page}`);
+	const res = await instance.get<HN_SearchResponse>(BASE_URL + `/search?query=${query}&tags=story&page=${page}`);
 	return res.data;
 };
 
@@ -31,7 +43,7 @@ export const search = async (query: string, page = 0) => {
  */
 export const searchByDate = async (query: string, page = 0) => {
 	// https://hn.algolia.com/api/v1/search?query=tesla&tags=story&page=0
-	const res = await axios.get<HN_SearchResponse>(BASE_URL + `/search_by_date?query=${query}&tags=story&page=${page}`);
+	const res = await instance.get<HN_SearchResponse>(BASE_URL + `/search_by_date?query=${query}&tags=story&page=${page}`);
 	return res.data;
 };
 
