@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from '../services/TodosAPI';
-import ConfirmDeleteButton from "../components/ConfirmDeleteButton";
 import ErrorAlert from "../components/Alerts/ErrorAlerts";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
