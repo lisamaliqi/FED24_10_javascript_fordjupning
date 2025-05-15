@@ -14,6 +14,8 @@ const SearchPage = () => {
 	const [searchResult, setSearchResult] = useState<HN_SearchResponse | null>(null);
 
 	const queryRef = useRef('');
+	const inputSearchQueryRef = useRef<HTMLInputElement | null>(null);
+
 
 
 	const searchHackerNews = async (searchQuery: string) => {
@@ -62,6 +64,11 @@ const SearchPage = () => {
 	};
 
 
+	//autofocus on input field
+	useEffect(() => {
+		inputSearchQueryRef.current?.focus();
+	}, []);//start once when the page loads
+
 
 
 	return (
@@ -77,6 +84,7 @@ const SearchPage = () => {
 						type="text"
 						placeholder="Enter your search query"
 						required
+						ref={inputSearchQueryRef}
 					/>
 				</Form.Group>
 
