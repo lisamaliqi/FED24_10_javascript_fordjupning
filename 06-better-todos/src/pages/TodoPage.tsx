@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { Todo } from "../types/Todo";
 import * as TodosAPI from '../services/TodosAPI';
 import ConfirmDeleteButton from "../components/ConfirmDeleteButton";
 import ErrorAlert from "../components/Alerts/ErrorAlerts";
 import ConfirmationModal from "../components/ConfirmationModal";
+import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
 
 const TodoPage = () => {
 	const [ error, setError] = useState<string | false>(false);
@@ -16,6 +17,7 @@ const TodoPage = () => {
 	const { id } = useParams();
 	const todoId = Number(id);
 	const navigate = useNavigate();
+	const location = useLocation();
 
 
 
@@ -92,6 +94,12 @@ const TodoPage = () => {
 	return (
 		<>
 			<h1>{todo.title} with id: {todo.id}</h1>
+
+			{location.state && location.state.status && (
+				<AutoDismissingAlert hideAfter={3000} variant={location.state.status.type}>
+					{location.state.status.message}
+				</AutoDismissingAlert>
+			)}
 
 			<p><strong>Status:</strong>{' '}
 				{todo.completed
