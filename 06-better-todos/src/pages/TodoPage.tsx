@@ -100,11 +100,17 @@ const TodoPage = () => {
 				</p>
 
 			<div className="buttons mb-3">
+
 				{/* Toggle */}
 				<Button
 					onClick={() => handleToggleTodo(todo)}
 					variant="success">
 				Toggle </Button>
+
+				{/* Edit */}
+				<Link to={`/todos/${todoId}/edit`} className="btn btn-warning" role="button">
+					Edit
+				</Link>
 
 				{/* Delete */}
 				{/* <Button
@@ -112,7 +118,6 @@ const TodoPage = () => {
 					variant="danger">
 				Delete </Button> */}
 				{/* <ConfirmDeleteButton onConfirm={() => handleDeleteTodo(todo)} /> */}
-
 
 				<Button
 					onClick={() => setShowDeleteModal(true)}
