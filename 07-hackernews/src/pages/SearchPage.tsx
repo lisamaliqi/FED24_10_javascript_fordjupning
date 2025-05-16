@@ -12,6 +12,7 @@ const SearchPage = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [inputSearch, setInputSearch] = useState("");
 	const [searchResult, setSearchResult] = useState<HN_SearchResponse | null>(null);
+	const [page, setPage] = useState(0);
 
 	const queryRef = useRef('');
 	const inputSearchQueryRef = useRef<HTMLInputElement | null>(null);
@@ -19,6 +20,8 @@ const SearchPage = () => {
 
 
 	const searchHackerNews = async (searchQuery: string, searchPage: number) => {
+		console.log(`Searching for "${searchQuery}" and page ${searchPage}`);
+
 		// reset state + set loading to true
 		setError(false);
 		setIsLoading(true);
@@ -60,8 +63,19 @@ const SearchPage = () => {
 
 		// search for haxx0rs 🕵🏻‍♂️
 		console.log('WOuld search for ' + inputSearch + ' in HN API');
+		setPage(0);
 		searchHackerNews(trimmedInputSearch, 0);
 	};
+
+
+	//pagnation with useState
+	useEffect(() => {
+		if (!queryRef.current) {
+			return;
+		};
+
+		searchHackerNews(queryRef.current, page);
+	}, [page]);
 
 
 	//autofocus on input field
@@ -126,10 +140,8 @@ const SearchPage = () => {
 					<div className="d-flex justify-content-between align-items-center">
 						<div className="prev">
 							<Button
-								disabled={searchResult.page <= 0}
-								onClick={() =>
-									searchHackerNews(queryRef.current, searchResult.page - 1)
-								}
+								disabled={page <= 0}
+								onClick={() => setPage(prevValue => prevValue - 1)}
 								variant="primary"
 							>
 								Previous Page
@@ -140,10 +152,8 @@ const SearchPage = () => {
 
 						<div className="next">
 							<Button
-								disabled={searchResult.page + 1 >= searchResult.nbPages}
-								onClick={() =>
-									searchHackerNews(queryRef.current, searchResult.page + 1)
-								}
+								disabled={page + 1 >= searchResult.nbPages}
+								onClick={() => setPage(prevValue => prevValue + 1)}
 								variant="primary"
 							>
 								Next Page
