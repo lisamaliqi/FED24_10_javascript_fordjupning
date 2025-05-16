@@ -148,7 +148,7 @@ const SearchPage = () => {
 							</Button>
 						</div>
 
-						<div className="page">{searchResult.page + 1}</div>
+						<div className="page">{searchResult.page + 1} / {searchResult.nbPages}</div>
 
 						<div className="next">
 							<Button
