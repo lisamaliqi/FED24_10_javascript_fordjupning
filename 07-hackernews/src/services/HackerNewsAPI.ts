@@ -5,7 +5,8 @@
  */
 
 import axios from "axios";
-import { HN_SearchResponse } from "./HackerNewsAPI.Types";
+import { HN_SearchResponse } from "./HackerNewsAPI.types";
+
 
 const BASE_URL = "https://hn.algolia.com/api/v1";
 

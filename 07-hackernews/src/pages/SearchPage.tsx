@@ -4,7 +4,7 @@ import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
-import { HN_SearchResponse } from "../services/HackerNewsAPI.Types";
+import { HN_SearchResponse } from "../services/HackerNewsAPI.types";
 import { searchByDate } from "../services/HackerNewsAPI";
 
 const SearchPage = () => {
@@ -66,7 +66,11 @@ const SearchPage = () => {
 
 	//autofocus on input field
 	useEffect(() => {
-		inputSearchQueryRef.current?.focus();
+		if (!inputSearchQueryRef.current) {
+			return;
+		};
+
+		inputSearchQueryRef.current.focus();
 	}, []);//start once when the page loads
 
 
