@@ -7,6 +7,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { HN_SearchResponse } from "../services/HackerNewsAPI.types";
 import { searchByDate } from "../services/HackerNewsAPI";
 import Pagination from "../components/Pagination";
+import { useSearchParams } from "react-router";
 
 const SearchPage = () => {
 	const [error, setError] = useState<string | false>(false);
@@ -15,7 +16,18 @@ const SearchPage = () => {
 	const [searchResult, setSearchResult] = useState<HN_SearchResponse | null>(null);
 	const [page, setPage] = useState(0);
 
-	const queryRef = useRef('');
+	// const queryRef = useRef('');
+	//this instead of queryRef
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	//get "query=" from URL
+	const searchParamsQuery = searchParams.get('query'); //search?query=tesla --> searchParamsQuery = tesla
+
+	console.log('SearchParams: ', searchParams);
+	console.log('searchParamsQuery: ', searchParamsQuery);
+
+
+
 	const inputSearchQueryRef = useRef<HTMLInputElement | null>(null);
 
 
@@ -29,7 +41,8 @@ const SearchPage = () => {
 		setSearchResult(null);
 
 		//save searchQuery to queryRef
-		queryRef.current = searchQuery;
+		// queryRef.current = searchQuery;
+
 
 
 		try {
@@ -65,18 +78,23 @@ const SearchPage = () => {
 		// search for haxx0rs 🕵🏻‍♂️
 		console.log('WOuld search for ' + inputSearch + ' in HN API');
 		setPage(0);
-		searchHackerNews(trimmedInputSearch, 0);
+		// searchHackerNews(trimmedInputSearch, 0);
+
+		//save searchQuery to IRLSearchParams
+		setSearchParams({ query: trimmedInputSearch })
 	};
 
 
 	//pagnation with useState
 	useEffect(() => {
-		if (!queryRef.current) {
+		if (!searchParamsQuery) {
+			setSearchResult(null);
 			return;
 		};
 
-		searchHackerNews(queryRef.current, page);
-	}, [page]);
+		searchHackerNews(searchParamsQuery, page);
+
+	}, [searchParamsQuery, page]);
 
 
 	//autofocus on input field
@@ -126,7 +144,7 @@ const SearchPage = () => {
 
 			{searchResult && (
 				<div id="search-result">
-					<p>Showing {searchResult.nbHits} search results for "{queryRef.current}"...</p>
+					<p>Showing {searchResult.nbHits} search results for "{searchParamsQuery}"...</p>
 
 					<ListGroup className="mb-3">
 						{searchResult.hits.map((hit) => (
