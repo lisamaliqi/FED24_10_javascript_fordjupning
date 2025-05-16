@@ -18,7 +18,7 @@ const SearchPage = () => {
 
 
 
-	const searchHackerNews = async (searchQuery: string) => {
+	const searchHackerNews = async (searchQuery: string, searchPage: number) => {
 		// reset state + set loading to true
 		setError(false);
 		setIsLoading(true);
@@ -29,7 +29,7 @@ const SearchPage = () => {
 
 
 		try {
-			const data = await searchByDate(searchQuery);
+			const data = await searchByDate(searchQuery, searchPage);
 
 			//update state with search result
 			setSearchResult(data);
@@ -60,7 +60,7 @@ const SearchPage = () => {
 
 		// search for haxx0rs 🕵🏻‍♂️
 		console.log('WOuld search for ' + inputSearch + ' in HN API');
-		searchHackerNews(trimmedInputSearch);
+		searchHackerNews(trimmedInputSearch, 0);
 	};
 
 
@@ -125,13 +125,29 @@ const SearchPage = () => {
 					{/* Change page to not load in all search result in the first page (save storage) */}
 					<div className="d-flex justify-content-between align-items-center">
 						<div className="prev">
-							<Button variant="primary">Previous Page</Button>
+							<Button
+								disabled={searchResult.page <= 0}
+								onClick={() =>
+									searchHackerNews(queryRef.current, searchResult.page - 1)
+								}
+								variant="primary"
+							>
+								Previous Page
+							</Button>
 						</div>
 
-						<div className="page">PAGE</div>
+						<div className="page">{searchResult.page + 1}</div>
 
 						<div className="next">
-							<Button variant="primary">Next Page</Button>
+							<Button
+								disabled={searchResult.page + 1 >= searchResult.nbPages}
+								onClick={() =>
+									searchHackerNews(queryRef.current, searchResult.page + 1)
+								}
+								variant="primary"
+							>
+								Next Page
+							</Button>
 						</div>
 					</div>
 				</div>
