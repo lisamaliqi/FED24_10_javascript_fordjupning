@@ -6,13 +6,19 @@ import NotFoundPage from "./pages/NotFoundPage";
 import SearchPage from "./pages/SearchPage";
 import "./assets/scss/App.scss";
 import useTheme from "./hooks/useTheme";
+import clsx from "clsx";
 
 function App() {
 
 	const { isDarkMode } = useTheme()
 
+	const appCssClasses = clsx({
+		"bg-white": !isDarkMode,
+		"text-dark": !isDarkMode,
+	});
+
 	return (
-		<div id="App" className={!isDarkMode ? 'bg-white text-dark' : ''}>
+		<div id="App" className={appCssClasses}>
 			<Navigation />
 
 			<Container className="py-3">
