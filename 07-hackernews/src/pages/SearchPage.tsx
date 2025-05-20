@@ -92,6 +92,9 @@ const SearchPage = () => {
 			return;
 		};
 
+		//make input field similar to search param
+		setInputSearch(searchParamsQuery);
+
 		searchHackerNews(searchParamsQuery, page);
 
 	}, [searchParamsQuery, page]);
