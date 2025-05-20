@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-import { RandomDogImage } from "../types/DogAPI.types";
 import Image from "react-bootstrap/Image";
-import axios from 'axios';
 import useGetRandomDogImage from "../hooks/useGetRandomDogImage";
 
 
