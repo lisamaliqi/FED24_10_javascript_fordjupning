@@ -1,15 +1,5 @@
-import { createContext, useState } from "react";
-
-
-interface ThemeContextType {
-	// theme: 'dark' | 'light',
-	isDarkMode: boolean,
-	toggleTheme: () => void,
-};
-
-
-//this creates the actual context and sets the contexts default/initial value to dark mode
-export const ThemeContext = createContext<ThemeContextType | null>(null);
+import { useState } from "react";
+import { ThemeContext } from "./ThemeContext";
 
 
 //context provider
