@@ -19,7 +19,7 @@ const HomePage = () => {
 		<>
 			<h1>Welcome to Hacker News 🕵🏻‍♂️🤓👀!</h1>
 
-			<p>Your theme is: {themeContext.isDarkMode ? 'dark 🌚' : 'light 🌞'}</p>
+			<p>Your theme is: {isDarkMode ? 'dark 🌚' : 'light 🌞'}</p>
 
 			<Button className='btn-warning' onClick={toggleTheme}>
 				Switch theme
