@@ -7,6 +7,7 @@ import SearchPage from "./pages/SearchPage";
 import "./assets/scss/App.scss";
 import useTheme from "./hooks/useTheme";
 import clsx from "clsx";
+import RandomDogPage from "./pages/RandomDogPage";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
 			<Container className="py-3">
 				<Routes>
 					<Route path="/" element={<HomePage />} />
+					<Route path="/random-dog" element={<RandomDogPage />} />
 					<Route path="/search" element={<SearchPage />} />
 
 					<Route path="*" element={<NotFoundPage />} />
