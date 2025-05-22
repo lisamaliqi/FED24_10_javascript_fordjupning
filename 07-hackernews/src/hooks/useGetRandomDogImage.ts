@@ -6,7 +6,9 @@ import axios from 'axios';
 const useGetRandomDogImage = (url: string | null = null) => {
 	const [ data, setData ] = useState<RandomDogImage | null>(null); //null bc we haven't fetched a dog yet
 	const [ isLoading, setIsLoading ] = useState(false);
-	const [ error, setError ] = useState<string | false>(false);
+	const [ error, setError ] = useState<string | null>(null); //error message
+	// const [ isError, setIsError ] = useState(false); //if error exist
+	// const isError = error != null;
 
 
 
@@ -14,8 +16,9 @@ const useGetRandomDogImage = (url: string | null = null) => {
 	const getData = async (resource: string) => {
 		//reset state
 		setData(null);
-		setError(false);
+		setError(null);
 		setIsLoading(true);
+		// setIsError(false);
 
 
 		//get the data from API
@@ -29,6 +32,7 @@ const useGetRandomDogImage = (url: string | null = null) => {
 		} catch (err) {
 			console.error('useGetRandomImage threw an errro: ', err);
 			setError(err instanceof Error ? err.message : 'Something went wrong');
+			// setIsError(true);
 		};
 
 		//update state with data
@@ -71,6 +75,7 @@ const useGetRandomDogImage = (url: string | null = null) => {
 		isLoading: isLoading,
 		refetch: refetch,
 		error: error,
+		isError: error !== null, //isError = if error actually exist (only exist if error state is = null)
 	};
 };
 

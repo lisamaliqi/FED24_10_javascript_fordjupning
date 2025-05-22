@@ -9,7 +9,7 @@ import { useState } from "react";
 const RandomDogPage = () => {
 	const [ url, setUrl] = useState<string | null>('https://dog.ceo/api/breeds/image/random');
 	//destructing
-	const { data, isLoading, refetch, error } = useGetRandomDogImage(url);
+	const { data, isLoading, refetch, error, isError } = useGetRandomDogImage(url);
 
 	return (
 		<>
@@ -41,7 +41,12 @@ const RandomDogPage = () => {
 				>Break stuff 💣</Button>
 			</div>
 
-			{error && <Alert variant="warning">{error}</Alert>}
+			{isError && (
+				<Alert variant="warning">
+					<Alert.Heading>Error</Alert.Heading>
+					{error}
+				</Alert>
+			)}
 
 			{isLoading && <p>fetching doggo...</p>}
 
