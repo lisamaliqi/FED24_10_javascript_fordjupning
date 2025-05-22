@@ -8,7 +8,7 @@ import axios from "axios";
 import { HN_SearchResponse } from "./HackerNewsAPI.types";
 
 
-const BASE_URL = "https://hn.algolia.com/api/v1";
+// const BASE_URL = "https://hn.algolia.com/api/v1";
 
 const instance = axios.create({
 	baseURL: "https://hn.algolia.com/api/v1",

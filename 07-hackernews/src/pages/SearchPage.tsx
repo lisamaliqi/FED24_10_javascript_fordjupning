@@ -1,4 +1,3 @@
-/* eslint-disable no-constant-binary-expression */
 import { useEffect, useRef, useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
