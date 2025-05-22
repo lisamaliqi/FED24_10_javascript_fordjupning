@@ -24,6 +24,14 @@ const useGetRandomDogImage = (url: string | null = null) => {
 		setIsLoading(false);
 	};
 
+	const refetch = () => {
+		if (!url) {
+			return;
+		};
+
+		getData(url);
+	};
+
 
 	useEffect(() => {
 		if (!url) {
@@ -37,6 +45,7 @@ const useGetRandomDogImage = (url: string | null = null) => {
 	return {
 		data: data,
 		isLoading: isLoading,
+		refetch: refetch,
 	};
 };
 

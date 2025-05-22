@@ -8,7 +8,7 @@ import { useState } from "react";
 const RandomDogPage = () => {
 	const [ url, setUrl] = useState<string | null>('https://dog.ceo/api/breeds/image/random');
 	//destructing
-	const { data, isLoading } = useGetRandomDogImage(url);
+	const { data, isLoading, refetch } = useGetRandomDogImage(url);
 
 	return (
 		<>
@@ -18,9 +18,20 @@ const RandomDogPage = () => {
 				<Button
 					onClick={() => setUrl('https://dog.ceo/api/breeds/image/random')}
 				>Random Doggo</Button>
+
+				<Button className="ms-1"
+					onClick={() => setUrl('https://dog.ceo/api/breed/labrador/images/random')}
+				>Random labrador doggo</Button>
+
+				<Button className="ms-1"
+					onClick={() => refetch()}
+				>More doggos!!!</Button>
+
 				<Button
-					onClick={() => setUrl('https://dog.ceo/api/breed/mix/images/random')}
-				>Random Mix doggo</Button>
+					className="ms-1"
+					variant="warning"
+					onClick={() => {}}
+				>Make things go 💣</Button>
 			</div>
 
 			{isLoading && <p>fetching doggo...</p>}
