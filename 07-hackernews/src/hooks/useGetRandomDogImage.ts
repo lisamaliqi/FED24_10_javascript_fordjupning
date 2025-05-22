@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { RandomDogImage } from '../types/DogAPI.types';
 import axios from 'axios';
 
@@ -24,22 +24,35 @@ const useGetRandomDogImage = (url: string | null = null) => {
 		setIsLoading(false);
 	};
 
-	const refetch = () => {
+	/* const refetch = () => {
 		if (!url) {
 			return;
 		};
 
 		getData(url);
-	};
+	}; */
 
+	//useCallback hook version of the function over
+	const refetch = useCallback(() => {
+		if (!url) {
+			return;
+		};
+
+		getData(url);
+	}, [url]); //if url does not change it will keep the same function, but if the url changes THEN the function runs again
+
+
+	/* useEffect(() => {
+		if (!url) {
+			return;
+		};
+
+		getData(url);
+	}, [url]); */
 
 	useEffect(() => {
-		if (!url) {
-			return;
-		};
-
-		getData(url);
-	}, [url]);
+		refetch();
+	}, [refetch]);
 
 
 	return {
