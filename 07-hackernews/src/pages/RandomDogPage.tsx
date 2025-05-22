@@ -1,5 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
+import Alert from "react-bootstrap/Alert";
 import useGetRandomDogImage from "../hooks/useGetRandomDogImage";
 import { useState } from "react";
 
@@ -8,7 +9,7 @@ import { useState } from "react";
 const RandomDogPage = () => {
 	const [ url, setUrl] = useState<string | null>('https://dog.ceo/api/breeds/image/random');
 	//destructing
-	const { data, isLoading, refetch } = useGetRandomDogImage(url);
+	const { data, isLoading, refetch, error } = useGetRandomDogImage(url);
 
 	return (
 		<>
@@ -30,9 +31,17 @@ const RandomDogPage = () => {
 				<Button
 					className="ms-1"
 					variant="warning"
-					onClick={() => {}}
+					onClick={() => setUrl("https://dog.ceo/api/breed/lolcat/images/random")}
 				>Make things go 💣</Button>
+
+				<Button
+					className="ms-1"
+					variant="warning"
+					onClick={() => setUrl("https://oprmtvpnpycdurgmobvmcrd.com")}
+				>Break stuff 💣</Button>
 			</div>
+
+			{error && <Alert variant="warning">{error}</Alert>}
 
 			{isLoading && <p>fetching doggo...</p>}
 
