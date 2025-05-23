@@ -7,9 +7,10 @@ import { useState } from "react";
 
 
 const RandomDogPage = () => {
-	const [ url, setUrl] = useState<string | null>('https://dog.ceo/api/breeds/image/random');
+	//new state that lets the user send in just name of the breed
+	const [breed, setBreed] = useState<string | undefined>(undefined);
 	//destructing
-	const { data, isLoading, refetch, error, isError } = useGetRandomDogImage(url);
+	const { data, error, isError, isLoading, refetch } = useGetRandomDogImage(breed);
 
 	return (
 		<>
@@ -17,12 +18,16 @@ const RandomDogPage = () => {
 
 			<div className="mb-3">
 				<Button
-					onClick={() => setUrl('https://dog.ceo/api/breeds/image/random')}
+					onClick={() => setBreed(undefined)}
 				>Random Doggo</Button>
 
 				<Button className="ms-1"
-					onClick={() => setUrl('https://dog.ceo/api/breed/labrador/images/random')}
+					onClick={() => setBreed('labrador')}
 				>Random labrador doggo</Button>
+
+				<Button className="ms-1"
+					onClick={() => setBreed('corgi')}
+				>Random corgi doggo</Button>
 
 				<Button className="ms-1"
 					onClick={() => refetch()}
@@ -31,14 +36,8 @@ const RandomDogPage = () => {
 				<Button
 					className="ms-1"
 					variant="warning"
-					onClick={() => setUrl("https://dog.ceo/api/breed/lolcat/images/random")}
-				>Make things go 💣</Button>
-
-				<Button
-					className="ms-1"
-					variant="warning"
-					onClick={() => setUrl("https://oprmtvpnpycdurgmobvmcrd.com")}
-				>Break stuff 💣</Button>
+					onClick={() => setBreed('lolcats')}
+				>Lolcats (break) 💣</Button>
 			</div>
 
 			{isError && (
