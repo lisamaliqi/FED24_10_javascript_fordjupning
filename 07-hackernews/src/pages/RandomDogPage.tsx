@@ -2,15 +2,16 @@ import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import Alert from "react-bootstrap/Alert";
 import useGetRandomDogImage from "../hooks/useGetRandomDogImage";
-import { useState } from "react";
 
 
 
 const RandomDogPage = () => {
 	//new state that lets the user send in just name of the breed
-	const [breed, setBreed] = useState<string | undefined>(undefined);
+	// const [breed, setBreed] = useState<string | undefined>(undefined);
+	// const { data, error, isError, isLoading, refetch } = useGetRandomDogImage(breed);
+
 	//destructing
-	const { data, error, isError, isLoading, refetch } = useGetRandomDogImage(breed);
+	const { data, error, getImage, isError, isLoading, refetch } = useGetRandomDogImage();
 
 	return (
 		<>
@@ -18,15 +19,15 @@ const RandomDogPage = () => {
 
 			<div className="mb-3">
 				<Button
-					onClick={() => setBreed(undefined)}
+					onClick={() => getImage(undefined)}
 				>Random Doggo</Button>
 
 				<Button className="ms-1"
-					onClick={() => setBreed('labrador')}
+					onClick={() => getImage('labrador')}
 				>Random labrador doggo</Button>
 
 				<Button className="ms-1"
-					onClick={() => setBreed('corgi')}
+					onClick={() => getImage('corgi')}
 				>Random corgi doggo</Button>
 
 				<Button className="ms-1"
@@ -36,7 +37,7 @@ const RandomDogPage = () => {
 				<Button
 					className="ms-1"
 					variant="warning"
-					onClick={() => setBreed('lolcats')}
+					onClick={() => getImage('lolcats')}
 				>Lolcats (break) 💣</Button>
 			</div>
 
