@@ -1,7 +1,12 @@
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import BorderSpinner from "../components/spinners/BorderSpinner";
+import useChuckNorrisFact from "../hooks/useChuckNorrisFact";
 
 const ChuckNorrisPage = () => {
+
+	const { data, error, isError, isLoading, refetch } = useChuckNorrisFact();
+
 
 	return (
 		<>
@@ -9,18 +14,18 @@ const ChuckNorrisPage = () => {
 
 			<div className="d-flex justify-content-center mb-3">
 				<Button
-					disabled={false}
-					onClick={() => {}}
+					disabled={isLoading}
+					onClick={refetch}
 				>
-					MOAR!!
+					{isLoading && <BorderSpinner />} MOAR!!
 				</Button>
 			</div>
 
-			{false && <Alert variant="warning">{error}</Alert>}
+			{isError && <Alert variant="warning">{error}</Alert>}
 
 			<div>
-				{false && (
-					<p className="display-1 text-center">
+				{data && (
+					<p className="h2 text-center">
 						{data.value}
 					</p>
 				)}
