@@ -6,7 +6,7 @@
 import axios from "axios";
 import type { DadJokeResponse } from "./DadJokeAPI.types";
 
-const FAKE_DELAY = 2500;
+const FAKE_DELAY = 7500;
 
 // Create a new axios instance
 const instance = axios.create({
