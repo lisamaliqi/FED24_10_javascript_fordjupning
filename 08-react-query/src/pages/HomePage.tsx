@@ -1,4 +1,4 @@
-import { getRandomDadJoke } from "../services/ICanHazDadJokeAPI";
+import { getRandomDadJoke } from "../services/DadJokeAPI";
 import { useQuery } from "@tanstack/react-query";
 
 const HomePage = () => {

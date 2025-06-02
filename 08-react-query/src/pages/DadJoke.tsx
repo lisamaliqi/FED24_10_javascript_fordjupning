@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getRandomDadJoke } from "../services/ICanHazDadJokeAPI";
+import { getRandomDadJoke } from "../services/DadJokeAPI";
 
 const ICanHazDadJokePage = () => {
 

@@ -4,7 +4,7 @@
  * <https://icanhazdadjoke.com/api>
  */
 import axios from "axios";
-import type { DadJokeResponse } from "./ICanHazDadJokeAPI.types";
+import type { DadJokeResponse } from "./DadJokeAPI.types";
 
 const FAKE_DELAY = 2500;
 
