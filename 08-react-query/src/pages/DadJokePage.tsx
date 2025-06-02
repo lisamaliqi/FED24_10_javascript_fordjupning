@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRandomDadJoke } from "../services/DadJokeAPI";
+import LoadingSpinner from "../components/spinners/LoadingSpinner";
+import { Alert } from "react-bootstrap";
 
 const ICanHazDadJokePage = () => {
 
 	//don't really know what this does
 	const {
 		data,
+		error,
 		isError,
 		isFetching,
 		isLoading,
@@ -34,9 +37,15 @@ const ICanHazDadJokePage = () => {
 				status: {String(status)}
 			</pre>
 
-			<div>
-				<p className="display-5 text-center my-5">{data && data.joke}</p>
-			</div>
+			{isFetching && <LoadingSpinner />}
+
+			{isError && <Alert variant="warning">Error: {error.message}</Alert>}
+
+			{data && (
+				<div>
+					<p className="display-5 text-center my-5">{data.joke}</p>
+				</div>
+			)}
 		</>
 	);
 };
