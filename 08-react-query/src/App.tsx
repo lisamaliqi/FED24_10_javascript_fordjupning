@@ -4,6 +4,7 @@ import Navigation from "./components/Navigation";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import "./assets/scss/App.scss";
+import ICanHazDadJokePage from "./pages/ICanHazDadJokePage";
 
 function App() {
 	return (
@@ -13,6 +14,9 @@ function App() {
 			<Container className="py-3">
 				<Routes>
 					<Route path="/" element={<HomePage />} />
+
+					<Route path="/dad-joke" element={<ICanHazDadJokePage />} />
+
 					<Route path="*" element={<NotFoundPage />} />
 				</Routes>
 			</Container>
