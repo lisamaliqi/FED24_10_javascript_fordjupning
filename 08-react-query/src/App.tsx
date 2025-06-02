@@ -1,5 +1,6 @@
 import { Container } from "react-bootstrap";
 import { Route, Routes } from "react-router";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Navigation from "./components/Navigation";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -20,6 +21,8 @@ function App() {
 					<Route path="*" element={<NotFoundPage />} />
 				</Routes>
 			</Container>
+
+			<ReactQueryDevtools />
 		</div>
 	);
 }
