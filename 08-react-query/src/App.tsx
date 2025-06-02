@@ -4,7 +4,7 @@ import Navigation from "./components/Navigation";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import "./assets/scss/App.scss";
-import ICanHazDadJokePage from "./pages/DadJoke";
+import ICanHazDadJokePage from "./pages/DadJokePage";
 
 function App() {
 	return (
