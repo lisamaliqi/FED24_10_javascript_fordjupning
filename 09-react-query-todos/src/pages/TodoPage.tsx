@@ -5,7 +5,7 @@ import * as TodosAPI from '../services/TodosAPI';
 import ErrorAlert from "../components/Alerts/ErrorAlerts";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const TodoPage = () => {
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
@@ -14,6 +14,7 @@ const TodoPage = () => {
 	const todoId = Number(id);
 	const navigate = useNavigate();
 	const location = useLocation();
+	const queryClient = useQueryClient();
 
 
 
@@ -24,6 +25,13 @@ const TodoPage = () => {
 
 	const updateTodoCompletedMutation = useMutation({
 		mutationFn: (completed: boolean) => TodosAPI.updateTodo(todoId, { completed }),
+		onSuccess: () => {
+			// invalidate the query for this specific todo
+			queryClient.invalidateQueries({ queryKey: ["todo", { id: todoId }] });
+
+			// invalidate any `["todos"]` queries that exist in the cache
+			queryClient.invalidateQueries({ queryKey: ["todos"] });
+		},
 	});
 
 
