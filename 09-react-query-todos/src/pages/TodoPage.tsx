@@ -17,7 +17,7 @@ const TodoPage = () => {
 
 
 
-	const { data: todo, error, isError, isLoading, refetch } = useQuery({
+	const { data: todo, error, isError, isLoading } = useQuery({
 		queryKey: ["todo", { id: todoId }],
 		queryFn: () => TodosAPI.getTodo(todoId),
 	});
