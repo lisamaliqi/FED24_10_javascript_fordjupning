@@ -82,7 +82,7 @@ const EditTodoPage = () => {
 	};
 
 	if (isLoading || !todo) {
-		return <p>Loading...</p>
+		return <p>Loading todo...</p>
 	};
 
 

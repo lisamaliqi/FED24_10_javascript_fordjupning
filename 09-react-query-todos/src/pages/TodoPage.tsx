@@ -57,12 +57,12 @@ const TodoPage = () => {
 
 
 	if (isLoading) {
-		return <p>Loading...</p>
+		return <p>Loading todo...</p>
 	};
 
 
 	if (!todo) {
-		return <p>Loading...</p>
+		return <p>Loading todo...</p>
 	};
 
 

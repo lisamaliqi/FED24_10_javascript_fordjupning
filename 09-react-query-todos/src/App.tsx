@@ -9,12 +9,14 @@ import NotFoundPage from "./pages/NotFoundPage";
 import TodoPage from "./pages/TodoPage";
 import CreateTodoPage from "./pages/CreateTodoPage";
 import EditTodoPage from "./pages/EditTodoPage";
+import GlobalLoadingSpinner from "./components/Spinners/GlobalLoadingSpinner";
 
 
 function App() {
 	return (
 		<div id="app">
 			<Navigation />
+			<GlobalLoadingSpinner />
 
 			<Container className="container py-2">
 				<Routes>

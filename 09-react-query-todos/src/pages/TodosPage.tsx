@@ -2,7 +2,6 @@ import TodoCounter from "../components/TodoCounter";
 import * as TodosAPI from "../services/TodosAPI";
 import { useQuery } from "@tanstack/react-query";
 import  Alert  from "react-bootstrap/Alert";
-import  Spinner  from "react-bootstrap/Spinner";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link, useLocation } from "react-router";
 import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
@@ -38,9 +37,7 @@ function TodosPage() {
 			</AutoDismissingAlert>
 
 			{isLoading && (
-				<Spinner animation="border" role="status">
-					<span className="visually-hidden">Loading...</span>
-				</Spinner>
+				<p>Loading todos...</p>
 			)}
 
 			{todos && todos.length > 0 && (
