@@ -4,27 +4,101 @@
 import axios from "axios";
 import { NewTodo, Todo } from "../types/Todo";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = import.meta.env.VITE_API_BASEURL || "http://localhost:3000";
+const FAKE_DELAY = 1500;
+
+// Create a new axios instance
+const instance = axios.create({
+	baseURL: BASE_URL,
+	timeout: 10000,
+	headers: {
+		"Accept": "application/json",
+		"Content-Type": "application/json",
+	},
+});
+
+/**
+ * Execute a HTTP GET request to an endpoint
+ *
+ * @param endpoint Endpoint to HTTP GET
+ * @returns {Promise<T>}
+ */
+
+const get = async <T>(endpoint: string) => {
+	const res = await instance.get<T>(endpoint);
+
+	if (FAKE_DELAY) {
+		await new Promise(r => setTimeout(r, FAKE_DELAY));
+	}
+
+	return res.data;
+};
+
+
+
+/**
+ * Execute a HTTP POST request to an endpoint
+ *
+ * @param endpoint Endpoint to HTTP POST
+ * @returns {Promise<T>}
+ */
+
+const post = async <TResponse, TPayload>(endpoint: string, payload: TPayload) => {
+	const res = await instance.post<TResponse>(endpoint, payload);
+
+	if (FAKE_DELAY) {
+		await new Promise(r => setTimeout(r, FAKE_DELAY));
+	}
+	return res.data;
+};
+
+
+
+/**
+ * Execute a HTTP PATCH request to an endpoint
+ *
+ * @param endpoint Endpoint to HTTP PATCH
+ * @returns {Promise<T>}
+ */
+const patch = async <TResponse, TPayload>(endpoint: string, payload: TPayload) => {
+	const res = await instance.patch<TResponse>(endpoint, payload);
+
+	if (FAKE_DELAY) {
+		await new Promise(r => setTimeout(r, FAKE_DELAY));
+	}
+
+	return res.data;
+}
+
+/**
+ * Execute a HTTP DELETE request to an endpoint
+ *
+ * @param endpoint Endpoint to HTTP DELETE
+ * @returns {Promise<T>}
+ */
+const del = async <T>(endpoint: string) => {
+	const res = await instance.delete<T>(endpoint);
+
+	if (FAKE_DELAY) {
+		await new Promise(r => setTimeout(r, FAKE_DELAY));
+	}
+
+	return res.data;
+}
 
 /**
  * Get all todos
  */
-export const getTodos = async () => {
-	const res = await axios.get<Todo[]>(BASE_URL + "/todos");
-	await new Promise(r => setTimeout(r, 1500));
-	return res.data;
+export const getTodos = () => {
+	return get<Todo[]>("/todos");
 }
 
-
 /**
- * Get a single todo
+ * Get a todo
  */
-export const getTodo = async (id: number) => {
-	const res = await axios.get<Todo>(BASE_URL + "/todos/" + id);
-	await new Promise(r => setTimeout(r, 1500));
-	return res.data;
-};
-
+export const getTodo = (todoId: number) => {
+	return get<Todo>("/todos/" + todoId);
+}
 
 
 /**
@@ -32,9 +106,8 @@ export const getTodo = async (id: number) => {
  *
  * @param data Object with properties and values for the new todo
  */
-export const postTodo = async (todo: NewTodo) => {
-	const res = await axios.post<Todo>(BASE_URL + "/todos", todo);
-	return res.data;
+export const postTodo = (todo: NewTodo) => {
+	return post<Todo, NewTodo>("/todos", todo);
 }
 
 /**
@@ -43,9 +116,8 @@ export const postTodo = async (todo: NewTodo) => {
  * @param todo_id Todo to update
  * @param data Data to update todo with
  */
-export const updateTodo = async (todoId: number, payload: Partial<NewTodo>) => {
-	const res = await axios.patch<Todo>(BASE_URL + "/todos/" + todoId, payload);
-	return res.data;
+export const updateTodo = (todoId: number, payload: Partial<NewTodo>) => {
+	return patch<Todo, Partial<NewTodo>>("/todos/" + todoId, payload);
 }
 
 /**
@@ -54,5 +126,5 @@ export const updateTodo = async (todoId: number, payload: Partial<NewTodo>) => {
  * @param todo_id Todo to delete
  */
 export const deleteTodo = async (todoId: number) => {
-	await axios.delete(BASE_URL + "/todos/" + todoId);
+	return del<Todo>("/todos/" + todoId);
 }
