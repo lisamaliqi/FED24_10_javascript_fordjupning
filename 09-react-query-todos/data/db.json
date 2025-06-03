@@ -16,11 +16,6 @@
       "id": 5
     },
     {
-      "title": "Coffee killing me",
-      "completed": false,
-      "id": 7
-    },
-    {
       "title": "allan ballan",
       "completed": false,
       "id": 8
@@ -39,11 +34,6 @@
       "title": "laga mat",
       "completed": false,
       "id": 11
-    },
-    {
-      "title": "hello bbbbbbb",
-      "completed": false,
-      "id": 12
     }
   ]
 }

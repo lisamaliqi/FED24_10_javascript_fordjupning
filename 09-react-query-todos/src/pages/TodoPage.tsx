@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { Link, useLocation, useNavigate, useParams } from "react-router";
-import { Todo } from "../services/Todo.types";
 import * as TodosAPI from '../services/TodosAPI';
 import ErrorAlert from "../components/Alerts/ErrorAlerts";
 import ConfirmationModal from "../components/ConfirmationModal";
@@ -29,19 +28,26 @@ const TodoPage = () => {
 
 
 	// Delete todo from API
-	const handleDeleteTodo = async (todo: Todo) => {
-		await TodosAPI.deleteTodo(todo.id);
-
-		//redirect to /todos
-		navigate('/todos', {
-			replace: true,
-			state: {
-				status: {
-					message: `Todo ${todo.id} was deleted`,
-					type: 'success',
+	const deleteTodoMutation = useMutation({
+		mutationFn: () => TodosAPI.deleteTodo(todoId),
+		onSuccess: () => {
+			// Redirect to "/todos"
+			navigate("/todos", {
+				replace: true,
+				state: {
+					status: {
+						message: `Todo ${todoId} was deleted`,
+						type: "success",
+					},
 				},
-			},
-		});
+			});
+		},
+	});
+
+
+	const handleDelete = () => {
+		setShowDeleteModal(false);
+		deleteTodoMutation.mutate();
 	};
 
 
@@ -92,14 +98,8 @@ const TodoPage = () => {
 					Edit
 				</Link>
 
-				{/* Delete */}
-				{/* <Button
-					onClick={() => handleDeleteTodo(todo)}
-					variant="danger">
-				Delete </Button> */}
-				{/* <ConfirmDeleteButton onConfirm={() => handleDeleteTodo(todo)} /> */}
-
 				<Button
+					disabled={deleteTodoMutation.isPending}
 					onClick={() => setShowDeleteModal(true)}
 					variant="danger"
 				>Delete</Button>
@@ -108,7 +108,7 @@ const TodoPage = () => {
 
 				<ConfirmationModal
 					onCancel={() => setShowDeleteModal(false)}
-					onConfirm={() => handleDeleteTodo(todo)}
+					onConfirm={() => handleDelete()}
 					show={showDeleteModal}
 					title="Sure u wanna delete?"
 					variant="danger"
