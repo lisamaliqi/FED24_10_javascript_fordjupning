@@ -1,40 +1,36 @@
 import { Link, useNavigate } from "react-router";
 import Alert from "react-bootstrap/Alert";
 import AddTodoForm from "../components/AddTodoForm";
-import { NewTodo, Todo } from "../services/Todo.types";
+import { NewTodo } from "../services/Todo.types";
 import * as TodosAPI from '../services/TodosAPI';
-import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import ErrorAlert from "../components/Alerts/ErrorAlerts";
 
 
 export default function CreateTodoPage() {
 
-	const [ createdTodo, setCreatedTodo ] = useState<Todo | null>(null);
-	const [ error, setError ] = useState<string | false>(false);
 	const navigate = useNavigate();
 
 
-	const handleCreateTodo = async (title: string) => {
-		setCreatedTodo(null);
-		setError(false);
+	const createTodoMutation = useMutation({
+		mutationFn: TodosAPI.postTodo,
+	});
 
+
+	const handleCreateTodo = async (title: string) => {
 		const todo: NewTodo = {
 			title,
 			completed: false,
 		}
 
-		try {
-			const data = await TodosAPI.postTodo(todo);
-			setCreatedTodo(data);
 
+		// Call mutation 🐢☢️More actions
+		createTodoMutation.mutate(todo);
 
-			setTimeout(() => {
-				navigate('/todos/' + data.id);
-			}, 2000);
-
-		} catch (err) {
-			console.error("Error thrown when creating todo:", err);
-			setError(err instanceof Error ? err.message : "It's not me, it's you");
-		}
+		// Redirect userMore actions
+		// setTimeout(() => {
+		// 	navigate("/todos/" + data.id);
+		// }, 2000);
 	};
 
 
@@ -45,15 +41,15 @@ export default function CreateTodoPage() {
 		<>
 			<h1>Create a new todo</h1>
 
-			{error && <Alert variant="warning">{error}</Alert>}
+			{createTodoMutation.isError && (<ErrorAlert>{createTodoMutation.error.message}</ErrorAlert>)}
 
 			{/* FORM */}
 			<AddTodoForm onAddTodo={handleCreateTodo}/>
 
-			{createdTodo && (
+			{createTodoMutation.isSuccess && (
 				<Alert variant="success">
 					<h2>Created todo successfully!</h2>
-					<Link to={'/todos/' + createdTodo.id} className="btn btn-secondary mt-4" role='button'>
+					<Link to={'/todos/' + createTodoMutation.data.id} className="btn btn-secondary mt-4" role='button'>
 						Go to todo
 					</Link>
 				</Alert>
