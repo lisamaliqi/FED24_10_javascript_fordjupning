@@ -6,7 +6,7 @@ import * as TodosAPI from '../services/TodosAPI';
 import ErrorAlert from "../components/Alerts/ErrorAlerts";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
 const TodoPage = () => {
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
@@ -21,6 +21,10 @@ const TodoPage = () => {
 	const { data: todo, error, isError, isLoading, refetch } = useQuery({
 		queryKey: ["todo", { id: todoId }],
 		queryFn: () => TodosAPI.getTodo(todoId),
+	});
+
+	const updateTodoCompletedMutation = useMutation({
+		mutationFn: (completed: boolean) => TodosAPI.updateTodo(todoId, { completed }),
 	});
 
 
@@ -38,16 +42,6 @@ const TodoPage = () => {
 				},
 			},
 		});
-	};
-
-
-	//toggle todo in API
-	const handleToggleTodo = async (todo: Todo) => {
-		await TodosAPI.updateTodo(todo.id, {
-			completed: !todo.completed,
-		});
-		//update todo state with the updated todo
-		refetch();
 	};
 
 
@@ -88,7 +82,8 @@ const TodoPage = () => {
 
 				{/* Toggle */}
 				<Button
-					onClick={() => handleToggleTodo(todo)}
+					disabled={updateTodoCompletedMutation.isPending}
+					onClick={() => updateTodoCompletedMutation.mutate(!todo.completed)}
 					variant="success">
 				Toggle </Button>
 
