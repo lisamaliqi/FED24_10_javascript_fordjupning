@@ -8,6 +8,7 @@ import "./assets/scss/App.scss";
 import ICanHazDadJokePage from "./pages/DadJokePage";
 import RandomCatPage from "./pages/RandomCatPage";
 import GlobalFetchingSpinner from "./components/spinners/GlobalFetchingSpinner";
+import HackerNewsSearchPage from "./pages/HackerNewsSearchPage";
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 
 					<Route path="/dad-joke" element={<ICanHazDadJokePage />} />
 					<Route path="/random-cat" element={<RandomCatPage />} />
+					<Route path="/search-hn" element={<HackerNewsSearchPage />} />
 
 					<Route path="*" element={<NotFoundPage />} />
 				</Routes>

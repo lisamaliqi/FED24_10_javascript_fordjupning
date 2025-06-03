@@ -8,8 +8,8 @@ const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
 			refetchOnWindowFocus: false, //don't refetch when user refocuses on app (maybe if they leave the tab and then come back)
-			staleTime: 1000 * 15, // 15 seconds, won't refresh data automatically within 15 sec bc it is seen as fresh
-			gcTime: 1000 * 30, // 30 seconds
+			staleTime: 1000 * 60 * 15, // 15 minutes, won't refresh data automatically within 15 min bc it is seen as fresh
+			gcTime: 1000 * 60 * 60, // 1 hour
 		},
 	},
 });
