@@ -6,12 +6,16 @@ import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import Pagination from "../components/Pagination";
 import { searchByDate } from "../services/HackerNewsAPI";
+import { useSearchParams } from "react-router";
 
 const HackerNewsSearchPage = () => {
 	const [page, setPage] = useState(0);
 	const [inputSearch, setInputSearch] = useState("");
 	const inputSearchEl = useRef<HTMLInputElement>(null);
-	const [query, setQuery] = useState("");
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	// get `query` from search params
+	const query = searchParams.get("query") ?? "";
 
 	const { data: searchResult, error, isError, isFetching } = useQuery({
 		queryKey: ["search-hn", { query, page }],
@@ -34,15 +38,20 @@ const HackerNewsSearchPage = () => {
 		// search for haxx0rs 🕵🏻‍♂️
 		setPage(0);
 
-		// save query as state
-		setQuery(trimmedSearchInput);
+		// save query in SearchParams
+		setSearchParams({ query: trimmedSearchInput });
 	}
 
 	const handleReset = () => {
 		setPage(0);
 		setInputSearch("");
-		setQuery("");
+		setSearchParams();
 	}
+
+	useEffect(() => {
+		// update search field with current query from URLSearchParams
+		setInputSearch(query);
+	}, [query]);
 
 	useEffect(() => {
 		if (!inputSearchEl.current) {
