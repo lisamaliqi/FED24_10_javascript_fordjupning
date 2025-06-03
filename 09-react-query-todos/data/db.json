@@ -39,16 +39,6 @@
       "title": "laga mat",
       "completed": false,
       "id": 11
-    },
-    {
-      "title": "new todo!!!",
-      "completed": false,
-      "id": 12
-    },
-    {
-      "title": "a new one!!",
-      "completed": false,
-      "id": 13
     }
   ]
 }

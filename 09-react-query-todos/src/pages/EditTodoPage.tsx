@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router";
-import { Todo } from "../services/Todo.types";
 import * as TodosAPI from "../services/TodosAPI";
 
 
 const EditTodoPage = () => {
-	const [error, setError] = useState<string | false>(false);
-	const [isLoading, setIsLoading] = useState(true);
-	const [todo, setTodo] = useState<Todo | null>(null);
 	const [inputNewTodoTitle, setInputNewTodoTitle] = useState("");
 
 	const { id } = useParams();
@@ -19,24 +16,10 @@ const EditTodoPage = () => {
 	const navigate = useNavigate();
 
 
-	// Get todo from API
-	const getTodo = async (id: number) => {
-		// reset state
-		setError(false);
-		setIsLoading(true);
-		setTodo(null);
-
-		// make request to api
-		try {
-			const data = await TodosAPI.getTodo(id);
-			setInputNewTodoTitle(data.title);
-			setTodo(data);
-		} catch (err) {
-			console.error(`Error thrown when fetching todo with id '${id}'`, err);
-			setError(err instanceof Error ? err.message : "It's not me, it's you");
-		}
-		setIsLoading(false);
-	};
+	const { data: todo, error, isError, isLoading, refetch } = useQuery({
+		queryKey: ["todo", { id: todoId }],
+		queryFn: () => TodosAPI.getTodo(todoId),
+	});
 
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -64,19 +47,21 @@ const EditTodoPage = () => {
 
 
 	useEffect(() => {
-		getTodo(todoId);
-	}, [todoId]);
+		if (!todo) {
+			return;
+		};
+
+		setInputNewTodoTitle(todo.title);
+	}, [todo]);
 
 
-
-
-	if (error) {
+	if (isError) {
 		return (
 			<Alert variant="warning">
 				<h1>Something went wrong!</h1>
-				<p>{error}</p>
+				<p>{error.message}</p>
 
-				<Button variant="primary" onClick={() => getTodo(todoId)}>TRY HARDER!!!</Button>
+				<Button variant="primary" onClick={() => refetch()}>TRY HARDER!!!</Button>
 			</Alert>
 		)
 	};
