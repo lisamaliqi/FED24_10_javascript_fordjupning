@@ -5,7 +5,7 @@ import { getRandomCatImage } from "../services/TheCatAPI";
 import { Button } from "react-bootstrap";
 
 const RandomCatPage = () => {
-	const { data, error, isError, refetch } = useQuery({
+	const { data, error, isError, refetch, isFetching } = useQuery({
 		queryKey: ["random-cat"],
 		queryFn: getRandomCatImage,
 	});
@@ -26,8 +26,9 @@ const RandomCatPage = () => {
 				<Button
 					onClick={() => refetch({ throwOnError: true })}
 					variant="primary"
+					disabled={isFetching}
 				>
-					New random cat!!
+					{isFetching && "Loading"}New random cat!!
 				</Button>
 			</div>
 
