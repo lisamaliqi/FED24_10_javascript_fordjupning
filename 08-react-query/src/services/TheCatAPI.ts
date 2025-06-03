@@ -44,8 +44,10 @@ const get = async <T>(endpoint: string) => {
 
 /**
  * Get a random cat image
+ *
+ * @param breed _(optional)_ Breed ID to get
  */
-export const getRandomCatImage = async () => {
-	const data = await get<CatImage[]>("/images/search");
+export const getRandomCatImage = async (breed_id = "") => { //default breed_id = empty string
+	const data = await get<CatImage[]>("/images/search?breed_ids=" + breed_id);
 	return data[0];
 };
