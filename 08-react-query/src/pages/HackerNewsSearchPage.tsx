@@ -16,6 +16,7 @@ const HackerNewsSearchPage = () => {
 	const { data: searchResult, error, isError, isFetching } = useQuery({
 		queryKey: ["search-hn", { query, page }],
 		queryFn: () => searchByDate(query, page),
+		enabled: !!query,  // convert query (string) to a boolean value
 	});
 
 	const handleSubmit = (e: React.FormEvent) => {
