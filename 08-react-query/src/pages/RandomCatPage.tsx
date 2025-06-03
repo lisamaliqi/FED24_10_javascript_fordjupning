@@ -13,6 +13,8 @@ const RandomCatPage = () => {
 	const { data, error, isError, refetch, isFetching } = useQuery({
 		queryKey: ["random-cat", breed],
 		queryFn: () => getRandomCatImage(breed),
+		staleTime: 1000 * 45, // 45 seconds
+		gcTime: Infinity, // ✋🏻🗑️🐱🚚
 	});
 
 	return (
