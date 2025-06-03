@@ -3,6 +3,7 @@ import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
 import { getRandomCatImage } from "../services/TheCatAPI";
 import { Button } from "react-bootstrap";
+import CatSpinner from "../components/spinners/CatSpinner";
 
 const RandomCatPage = () => {
 	const { data, error, isError, refetch, isFetching } = useQuery({
@@ -21,6 +22,8 @@ const RandomCatPage = () => {
 					{error.message}
 				</Alert>
 			)}
+
+			{isFetching && <CatSpinner />}
 
 			<div className="mb-3">
 				<Button
