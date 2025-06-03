@@ -24,7 +24,7 @@ const RandomCatPage = () => {
 
 			<div className="mb-3">
 				<Button
-					onClick={() => refetch()}
+					onClick={() => refetch({ throwOnError: true })}
 					variant="primary"
 				>
 					New random cat!!
