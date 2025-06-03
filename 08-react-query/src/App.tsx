@@ -7,6 +7,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import "./assets/scss/App.scss";
 import ICanHazDadJokePage from "./pages/DadJokePage";
 import RandomCatPage from "./pages/RandomCatPage";
+import GlobalFetchingSpinner from "./components/spinners/GlobalFetchingSpinner";
 
 function App() {
 	return (
@@ -14,6 +15,8 @@ function App() {
 			<Navigation />
 
 			<Container className="py-3">
+				<GlobalFetchingSpinner />
+
 				<Routes>
 					<Route path="/" element={<HomePage />} />
 

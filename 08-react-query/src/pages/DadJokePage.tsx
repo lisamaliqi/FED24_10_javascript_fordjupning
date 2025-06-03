@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRandomDadJoke } from "../services/DadJokeAPI";
-import LoadingSpinner from "../components/spinners/LoadingSpinner";
 import { Alert } from "react-bootstrap";
 
 const ICanHazDadJokePage = () => {
@@ -37,7 +36,6 @@ const ICanHazDadJokePage = () => {
 				status: {String(status)}
 			</pre>
 
-			{isFetching && <LoadingSpinner />}
 
 			{isError && <Alert variant="warning">Error: {error.message}</Alert>}
 

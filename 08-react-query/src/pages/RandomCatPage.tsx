@@ -3,7 +3,6 @@ import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
 import { BREEDS, getRandomCatImage } from "../services/TheCatAPI";
 import { Button, Form } from "react-bootstrap";
-import CatSpinner from "../components/spinners/CatSpinner";
 import { useState } from "react";
 
 const RandomCatPage = () => {
@@ -29,7 +28,6 @@ const RandomCatPage = () => {
 				</Alert>
 			)}
 
-			{isFetching && <CatSpinner />}
 
 			<div className="mb-3">
 				<Button
