@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { Todo } from "../services/Todo.types";
@@ -6,11 +6,9 @@ import * as TodosAPI from '../services/TodosAPI';
 import ErrorAlert from "../components/Alerts/ErrorAlerts";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
+import { useQuery } from "@tanstack/react-query";
 
 const TodoPage = () => {
-	const [ error, setError] = useState<string | false>(false);
-	const [ isLoading, setIsLoading] = useState(true);
-	const [ todo, setTodo] = useState<Todo | null>(null);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
 
 	const { id } = useParams();
@@ -20,24 +18,10 @@ const TodoPage = () => {
 
 
 
-	//get todo from API
-	const getTodo = async (id: number) => {
-		// reset state
-		setError(false);
-		setIsLoading(true);
-		setTodo(null);
-
-
-		// make request to api
-		try {
-			const data = await TodosAPI.getTodo(id);
-			setTodo(data);
-		} catch (err) {
-			console.error("Error thrown when fetching todo with id: ", id, err);
-			setError(err instanceof Error ? err.message : "It's not me, it's you");
-		};
-		setIsLoading(false);
-	};
+	const { data: todo, error, isError, isLoading, refetch } = useQuery({
+		queryKey: ["todo", { id: todoId }],
+		queryFn: () => TodosAPI.getTodo(todoId),
+	});
 
 
 	// Delete todo from API
@@ -59,22 +43,16 @@ const TodoPage = () => {
 
 	//toggle todo in API
 	const handleToggleTodo = async (todo: Todo) => {
-		const updatedTodo = await TodosAPI.updateTodo(todo.id, {
+		await TodosAPI.updateTodo(todo.id, {
 			completed: !todo.completed,
 		});
 		//update todo state with the updated todo
-		setTodo(updatedTodo);
+		refetch();
 	};
 
 
-	useEffect(() => {
-		//load todo on mount
-		getTodo(todoId);
-	}, [todoId]);
-
-
-	if (error) {
-		return <ErrorAlert>{error}</ErrorAlert>;
+	if (isError) {
+		return <ErrorAlert>{error.message}</ErrorAlert>;
 	};
 
 

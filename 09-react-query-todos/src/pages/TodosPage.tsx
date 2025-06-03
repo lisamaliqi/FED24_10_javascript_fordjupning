@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import TodoCounter from "../components/TodoCounter";
 import * as TodosAPI from "../services/TodosAPI";
-import { Todo } from "../services/Todo.types";
+import { useQuery } from "@tanstack/react-query";
 import  Alert  from "react-bootstrap/Alert";
 import  Spinner  from "react-bootstrap/Spinner";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -11,54 +10,13 @@ import ErrorAlert from "../components/Alerts/ErrorAlerts";
 
 
 function TodosPage() {
-	const [error, setError] = useState<string | false>(false);
-	const [isLoading, setIsLoading] = useState(true);
-	const [todos, setTodos] = useState<Todo[] | null>(null);
 	const location = useLocation();
 
 
-	const getTodos = async () => {
-		// reset state
-		setError(false);
-		setIsLoading(true);
-		setTodos(null);
-
-		// make request to api
-		try {
-			const data = await TodosAPI.getTodos();
-
-			// sort data
-			const sortedTodos = data
-				.sort((a: Todo, b: Todo) => a.title.localeCompare(b.title))
-				.sort((a: Todo, b: Todo) => Number(a.completed) - Number(b.completed));
-
-			// set sorted todos  as state
-			setTodos(sortedTodos);
-
-		} catch (err) {
-			console.error("Error thrown when fetching todos:", err);
-			setError(err instanceof Error ? err.message : "It's not me, it's you");
-		}
-		setIsLoading(false);
-	};
-
-
-	/* const handleAddTodo = async (title: string) => {
-		const todo: NewTodo = {
-			title,
-			completed: false,
-		}
-		await TodosAPI.postTodo(todo);
-		getTodos();
-	}; */
-
-
-	// const completedTodos = todos.filter(todo => todo.completed);
-	// const incompleteTodos = todos.filter(todo => !todo.completed);
-
-	useEffect(() => {
-		getTodos();
-	}, []);
+	const { data: todos, error, isError, isLoading } = useQuery({
+		queryKey: ["todos"],
+		queryFn: TodosAPI.getTodos,
+	});
 
 
 
@@ -73,19 +31,7 @@ function TodosPage() {
 				</AutoDismissingAlert>
 			)}
 
-			{/* {error && (
-				<Alert variant="danger">
-					{error}
-				</Alert>
-			)} */}
-
-			{/* {error && (
-				<ErrorAlert>
-					{error}
-				</ErrorAlert>
-			)} */}
-
-			{error && <ErrorAlert>{error}</ErrorAlert>}
+			{isError && <ErrorAlert>{error.message}</ErrorAlert>}
 
 			<AutoDismissingAlert hideAfter={500} variant="danger">
 				Look quickly, imma dissapear!!
