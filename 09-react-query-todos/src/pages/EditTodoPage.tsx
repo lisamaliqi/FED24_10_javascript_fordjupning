@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router";
 import * as TodosAPI from "../services/TodosAPI";
+import { NewTodo } from "../services/Todo.types";
 
 
 const EditTodoPage = () => {
@@ -21,27 +22,28 @@ const EditTodoPage = () => {
 		queryFn: () => TodosAPI.getTodo(todoId),
 	});
 
+	const updateTodoMutation = useMutation({
+		mutationFn: (data: Partial<NewTodo>) => TodosAPI.updateTodo(todoId, data),
+		onSuccess: (updatedTodo) => {
+			// Redirect user to /todos/:id
+			navigate("/todos/" + updatedTodo.id, {
+				state: {
+					status: {
+						message: `Todo ${updatedTodo.id} was updated`,
+						type: "success",
+					},
+				},
+			});
+		},
+	});
+
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		if(!todo) {
-			throw new Error('Cant submit, todo is null');
-		};
-
-		// Call TodosAPI and update the todo
-		await TodosAPI.updateTodo(todo.id, {
+		// Mutate!More actions
+		updateTodoMutation.mutate({
 			title: inputNewTodoTitle,
-		});
-
-		// Redirect user to /todos/:id
-		navigate("/todos/" + todo.id, {
-			state: {
-				status: {
-					message: `Todo ${todo.id} was updated`,
-					type: "success",
-				},
-			},
 		});
 	};
 
@@ -89,8 +91,8 @@ const EditTodoPage = () => {
 					/>
 				</Form.Group>
 
-				<Button variant="primary" type="submit">
-					Save
+				<Button disabled={updateTodoMutation.isPending} variant="primary" type="submit">
+					{updateTodoMutation.isPending ? "Saving..." : "Save"}
 				</Button>
 			</Form>
 
