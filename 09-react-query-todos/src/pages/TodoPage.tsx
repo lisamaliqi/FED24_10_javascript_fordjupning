@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { Link, useLocation, useNavigate, useParams } from "react-router";
-import { Todo } from "../types/Todo";
+import { Todo } from "../services/Todo.types";
 import * as TodosAPI from '../services/TodosAPI';
 import ErrorAlert from "../components/Alerts/ErrorAlerts";
 import ConfirmationModal from "../components/ConfirmationModal";

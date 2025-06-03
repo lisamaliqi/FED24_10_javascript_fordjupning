@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TodoCounter from "../components/TodoCounter";
 import * as TodosAPI from "../services/TodosAPI";
-import { Todo } from "../types/Todo";
+import { Todo } from "../services/Todo.types";
 import  Alert  from "react-bootstrap/Alert";
 import  Spinner  from "react-bootstrap/Spinner";
 import ListGroup from "react-bootstrap/ListGroup";

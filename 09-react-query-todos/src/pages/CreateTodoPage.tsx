@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import Alert from "react-bootstrap/Alert";
 import AddTodoForm from "../components/AddTodoForm";
-import { NewTodo, Todo } from "../types/Todo";
+import { NewTodo, Todo } from "../services/Todo.types";
 import * as TodosAPI from '../services/TodosAPI';
 import { useState } from "react";
 

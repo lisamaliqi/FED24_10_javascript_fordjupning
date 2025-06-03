@@ -2,7 +2,7 @@
  * Service for communicating with the json-server backend
  */
 import axios from "axios";
-import { NewTodo, Todo } from "../types/Todo";
+import { NewTodo, Todo } from "./Todo.types";
 
 const BASE_URL = import.meta.env.VITE_API_BASEURL || "http://localhost:3000";
 const FAKE_DELAY = 1500;
