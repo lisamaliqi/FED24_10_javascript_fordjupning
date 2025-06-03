@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
 interface AddTodoFormProps {
-	onAddTodo: (newTodoTitle: string) => void
+	onAddTodo: (newTodoTitle: string) => void;
+	isCreating: boolean;
 }
 
-const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAddTodo }) => {
+const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAddTodo, isCreating }) => {
 	const [inputTodoTitle, setInputTodoTitle] = useState("");
 	const inputTodoTitleRef = useRef<HTMLInputElement | null>(null);
 
@@ -46,7 +47,7 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAddTodo }) => {
 				<button
 					className="btn btn-success"
 					type="submit"
-					disabled={inputTodoTitle.trim().length < 3}
+					disabled={inputTodoTitle.trim().length < 3 || isCreating}
 				>👶🏻</button>
 			</div>
 

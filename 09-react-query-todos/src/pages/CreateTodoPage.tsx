@@ -44,7 +44,10 @@ export default function CreateTodoPage() {
 			{createTodoMutation.isError && (<ErrorAlert>{createTodoMutation.error.message}</ErrorAlert>)}
 
 			{/* FORM */}
-			<AddTodoForm onAddTodo={handleCreateTodo}/>
+			<AddTodoForm
+				onAddTodo={handleCreateTodo}
+				isCreating={createTodoMutation.isPending}
+			/>
 
 			{createTodoMutation.isSuccess && (
 				<Alert variant="success">
