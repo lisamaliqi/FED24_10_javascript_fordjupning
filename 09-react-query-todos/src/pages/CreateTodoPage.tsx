@@ -24,13 +24,15 @@ export default function CreateTodoPage() {
 		}
 
 
-		// Call mutation 🐢☢️More actions
-		createTodoMutation.mutate(todo);
-
-		// Redirect userMore actions
-		// setTimeout(() => {
-		// 	navigate("/todos/" + data.id);
-		// }, 2000);
+		// Call mutation 🐢☢️
+		createTodoMutation.mutate(todo, {
+			onSuccess: (data) => {
+				// Redirect user
+				setTimeout(() => {
+					navigate("/todos/" + data.id);
+				}, 2000);
+			},
+		});
 	};
 
 
