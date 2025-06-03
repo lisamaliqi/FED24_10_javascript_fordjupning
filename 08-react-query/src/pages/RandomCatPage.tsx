@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
 import { getRandomCatImage } from "../services/TheCatAPI";
+import { Button } from "react-bootstrap";
 
 const RandomCatPage = () => {
-	const { data, error, isError } = useQuery({
+	const { data, error, isError, refetch } = useQuery({
 		queryKey: ["random-cat"],
 		queryFn: getRandomCatImage,
 	});
@@ -20,6 +21,15 @@ const RandomCatPage = () => {
 					{error.message}
 				</Alert>
 			)}
+
+			<div className="mb-3">
+				<Button
+					onClick={() => refetch()}
+					variant="primary"
+				>
+					New random cat!!
+				</Button>
+			</div>
 
 			{data && (
 				<div className="d-flex justify-content-center">
