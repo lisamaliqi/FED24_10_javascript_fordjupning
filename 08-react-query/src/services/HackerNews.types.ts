@@ -15,4 +15,5 @@ export interface HN_SearchResponse {
 	nbHits: number;
 	nbPages: number;
 	page: number;
+	query: string;
 }

@@ -1,7 +1,8 @@
 #cat-spinner-wrapper {
-	position: absolute;
-	right: 0.5rem;
-	top: 1rem;
+	position: fixed;
+	right: 3rem;
+	top: 3rem;
+	z-index: 1; // nobody puts cat behind listgroup! 🙀
 
 	#cat-spinner {
 		font-size: 4rem;
