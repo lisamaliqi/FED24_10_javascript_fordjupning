@@ -3,17 +3,22 @@ import Alert from "react-bootstrap/Alert";
 import AddTodoForm from "../components/AddTodoForm";
 import { NewTodo } from "../services/Todo.types";
 import * as TodosAPI from '../services/TodosAPI';
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ErrorAlert from "../components/Alerts/ErrorAlerts";
 
 
 export default function CreateTodoPage() {
 
 	const navigate = useNavigate();
+	const queryClient  = useQueryClient();
 
 
 	const createTodoMutation = useMutation({
 		mutationFn: TodosAPI.postTodo,
+		onSuccess: () => {
+			// invalidate any `["todos"]` queries that exist in the cache
+			queryClient.invalidateQueries({ queryKey: ["todos"] });
+		},
 	});
 
 
