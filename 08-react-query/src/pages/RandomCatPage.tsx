@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
-import { getRandomCatImage } from "../services/TheCatAPI";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { BREEDS, getRandomCatImage } from "../services/TheCatAPI";
+import { Button, Form } from "react-bootstrap";
 import CatSpinner from "../components/spinners/CatSpinner";
 import { useState } from "react";
 
@@ -39,13 +39,16 @@ const RandomCatPage = () => {
 				</Button>
 			</div>
 
-			<ButtonGroup className="mb-3">
-				<Button variant="secondary" onClick={() => setBreed("")}>Any</Button>
-				<Button variant="secondary" onClick={() => setBreed("ragd")}>Ragdoll</Button>
-				<Button variant="secondary" onClick={() => setBreed("sibe")}>Siberian</Button>
-				<Button variant="secondary" onClick={() => setBreed("beng")}>Bengal</Button>
-				<Button variant="secondary" onClick={() => setBreed("pers")}>Persian</Button>
-			</ButtonGroup>
+			<Form.Select
+				aria-label="Select breed"
+				className="mb-3"
+				onChange={e => setBreed(e.target.value)}
+			>
+				<option value="">Any</option>
+				{BREEDS.map(breed => (
+					<option key={breed.id} value={breed.id}>{breed.name}</option>
+				))}
+			</Form.Select>
 
 
 			{data && (
