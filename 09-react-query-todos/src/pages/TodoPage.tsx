@@ -8,6 +8,7 @@ import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const TodoPage = () => {
+	const [queryEnabled, setQueryEnabled] = useState(true);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
 
 	const { id } = useParams();
@@ -21,6 +22,7 @@ const TodoPage = () => {
 	const { data: todo, error, isError, isLoading } = useQuery({
 		queryKey: ["todo", { id: todoId }],
 		queryFn: () => TodosAPI.getTodo(todoId),
+		enabled: queryEnabled,
 	});
 
 	const updateTodoCompletedMutation = useMutation({
@@ -39,6 +41,15 @@ const TodoPage = () => {
 	const deleteTodoMutation = useMutation({
 		mutationFn: () => TodosAPI.deleteTodo(todoId),
 		onSuccess: () => {
+			// disable query for this specific todoMore actions
+			setQueryEnabled(false);
+
+			// remove the query for this specific todo
+			queryClient.removeQueries({ queryKey: ["todo", { id: todoId }] });
+
+			// invalidate any `["todos"]` queries that exist in the cache
+			queryClient.invalidateQueries({ queryKey: ["todos"] });
+
 			// Redirect to "/todos"
 			navigate("/todos", {
 				replace: true,
@@ -84,6 +95,12 @@ const TodoPage = () => {
 				<AutoDismissingAlert hideAfter={3000} variant={location.state.status.type}>
 					{location.state.status.message}
 				</AutoDismissingAlert>
+			)}
+
+			{updateTodoCompletedMutation.isError && (
+				<ErrorAlert>
+					Update todo failed: {updateTodoCompletedMutation.error.message}
+				</ErrorAlert>
 			)}
 
 			<p><strong>Status:</strong>{' '}
