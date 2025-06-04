@@ -1,12 +1,9 @@
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { Link, useLocation, useNavigate, useParams } from "react-router";
-import * as TodosAPI from '../services/TodosAPI';
 import ErrorAlert from "../components/Alerts/ErrorAlerts";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Todo } from "../services/Todo.types";
 import useTodo from "../hooks/useTodo";
 import useUpdateTodo from "../hooks/useUpdateTodo";
 import useDeleteTodo from "../hooks/useDeleteTodo";
@@ -19,7 +16,6 @@ const TodoPage = () => {
 	const todoId = Number(id);
 	const navigate = useNavigate();
 	const location = useLocation();
-	const queryClient = useQueryClient();
 
 
 
