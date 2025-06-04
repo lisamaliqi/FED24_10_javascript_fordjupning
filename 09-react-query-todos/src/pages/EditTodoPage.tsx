@@ -26,8 +26,8 @@ const EditTodoPage = () => {
 	const updateTodoMutation = useMutation({
 		mutationFn: (data: Partial<NewTodo>) => TodosAPI.updateTodo(todoId, data),
 		onSuccess: (updatedTodo) => {
-			// invalidate the query for this specific todoMore actions
-			queryClient.invalidateQueries({ queryKey: ["todo", { id: todoId }] });
+			// set the response from the mutation as the query cache for this todo
+			queryClient.setQueryData(["todo", { id: todoId }], updatedTodo);
 
 			// invalidate any `["todos"]` queries that exist in the cache
 			queryClient.invalidateQueries({ queryKey: ["todos"] });

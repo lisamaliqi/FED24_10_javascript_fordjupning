@@ -27,9 +27,11 @@ const TodoPage = () => {
 
 	const updateTodoCompletedMutation = useMutation({
 		mutationFn: (completed: boolean) => TodosAPI.updateTodo(todoId, { completed }),
-		onSuccess: () => {
-			// invalidate the query for this specific todo
-			queryClient.invalidateQueries({ queryKey: ["todo", { id: todoId }] });
+		onSuccess: (updatedTodo) => {
+			// console.log("update todo mutation success data:", updatedTodo);
+
+			// set the response from the mutation as the query cache for this todo
+			queryClient.setQueryData(["todo", { id: todoId }], updatedTodo);
 
 			// invalidate any `["todos"]` queries that exist in the cache
 			queryClient.invalidateQueries({ queryKey: ["todos"] });
