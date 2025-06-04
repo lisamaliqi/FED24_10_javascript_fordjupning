@@ -8,6 +8,7 @@ import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todo } from "../services/Todo.types";
 import useTodo from "../hooks/useTodo";
+import useUpdateTodo from "../hooks/useUpdateTodo";
 
 const TodoPage = () => {
 	const [queryEnabled, setQueryEnabled] = useState(true);
@@ -23,23 +24,7 @@ const TodoPage = () => {
 
 	const { data: todo, error, isError, isLoading } = useTodo(todoId, queryEnabled);
 
-	const updateTodoCompletedMutation = useMutation({
-		mutationFn: (completed: boolean) => TodosAPI.updateTodo(todoId, { completed }),
-		onSuccess: async (updatedTodo) => {
-			// console.log("update todo mutation success data:", updatedTodo);
-
-			// set the response from the mutation as the query cache for this todo
-			queryClient.setQueryData(["todo", { id: todoId }], updatedTodo);
-
-			// prefetch ['todos'] query as iit is very likely the user will
-			// return to todo list as their next step
-			await queryClient.prefetchQuery({
-				queryKey: ['todos'],
-				queryFn: TodosAPI.getTodos,
-				staleTime: 0, //always refetch even if the existing data is considered fresh
-			});
-		},
-	});
+	const updateTodoMutation = useUpdateTodo(todoId);
 
 
 	// Delete todo from API
@@ -110,9 +95,9 @@ const TodoPage = () => {
 				</AutoDismissingAlert>
 			)}
 
-			{updateTodoCompletedMutation.isError && (
+			{updateTodoMutation.isError && (
 				<ErrorAlert>
-					Update todo failed: {updateTodoCompletedMutation.error.message}
+					Update todo failed: {updateTodoMutation.error.message}
 				</ErrorAlert>
 			)}
 
@@ -126,8 +111,8 @@ const TodoPage = () => {
 
 				{/* Toggle */}
 				<Button
-					disabled={updateTodoCompletedMutation.isPending}
-					onClick={() => updateTodoCompletedMutation.mutate(!todo.completed)}
+					disabled={updateTodoMutation.isPending}
+					onClick={() => updateTodoMutation.mutate({completed: !todo.completed})}
 					variant="success">
 				Toggle </Button>
 

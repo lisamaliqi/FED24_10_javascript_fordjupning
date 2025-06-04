@@ -1,11 +1,23 @@
 import { useState, useEffect } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router";
-import * as TodosAPI from "../services/TodosAPI";
-import { NewTodo } from "../services/Todo.types";
+import useTodo from "../hooks/useTodo";
+import useUpdateTodo from "../hooks/useUpdateTodo";
+
+
+/*Add commentMore actions
+// Redirect user to /todos/:id
+navigate("/todos/" + updatedTodo.id, {
+	state: {
+		status: {
+			message: `Todo ${updatedTodo.id} was updated`,
+			type: "success",
+		},
+	},
+});
+*/
 
 
 const EditTodoPage = () => {
@@ -15,39 +27,10 @@ const EditTodoPage = () => {
 	const todoId = Number(id); //turn it to a number
 
 	const navigate = useNavigate();
-	const queryClient = useQueryClient();
 
+	const { data: todo, error, isError, isLoading, refetch } = useTodo(todoId);
 
-	const { data: todo, error, isError, isLoading, refetch } = useQuery({
-		queryKey: ["todo", { id: todoId }],
-		queryFn: () => TodosAPI.getTodo(todoId),
-	});
-
-	const updateTodoMutation = useMutation({
-		mutationFn: (data: Partial<NewTodo>) => TodosAPI.updateTodo(todoId, data),
-		onSuccess: async (updatedTodo) => {
-			// set the response from the mutation as the query cache for this todo
-			queryClient.setQueryData(["todo", { id: todoId }], updatedTodo);
-
-			// prefetch ["todos"] query as it is very likely the user willAdd commentMore actions
-			// return to todo list as their next step
-			await queryClient.prefetchQuery({
-				queryKey: ["todos"],
-				queryFn: TodosAPI.getTodos,
-				staleTime: 0, // always prefetch, even if the existing data is considered fresh 🌱
-			});
-
-			// Redirect user to /todos/:id
-			navigate("/todos/" + updatedTodo.id, {
-				state: {
-					status: {
-						message: `Todo ${updatedTodo.id} was updated`,
-						type: "success",
-					},
-				},
-			});
-		},
-	});
+	const updateTodoMutation = useUpdateTodo(todoId);
 
 
 	const handleSubmit = async (e: React.FormEvent) => {
