@@ -16,34 +16,14 @@
       "id": 5
     },
     {
-      "title": "allan ballan",
-      "completed": false,
-      "id": 8
-    },
-    {
       "title": "hello world!",
       "completed": false,
       "id": 9
     },
     {
-      "title": "creating... jippppppo",
-      "completed": false,
-      "id": 10
-    },
-    {
       "title": "laga mat",
-      "completed": false,
+      "completed": true,
       "id": 11
-    },
-    {
-      "title": "absow knso",
-      "completed": false,
-      "id": 12
-    },
-    {
-      "title": "lala",
-      "completed": false,
-      "id": 13
     }
   ]
 }

@@ -33,8 +33,13 @@ const TodoPage = () => {
 			// set the response from the mutation as the query cache for this todo
 			queryClient.setQueryData(["todo", { id: todoId }], updatedTodo);
 
-			// invalidate any `["todos"]` queries that exist in the cache
-			queryClient.invalidateQueries({ queryKey: ["todos"] });
+			// prefetch ['todos'] query as iit is very likely the user will
+			// return to todo list as their next step
+			queryClient.prefetchQuery({
+				queryKey: ['todos'],
+				queryFn: TodosAPI.getTodos,
+				staleTime: 0, //always refetch even if the existing data is considered fresh
+			});
 		},
 	});
 
