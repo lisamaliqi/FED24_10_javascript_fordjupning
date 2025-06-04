@@ -1,24 +1,9 @@
 {
   "todos": [
     {
-      "id": 2,
-      "title": "Drink coffee",
-      "completed": true
-    },
-    {
-      "id": 4,
-      "title": "Drink ALL ZE covfefe",
-      "completed": true
-    },
-    {
       "title": "Drink koffeeeeee",
       "completed": false,
       "id": 5
-    },
-    {
-      "title": "hello world!",
-      "completed": false,
-      "id": 9
     },
     {
       "title": "laga mat",
@@ -29,11 +14,6 @@
       "title": "this is my new todo!!!",
       "completed": true,
       "id": 12
-    },
-    {
-      "title": "hello world",
-      "completed": false,
-      "id": 13
     }
   ]
 }

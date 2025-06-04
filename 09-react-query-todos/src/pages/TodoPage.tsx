@@ -6,6 +6,7 @@ import ErrorAlert from "../components/Alerts/ErrorAlerts";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Todo } from "../services/Todo.types";
 
 const TodoPage = () => {
 	const [queryEnabled, setQueryEnabled] = useState(true);
@@ -47,15 +48,23 @@ const TodoPage = () => {
 	// Delete todo from API
 	const deleteTodoMutation = useMutation({
 		mutationFn: () => TodosAPI.deleteTodo(todoId),
-		onSuccess: () => {
+		onSuccess: async () => {
 			// disable query for this specific todoMore actions
 			setQueryEnabled(false);
 
 			// remove the query for this specific todo
 			queryClient.removeQueries({ queryKey: ["todo", { id: todoId }] });
 
-			// invalidate any `["todos"]` queries that exist in the cache
-			queryClient.invalidateQueries({ queryKey: ["todos"] });
+			// make sure we have ["todos"] in the cache
+			await queryClient.prefetchQuery({
+				queryKey: ["todos"],
+				queryFn: TodosAPI.getTodos,
+			});
+
+			// construct a new list of todos where the deleted todo has been removed
+			queryClient.setQueryData<Todo[]>(["todos"], (todos) => {
+				return todos?.filter(todo => todo.id !== todoId) ?? [];
+			});
 
 			// Redirect to "/todos"
 			navigate("/todos", {
