@@ -9,7 +9,7 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAddTodo, isCreating }) => {
 	const [inputTodoTitle, setInputTodoTitle] = useState("");
 	const inputTodoTitleRef = useRef<HTMLInputElement | null>(null);
 
-	console.log("inputTodoTitleRef:", inputTodoTitleRef);
+	// console.log("inputTodoTitleRef:", inputTodoTitleRef);
 
 	const handleAddTodo = (e: React.FormEvent) => {
 		e.preventDefault();
