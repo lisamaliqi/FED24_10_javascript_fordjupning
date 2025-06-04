@@ -24,6 +24,16 @@
       "title": "laga mat",
       "completed": true,
       "id": 11
+    },
+    {
+      "title": "this is my new todo!!!",
+      "completed": true,
+      "id": 12
+    },
+    {
+      "title": "hello world",
+      "completed": false,
+      "id": 13
     }
   ]
 }
