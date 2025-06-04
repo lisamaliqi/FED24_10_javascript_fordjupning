@@ -1,9 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as TodosAPI from "../services/TodosAPI";
-import { NewTodo } from "../services/Todo.types";
+import { NewTodo, Todo } from "../services/Todo.types";
 
 
-const useUpdateTodo = (todoId: number) => {
+const useUpdateTodo = (
+	todoId: number,
+	onSuccess?: (updatedTodo: Todo) => void,
+) => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
@@ -19,6 +22,11 @@ const useUpdateTodo = (todoId: number) => {
 				queryFn: TodosAPI.getTodos,
 				staleTime: 0, // always prefetch, even if the existing data is considered fresh 🌱
 			});
+
+			// Call onSuccess-method that is optionally passed to our hookAdd
+			if (onSuccess) {
+				onSuccess(updatedTodo);
+			}
 		},
 	});
 }

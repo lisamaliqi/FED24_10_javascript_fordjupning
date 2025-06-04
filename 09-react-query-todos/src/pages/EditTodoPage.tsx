@@ -30,7 +30,17 @@ const EditTodoPage = () => {
 
 	const { data: todo, error, isError, isLoading, refetch } = useTodo(todoId);
 
-	const updateTodoMutation = useUpdateTodo(todoId);
+	const updateTodoMutation = useUpdateTodo(todoId, (updatedTodo) => {
+		// Redirect user to /todos/:id
+		navigate("/todos/" + updatedTodo.id, {
+			state: {
+				status: {
+					message: `Todo ${updatedTodo.id} was updated`,
+					type: "success",
+				},
+			},
+		});
+	});
 
 
 	const handleSubmit = async (e: React.FormEvent) => {
