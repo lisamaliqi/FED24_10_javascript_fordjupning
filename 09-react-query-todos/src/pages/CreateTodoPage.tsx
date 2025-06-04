@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import Alert from "react-bootstrap/Alert";
 import AddTodoForm from "../components/AddTodoForm";
 import { NewTodo, Todo } from "../services/Todo.types";
@@ -9,7 +9,7 @@ import ErrorAlert from "../components/Alerts/ErrorAlerts";
 
 export default function CreateTodoPage() {
 
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 	const queryClient  = useQueryClient();
 
 
@@ -39,14 +39,7 @@ export default function CreateTodoPage() {
 
 
 		// Call mutation 🐢☢️
-		createTodoMutation.mutate(todo, {
-			onSuccess: (data) => {
-				// Redirect user
-				setTimeout(() => {
-					navigate("/todos/" + data.id);
-				}, 2000);
-			},
-		});
+		createTodoMutation.mutate(todo);
 	};
 
 
