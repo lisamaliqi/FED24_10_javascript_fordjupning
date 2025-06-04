@@ -12,8 +12,13 @@
     },
     {
       "title": "this is my new todo!!!",
-      "completed": true,
+      "completed": false,
       "id": 12
+    },
+    {
+      "title": "äta mat!",
+      "completed": false,
+      "id": 13
     }
   ]
 }

@@ -21,7 +21,7 @@ const TodoPage = () => {
 
 
 
-	const { data: todo, error, isError, isLoading } = useTodo(todoId);
+	const { data: todo, error, isError, isLoading } = useTodo(todoId, queryEnabled);
 
 	const updateTodoCompletedMutation = useMutation({
 		mutationFn: (completed: boolean) => TodosAPI.updateTodo(todoId, { completed }),
