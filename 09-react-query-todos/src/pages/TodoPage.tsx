@@ -27,7 +27,7 @@ const TodoPage = () => {
 
 	const updateTodoCompletedMutation = useMutation({
 		mutationFn: (completed: boolean) => TodosAPI.updateTodo(todoId, { completed }),
-		onSuccess: (updatedTodo) => {
+		onSuccess: async (updatedTodo) => {
 			// console.log("update todo mutation success data:", updatedTodo);
 
 			// set the response from the mutation as the query cache for this todo
@@ -35,7 +35,7 @@ const TodoPage = () => {
 
 			// prefetch ['todos'] query as iit is very likely the user will
 			// return to todo list as their next step
-			queryClient.prefetchQuery({
+			await queryClient.prefetchQuery({
 				queryKey: ['todos'],
 				queryFn: TodosAPI.getTodos,
 				staleTime: 0, //always refetch even if the existing data is considered fresh
