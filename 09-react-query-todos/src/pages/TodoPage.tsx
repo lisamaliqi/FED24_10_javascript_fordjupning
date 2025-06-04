@@ -5,8 +5,9 @@ import * as TodosAPI from '../services/TodosAPI';
 import ErrorAlert from "../components/Alerts/ErrorAlerts";
 import ConfirmationModal from "../components/ConfirmationModal";
 import AutoDismissingAlert from "../components/Alerts/AutoDismissingAlert";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todo } from "../services/Todo.types";
+import useTodo from "../hooks/useTodo";
 
 const TodoPage = () => {
 	const [queryEnabled, setQueryEnabled] = useState(true);
@@ -20,11 +21,7 @@ const TodoPage = () => {
 
 
 
-	const { data: todo, error, isError, isLoading } = useQuery({
-		queryKey: ["todo", { id: todoId }],
-		queryFn: () => TodosAPI.getTodo(todoId),
-		enabled: queryEnabled,
-	});
+	const { data: todo, error, isError, isLoading } = useTodo(todoId);
 
 	const updateTodoCompletedMutation = useMutation({
 		mutationFn: (completed: boolean) => TodosAPI.updateTodo(todoId, { completed }),
