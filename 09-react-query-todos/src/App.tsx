@@ -10,6 +10,7 @@ import TodoPage from "./pages/TodoPage";
 import CreateTodoPage from "./pages/CreateTodoPage";
 import EditTodoPage from "./pages/EditTodoPage";
 import GlobalLoadingSpinner from "./components/Spinners/GlobalLoadingSpinner";
+import { ToastContainer } from "react-toastify";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
 			</Container>
 
 			<ReactQueryDevtools />
+			<ToastContainer />
 		</div>
 	);
 };
