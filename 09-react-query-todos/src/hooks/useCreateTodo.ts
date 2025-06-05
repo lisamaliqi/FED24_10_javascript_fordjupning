@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as TodosAPI from "../services/TodosAPI";
 import { Todo } from "../services/Todo.types";
+import { toast } from "react-toastify";
 
 
 const useCreateTodo = () => {
@@ -32,6 +33,9 @@ const useCreateTodo = () => {
 					];
 				});
 			}
+
+			// 🥂
+			toast.success("Todo created!", { icon: () => "🤩" });
 		},
 	})
 };
