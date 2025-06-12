@@ -83,6 +83,13 @@
       "published": 1792,
       "pages": 650,
       "id": 12
+    },
+    {
+      "title": "Stjäla bananer 101",
+      "published": "2025",
+      "pages": "232",
+      "authorId": 7,
+      "id": 13
     }
   ],
   "authors": [
