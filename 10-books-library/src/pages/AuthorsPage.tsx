@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import WarningAlert from "../components/alerts/WarningAlert";
 import TanStackBasicTable from "../components/tables/TanStackBasicTable";
 import useAuthors from "../hooks/useAuthors";
@@ -36,6 +37,11 @@ const columns = [
 		columns: [
 			columnHelper.accessor("name", {
 				header: "Name",
+				cell: (props) => (  //link the name of the author to the authorPage
+					<Link to={"/authors/" + props.row.original.id}>
+						{props.getValue()}
+					</Link>
+				),
 			}),
 			columnHelper.accessor("date_of_birth", {
 				header: "Birthdate",
