@@ -17,3 +17,20 @@ h1, h2, h3, h4, h5, h6 {
 .sortable {
 	cursor: pointer;
 }
+
+
+.table {
+	td {
+		&.center {
+			text-align: center;
+		}
+
+		&.end {
+			text-align: right;
+		}
+
+		&.start {
+			text-align: left;
+		}
+	}
+}

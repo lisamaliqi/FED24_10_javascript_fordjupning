@@ -45,7 +45,7 @@ const TanStackBasicTable = <TData, TValue>({ columns, data }: TanStackBasicTable
 				{table.getRowModel().rows.map(row => ( //render out the rows with context
 					<tr key={row.id}>
 						{row.getVisibleCells().map(cell => (
-							<td key={cell.id}>
+							<td key={cell.id} className={cell.column.columnDef.meta?.align || ""}>
 								{flexRender(
 									cell.column.columnDef.cell,
 									cell.getContext()
