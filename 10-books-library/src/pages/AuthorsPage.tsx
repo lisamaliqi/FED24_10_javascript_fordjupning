@@ -22,9 +22,9 @@ const columnHelper = createColumnHelper<Author>();
 
 const columns = [
 	columnHelper.group({
-		// header: "ID",
-		// id: "id-group",
-		header: "",
+		header: "ID",
+		id: "id-group",
+		// header: "", //headers cant be empty, it will throw an error!
 		columns: [
 			columnHelper.accessor("id", {
 				header: "ID",
