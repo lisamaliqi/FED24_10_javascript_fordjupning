@@ -4,6 +4,8 @@ import TanStackSortableTable from "../components/tables/TanStackSortableTable";
 import useAuthors from "../hooks/useAuthors";
 import { Author } from "../services/BooksAPI.types";
 import { createColumnHelper } from "@tanstack/react-table";
+import { Card } from "react-bootstrap";
+import CreateAuthorForm from "../components/forms/CreateAuthorForm";
 
 
 /*
@@ -96,6 +98,16 @@ const AuthorsPage = () => {
 			{isLoading && <p>Loading authors...</p>}
 
 			{authors && <TanStackSortableTable columns={columns} data={authors} />}
+
+			<hr className="mb-5" />
+
+			<Card>
+				<Card.Body>
+					<Card.Title>Create Author</Card.Title>
+
+					<CreateAuthorForm />
+				</Card.Body>
+			</Card>
 		</>
 	);
 };
