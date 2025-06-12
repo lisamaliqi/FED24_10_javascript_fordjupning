@@ -21,5 +21,5 @@ export type Author = {
 	date_of_birth: string;
 };
 export type AuthorWithBooks = Author & { books: Book[] };
-export type NewAuthor = Omit<Author, "id">;
+export type NewAuthor = Omit<AuthorWithBooks, "id">;
 export type PartialAuthor = Partial<NewAuthor>;

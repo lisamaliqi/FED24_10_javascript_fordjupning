@@ -130,6 +130,18 @@
       "id": 9,
       "name": "Mr Fancy Pants",
       "date_of_birth": "1930-01-01"
+    },
+    {
+      "name": "Jane Austen",
+      "date_of_birth": "1923-03-12",
+      "books": [],
+      "id": 10
+    },
+    {
+      "name": "Mamma mia",
+      "date_of_birth": "2001-02-04",
+      "books": [],
+      "id": 11
     }
   ]
 }
