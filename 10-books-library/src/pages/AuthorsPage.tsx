@@ -22,6 +22,7 @@ const columns: ColumnDef<Author>[] = [
 const columnHelper = createColumnHelper<Author>();
 
 const columns = [
+	// ID
 	columnHelper.group({
 		header: "ID",
 		id: "id-group",
@@ -32,6 +33,8 @@ const columns = [
 			}),
 		],
 	}),
+
+	// Author details
 	columnHelper.group({
 		header: "Author Details",
 		columns: [
@@ -48,6 +51,26 @@ const columns = [
 				meta: {
 					align: "end",
 				},
+			}),
+		],
+	}),
+
+	// Actions
+	columnHelper.group({
+		id: "actions-group",
+		columns: [
+			columnHelper.display({
+				header: "Actions",
+				cell: (props) => (
+					<div className="d-flex gap-1">
+						<Link
+							className="btn btn-primary btn-sm"
+							to={"/authors/" + props.row.original.id}
+						>
+							View
+						</Link>
+					</div>
+				),
 			}),
 		],
 	}),
