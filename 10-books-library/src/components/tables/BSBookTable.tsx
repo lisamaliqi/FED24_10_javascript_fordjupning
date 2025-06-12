@@ -11,6 +11,7 @@ interface BSBookTableProps {
 // type SortKeys = "title" | "pages" | "published";
 type SortKeys = keyof Book; // get a literal string union of all keys in Book type
 //get out the name of the types with keyof
+type SortOrder = "asc" | "desc";
 
 
 
@@ -18,21 +19,71 @@ const BSBookTable: React.FC<BSBookTableProps> = ({ books }) => {
 
 	const [sortedData, setSortedData] = useState([...books]);
 	const [sortKey, setSortKey] = useState<string | null>(null);
-	const [sortAscending, setSortAscending] = useState(true); //sorting direction
+	const [sortOrder, setSortOrder] = useState<SortOrder>("asc"); //sorting direction
 
 
 	/**
-	 * Sort data by key
+	 * Set the data sort order
 	 *
 	 * @param key Key to sort by
 	 */
-	//function that sorts on title, pages or publisher if user clicks one of those titles
-	const sortBy = (key: SortKeys) => {
+	//function that sorts on title, pages or published if user clicks one of those titles
+	const orderBy = (key: SortKeys) => {
 		// 1. If we don't already sort by this key, sort by this key
 		// 2. If we already sort by this key, reverse the order
 		// 3. If we already sort by this key and in reverse order, don't sort
 		// 4. Sort numeric data correctly
+
+		//if the key user presses (ex. title) is not the same as the sortKey:
+		if (key !== sortKey) {
+			setSortKey(key); //set the sortKey to that key
+			setSortOrder("asc"); //set order to asc
+			setSortedData( sortDataByKey(books, key, "asc") );
+
+		//if sortOrder is the same as asc, change the order
+		} else if (sortOrder === "asc") {
+			setSortOrder("desc");
+			setSortedData( sortDataByKey(books, key, "desc") );
+
+		//refresh to the beginning state of sorting
+		} else {
+			setSortKey(null);
+			setSortOrder("asc");
+			setSortedData([...books]);
+		}
 	};
+
+
+
+	/**Add commentMore actions
+	 * Sort data by a key and return the sorted data
+	 *
+	 * @param data Data to sort
+	 * @param key Key to sort by
+	 * @param order Order to sort by
+	 * @returns The sorted data
+	 */
+	const sortDataByKey = (data: Book[], key: SortKeys, order: SortOrder) => {
+		return [...data].sort((a, b) => { //...data creates a shallow copy of original array
+
+			//check if both values are string
+			if (typeof a[key] === "string" && typeof b[key] === "string") {
+				return order === "asc"
+					? a[key].localeCompare(b[key]) //if order is asc do this  (a-b, a-z)
+					: b[key].localeCompare(a[key]); //if order is not asc do this (b-a, z-a)
+
+			//check if both values are numbers
+			} else if (typeof a[key] === "number" && typeof b[key] === "number") {
+				return order === "asc"
+					? a[key] - b[key]
+					: b[key] - a[key];
+			}
+
+			// If values are neither strings nor numbers, leave them as-is
+			return 0;
+		});
+	}
+
 
 
 
@@ -53,10 +104,10 @@ const BSBookTable: React.FC<BSBookTableProps> = ({ books }) => {
 		<Table bordered hover responsive striped>
 			<thead>
 				<tr>
-					<th onClick={() => sortBy("title")} className="sortable">Title</th>
+					<th onClick={() => orderBy("title")} className="sortable">Title</th>
 					<th>Author</th>
-					<th onClick={() => sortBy("pages")} className="sortable">Pages</th>
-					<th onClick={() => sortBy("published")} className="sortable">Published</th>
+					<th onClick={() => orderBy("pages")} className="sortable">Pages</th>
+					<th onClick={() => orderBy("published")} className="sortable">Published</th>
 				</tr>
 			</thead>
 
