@@ -1,5 +1,5 @@
 import BSTable from "react-bootstrap/Table";
-import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
+import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortDirection, SortingState, useReactTable } from "@tanstack/react-table";
 import { useState } from "react";
 
 
@@ -7,6 +7,13 @@ interface TanStackBasicTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]; //describing the array with columns and how to render them
 	data: TData[]; //actual data
 };
+
+
+const sortingIndicators = {
+	asc: " 🙂",
+	desc: " 🙃",
+};
+
 
 
 
@@ -46,6 +53,9 @@ const TanStackBasicTable = <TData, TValue>({ columns, data }: TanStackBasicTable
 											header.column.columnDef.header,
 											header.getContext()
 										)}
+
+										{/* Add a sort direction indicator */}
+										{header.column.getIsSorted() && sortingIndicators[header.column.getIsSorted() as SortDirection]}
 									</div>
 								}
 							</th>
