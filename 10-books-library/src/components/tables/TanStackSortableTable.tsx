@@ -1,5 +1,6 @@
 import BSTable from "react-bootstrap/Table";
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
+import { useState } from "react";
 
 
 interface TanStackBasicTableProps<TData, TValue> {
@@ -11,11 +12,18 @@ interface TanStackBasicTableProps<TData, TValue> {
 
 const TanStackBasicTable = <TData, TValue>({ columns, data }: TanStackBasicTableProps<TData, TValue>) => {
 
+	const [sorting, setSorting] = useState<SortingState>([]);
+
 	//setting up the table
 	const table = useReactTable({
 		data,
 		columns,
+		state: {
+			sorting,
+		},
+		onSortingChange: setSorting,
 		getCoreRowModel: getCoreRowModel(),
+		getSortedRowModel: getSortedRowModel(),
 	});
 
 
@@ -30,10 +38,15 @@ const TanStackBasicTable = <TData, TValue>({ columns, data }: TanStackBasicTable
 							<th key={header.id} colSpan={header.colSpan}>
 								{header.isPlaceholder
 									? null
-									: flexRender( //render out what is defined in header (jsx, text, function etc.)
-										header.column.columnDef.header,
-										header.getContext()
-									)
+									: <div /* Sort ID, name and birthday */
+										className={header.column.getCanSort() ? "sortable" : ""}
+										onClick={header.column.getToggleSortingHandler()}
+									>
+										{flexRender(
+											header.column.columnDef.header,
+											header.getContext()
+										)}
+									</div>
 								}
 							</th>
 						))}
