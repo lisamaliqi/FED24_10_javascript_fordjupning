@@ -21,14 +21,27 @@ const columns: ColumnDef<Author>[] = [
 const columnHelper = createColumnHelper<Author>();
 
 const columns = [
-	columnHelper.accessor("name", {
-		header: "Name",
+	columnHelper.group({
+		header: "ID",
+		columns: [
+			columnHelper.accessor("id", {
+				header: "ID",
+			}),
+		],
 	}),
-	columnHelper.accessor("date_of_birth", {
-		header: "Birthdate",
-		meta: {
-			align: "end",
-		},
+	columnHelper.group({
+		header: "Author Details",
+		columns: [
+			columnHelper.accessor("name", {
+				header: "Name",
+			}),
+			columnHelper.accessor("date_of_birth", {
+				header: "Birthdate",
+				meta: {
+					align: "end",
+				},
+			}),
+		],
 	}),
 ];
 
