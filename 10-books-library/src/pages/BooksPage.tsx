@@ -1,6 +1,30 @@
 import WarningAlert from "../components/alerts/WarningAlert";
-import BSBookTable from "../components/tables/BSBookTable";
+import TanStackBasicTable from "../components/tables/TanStackBasicTable";
 import useBooks from "../hooks/useBooks";
+import { ColumnDef } from "@tanstack/react-table";
+import { Book } from "../services/BooksAPI.types";
+
+
+const columnDefs: ColumnDef<Book>[] = [
+	{
+		accessorKey: "title",
+		header: "Title",
+	},
+	{
+		accessorKey: "pages",
+		header: "Pages",
+	},
+	{
+		accessorKey: "published",
+		header: "Published",
+	},
+	{
+		accessorKey: "author.name",
+		header: "Author"
+	},
+];
+
+
 
 const BooksPage = () => {
 	const { data: books, isError, isLoading } = useBooks();
@@ -18,7 +42,7 @@ const BooksPage = () => {
 
 			{isLoading && <p>Loading books...</p>}
 
-			{books && <BSBookTable books={books} />}
+			{books && <TanStackBasicTable columns={columnDefs} data={books} />}
 		</>
 	);
 };
