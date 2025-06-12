@@ -55,7 +55,7 @@ const BSBookTable: React.FC<BSBookTableProps> = ({ books }) => {
 
 
 
-	/**Add commentMore actions
+	/**
 	 * Sort data by a key and return the sorted data
 	 *
 	 * @param data Data to sort
@@ -82,7 +82,21 @@ const BSBookTable: React.FC<BSBookTableProps> = ({ books }) => {
 			// If values are neither strings nor numbers, leave them as-is
 			return 0;
 		});
-	}
+	};
+
+
+
+	//icons to show which way it is sorted and based on which key
+	const sortIcon = (key: SortKeys) => {
+		//makes sure that the icon only is visible in the column that user is sorting
+		if (sortKey !== key) {
+			return null;
+		};
+
+		return sortOrder === "asc"
+			? <span role="img" aria-label="Ascending">⬇️</span>
+			: <span role="img" aria-label="Descending">⬆️</span>
+	};
 
 
 
@@ -104,10 +118,10 @@ const BSBookTable: React.FC<BSBookTableProps> = ({ books }) => {
 		<Table bordered hover responsive striped>
 			<thead>
 				<tr>
-					<th onClick={() => orderBy("title")} className="sortable">Title</th>
+					<th onClick={() => orderBy("title")} className="sortable">Title {sortIcon("title")}</th>
 					<th>Author</th>
-					<th onClick={() => orderBy("pages")} className="sortable">Pages</th>
-					<th onClick={() => orderBy("published")} className="sortable">Published</th>
+					<th onClick={() => orderBy("pages")} className="sortable">Pages {sortIcon("pages")}</th>
+					<th onClick={() => orderBy("published")} className="sortable">Published {sortIcon("published")}</th>
 				</tr>
 			</thead>
 
