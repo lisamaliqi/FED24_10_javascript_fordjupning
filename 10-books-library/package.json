@@ -11,6 +11,7 @@
     "server": "json-server --watch data/db.json --port 3000"
   },
   "dependencies": {
+    "@hookform/devtools": "^4.4.0",
     "@tanstack/react-query": "^5.79.0",
     "@tanstack/react-query-devtools": "^5.79.0",
     "@tanstack/react-table": "^8.21.3",

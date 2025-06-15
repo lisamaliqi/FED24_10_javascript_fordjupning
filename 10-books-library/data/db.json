@@ -163,6 +163,12 @@
       "date_of_birth": "2001-02-04",
       "books": [],
       "id": 11
+    },
+    {
+      "name": "Lisa Maliqi",
+      "date_of_birth": "2001-06-08",
+      "books": [],
+      "id": 12
     }
   ]
 }
