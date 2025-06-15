@@ -97,6 +97,13 @@
       "pages": 117,
       "published": 1954,
       "id": 14
+    },
+    {
+      "title": "my hat- a 3 corners story",
+      "pages": 333,
+      "published": 1945,
+      "authorId": 9,
+      "id": 15
     }
   ],
   "authors": [
