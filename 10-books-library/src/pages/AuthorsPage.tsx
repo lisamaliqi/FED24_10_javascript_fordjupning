@@ -5,7 +5,7 @@ import useAuthors from "../hooks/useAuthors";
 import { Author } from "../services/BooksAPI.types";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Card } from "react-bootstrap";
-import CreateAuthorForm from "../components/forms/CreateAuthorForm";
+import AuthorForm from "../components/forms/AuthorForm";
 
 
 /*
@@ -66,6 +66,12 @@ const columns = [
 				cell: (props) => (
 					<div className="d-flex gap-1">
 						<Link
+							className="btn btn-warning btn-sm"
+							to={"/authors/" + props.row.original.id + "/edit"}
+						>
+							Edit
+						</Link>
+						<Link
 							className="btn btn-primary btn-sm"
 							to={"/authors/" + props.row.original.id}
 						>
@@ -105,7 +111,7 @@ const AuthorsPage = () => {
 				<Card.Body>
 					<Card.Title>Create Author</Card.Title>
 
-					<CreateAuthorForm />
+					<AuthorForm />
 				</Card.Body>
 			</Card>
 		</>
