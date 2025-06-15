@@ -11,12 +11,15 @@ interface AuthorFormProps {
 }
 
 const AuthorForm: React.FC<AuthorFormProps> = ({ author }) => {
-	const { control, handleSubmit, register, formState: { errors } } = useForm<NewAuthor>({
+	const { control, handleSubmit, register, watch, formState: { errors } } = useForm<NewAuthor>({
 		defaultValues: author,
 	});
 
 	const createAuthorMutation = useCreateAuthor();
 	const updateAuthorMutation = useUpdateAuthor(author?.id ?? 0);
+
+	const authorName = watch("name");
+	console.log("Current author name:", authorName);
 
 
 	const onAuthorSubmit: SubmitHandler<NewAuthor> = (data) => {
