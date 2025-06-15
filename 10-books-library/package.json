@@ -18,6 +18,7 @@
     "@tanstack/react-table": "^8.21.3",
     "axios": "^1.9.0",
     "json-server": "^0.17.4",
+    "motion": "^12.18.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",

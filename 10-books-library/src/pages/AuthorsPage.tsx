@@ -6,6 +6,7 @@ import { Author } from "../services/BooksAPI.types";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Card } from "react-bootstrap";
 import AuthorForm from "../components/forms/AuthorForm";
+import PageTransition from "../components/animations/PageTransition";
 
 
 /*
@@ -91,7 +92,7 @@ const AuthorsPage = () => {
 	const { data: authors, isError, isLoading } = useAuthors();
 
 	return (
-		<>
+		<PageTransition id="authors-page">
 			<title>Authors</title>
 			<h1 className="mb-3">Authors</h1>
 
@@ -114,7 +115,7 @@ const AuthorsPage = () => {
 					<AuthorForm />
 				</Card.Body>
 			</Card>
-		</>
+		</PageTransition>
 	);
 };
 

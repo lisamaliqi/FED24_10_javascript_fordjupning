@@ -1,3 +1,4 @@
+import { AnimatePresence } from "motion/react";
 import Container from "react-bootstrap/Container";
 import { Route, Routes } from "react-router";
 import { ToastContainer } from "react-toastify";
@@ -19,16 +20,18 @@ function App() {
 			<GlobalLoadingSpinner />
 
 			<Container className="py-2">
-				<Routes>
-					<Route path="/" element={<HomePage />} />
+				<AnimatePresence mode="wait">
+					<Routes>
+						<Route path="/" element={<HomePage />} />
 
-					<Route path="/authors" element={<AuthorsPage />} />
-					<Route path="/authors/:id" element={<AuthorPage />} />
-					<Route path="/authors/:id/edit" element={<EditAuthorPage />} />
-					<Route path="/books" element={<BooksPage />} />
+						<Route path="/authors" element={<AuthorsPage />} />
+						<Route path="/authors/:id" element={<AuthorPage />} />
+						<Route path="/authors/:id/edit" element={<EditAuthorPage />} />
+						<Route path="/books" element={<BooksPage />} />
 
-					<Route path="*" element={<NotFoundPage />} />
-				</Routes>
+						<Route path="*" element={<NotFoundPage />} />
+					</Routes>
+				</AnimatePresence>
 			</Container>
 
 			<ReactQueryDevtools />
