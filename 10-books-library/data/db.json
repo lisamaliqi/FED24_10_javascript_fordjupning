@@ -90,6 +90,13 @@
       "pages": "232",
       "authorId": 7,
       "id": 13
+    },
+    {
+      "title": "into the wild",
+      "authorId": 2,
+      "pages": 117,
+      "published": 1954,
+      "id": 14
     }
   ],
   "authors": [

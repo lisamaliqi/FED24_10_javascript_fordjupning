@@ -3,6 +3,8 @@ import TanStackSortableTable from "../components/tables/TanStackSortableTable";
 import useBooks from "../hooks/useBooks";
 import { ColumnDef } from "@tanstack/react-table";
 import { Book } from "../services/BooksAPI.types";
+import { Card } from "react-bootstrap";
+import CreateBookForm from "../components/forms/CreateBookForm";
 
 
 const columnDefs: ColumnDef<Book>[] = [
@@ -49,6 +51,17 @@ const BooksPage = () => {
 			{isLoading && <p>Loading books...</p>}
 
 			{books && <TanStackSortableTable columns={columnDefs} data={books} />}
+
+
+			<hr className="mb-5" />
+
+			<Card>
+				<Card.Body>
+					<Card.Title>Create Book</Card.Title>
+
+					<CreateBookForm />
+				</Card.Body>
+			</Card>
 		</>
 	);
 };
