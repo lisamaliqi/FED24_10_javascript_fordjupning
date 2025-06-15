@@ -19,11 +19,16 @@ const CreateBookForm: React.FC<CreateBookFormProps> = ({ authorId }) => {
 	const createBookMutation = useCreateBook();
 	const { data: authors } = useAuthors();
 
-	const onCreateBookSubmit: SubmitHandler<NewBook> = (data) => {
-		console.log("Submitted data:", data);
+	const onCreateBookSubmit: SubmitHandler<NewBook> = (formData) => {
+		console.log("Submitted formdata:", formData);
+
+		const data = authorId ? { ...formData, authorId } : formData;
+		console.log("Data that will be mutated:", data);
 
 		createBookMutation.mutate(data);
-	}
+	};
+
+
 
 	const sortedAuthors = authors && [...authors].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -42,7 +47,10 @@ const CreateBookForm: React.FC<CreateBookFormProps> = ({ authorId }) => {
 				{errors.title && <p className="invalid">A book without a title is not a book</p>}
 			</Form.Group>
 
-			<Form.Group className="mb-3" controlId="authorId">
+
+
+			{/* If there is no authorId (aka if i do it through book page i need to choose the author, but if i do it through author page i already know the author) */}
+			{!authorId && <Form.Group className="mb-3" controlId="authorId">
 				<Form.Label>Author</Form.Label>
 				<Form.Select
 					{...register("authorId", {
@@ -57,8 +65,10 @@ const CreateBookForm: React.FC<CreateBookFormProps> = ({ authorId }) => {
 						: <option>Loading...</option>}
 				</Form.Select>
 
+
+
 				{errors.authorId && <p className="invalid">A book without an author is not a book</p>}
-			</Form.Group>
+			</Form.Group>}
 
 			<Form.Group className="mb-3" controlId="pages">
 				<Form.Label>Pages</Form.Label>
